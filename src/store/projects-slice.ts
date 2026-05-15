@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { Project } from "@/types";
-import { supabase } from "@/lib/services/supabase/client";
 
 interface ErrorDetail {
   message: string;
@@ -28,35 +27,9 @@ export const getProjectsData = createAsyncThunk<
   void,
   { rejectValue: ErrorDetail }
 >("projects/getProjectsData", async (_, { rejectWithValue }) => {
-  try {
-    if (!supabase) {
-      return rejectWithValue({
-        message: "Supabase not configured",
-      });
-    }
-
-    const { data: projects, error } = await supabase.from("Project").select();
-
-    if (error) {
-      return rejectWithValue({
-        message: error.message,
-        code: +error.code,
-      });
-    }
-
-    if (!projects) {
-      return rejectWithValue({
-        message: "No projects found",
-      });
-    }
-
-    return projects as Project[];
-  } catch (error: any) {
-    return rejectWithValue({
-      message: error.message,
-      code: error.response?.status,
-    });
-  }
+  return rejectWithValue({
+    message: "No projects configured",
+  });
 });
 
 const projectsSlice = createSlice({
@@ -84,7 +57,6 @@ const projectsSlice = createSlice({
           });
         }
       )
-
       .addCase(getProjectsData.rejected, (state, action) => {
         state.status = "rejected";
         state.error = action.payload ?? { message: "Unknown error" };
