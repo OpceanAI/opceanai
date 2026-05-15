@@ -29,6 +29,12 @@ export const getProjectsData = createAsyncThunk<
   { rejectValue: ErrorDetail }
 >("projects/getProjectsData", async (_, { rejectWithValue }) => {
   try {
+    if (!supabase) {
+      return rejectWithValue({
+        message: "Supabase not configured",
+      });
+    }
+
     const { data: projects, error } = await supabase.from("Project").select();
 
     if (error) {
