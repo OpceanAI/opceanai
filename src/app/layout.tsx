@@ -27,6 +27,9 @@ const jost = Jost({
 export const metadata: Metadata = {
   title: "OpceanAI",
   description: "Building the future of AI - Yuuki Models, Doki Engine, Okuru Runtime",
+  icons: {
+    icon: "/227894459.jpeg",
+  },
 };
 
 export default function RootLayout({
