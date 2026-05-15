@@ -172,27 +172,6 @@ System Information
   "Building the future of AI."
 `;
 
-export const SYSINFO = `
-System Information
-═══════════════════════════════════════
-  OS:           Microsoft Windows 98 SE
-  Build:        4.10.2222
-  Computer:     DESKTOP-WIN98
-  Processor:    Intel Pentium II 450MHz
-  Memory:       64 MB RAM
-  Free Memory:  48 MB
-  HDD:          8.4 GB
-  Free Space:   3.2 GB
-  Graphics:     S3 Trio64V+ (2MB VRAM)
-  Sound:        SoundBlaster 16
-  DirectX:      DirectX 6.0
-  IE Version:   Internet Explorer 5.0
-  Username:     User
-  Uptime:       0 days, 2:41:33
-═══════════════════════════════════════
-  "It's not a bug, it's a feature."
-`;
-
 export const COFFEE_ASCII = `
       )  )  )
     (  (  (
@@ -435,48 +414,6 @@ export const SKILLS = `
     ████████████████████ CI/CD       92%
 
   Status: Ready to deploy to production
-`;
-
-export const JOKES = [
-  "Why do programmers prefer dark mode?\nBecause light attracts bugs!\n",
-  "Why did Windows 98 crash?\nBecause it wanted to show Bill Gates was human too!\n",
-  "What's a computer's favorite snack?\nMicrochips!\n",
-  "Why did the programmer quit?\nBecause they didn't get arrays!\n",
-  "How many programmers does it take to change a lightbulb?\nNone. That's a hardware problem.\n",
-  "Knock knock.\nWho's there?\nSegmentation fault.\n",
-  "There are 10 types of people in this world.\nThose who understand binary, and those who don't.\n",
-  "Why doesn't Windows 98 ever get depressed?\nBecause it crashes before it can feel anything.\n",
-  "I asked my Windows 98 PC for advice on life.\nIt responded with a BSOD.\nDeep.\n",
-  "Windows 98: Proof that sometimes the bug IS the feature.\n",
-  "How is Windows 98 like a bad relationship?\nIt crashes constantly and you keep coming back anyway.\n",
-  "Bill Gates walks into a bar. Bartender says 'Why the long face?' Bill replies '640K ought to be enough...'\n",
-];
-
-export const SKILLS = `
-  Developer Skills Detected:
-  ════════════════════════════════════════
-  
-  Frontend:
-    ████████████████████ JavaScript   100%
-    ████████████████████ React        100%
-    ████████████████████ TypeScript    98%
-    ████████████████████ CSS/Tailwind  97%
-    ████████████████████ HTML5         99%
-  
-  Backend:
-    ██████████████████░░ Node.js       92%
-    █████████████████░░░ Java          87%
-    ███████████████░░░░░ SQL           78%
-    ██████████████░░░░░░ NoSQL         71%
-  
-  Other:
-    ████████████████████ Git           99%
-    ████████████████████ Docker        95%
-    ████████████████████ ASCII Art    100%
-    ████████████████████ Miku Respect  ∞%
-  
-  Status: Ready to deploy to production
-          (but will it blend in prod?)
 `;
 
 export const COLORS: Record<string, string> = {
