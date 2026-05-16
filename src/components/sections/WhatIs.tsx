@@ -11,7 +11,7 @@ export default function WhatIs() {
     if (!sectionRef.current || !itemsRef.current) return;
     const items = itemsRef.current.querySelectorAll(".what-item");
     animate(items, {
-      opacity: [0, 1], translateY: ["30px", "0px"],
+      translateY: ["20px", "0px"],
       duration: 700, delay: stagger(120, { from: "first" }), ease: "out(3)",
       autoplay: onScroll({ container: sectionRef.current, enter: "80%", leave: "100%" }),
     });

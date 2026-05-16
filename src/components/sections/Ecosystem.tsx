@@ -69,7 +69,7 @@ export default function Ecosystem() {
     if (!sectionRef.current || !itemsRef.current) return;
     const items = itemsRef.current.querySelectorAll(".eco-item");
     animate(items, {
-      opacity: [0, 1], translateY: ["30px", "0px"],
+      translateY: ["20px", "0px"],
       duration: 600, delay: stagger(80, { from: "center" }), ease: "out(3)",
       autoplay: onScroll({ container: sectionRef.current, enter: "80%", leave: "100%" }),
     });

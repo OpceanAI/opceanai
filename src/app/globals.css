@@ -380,6 +380,11 @@
     line-height: 1.6;
   }
 
+  /* === ANIMATION FALLBACK VISIBILITY === */
+  .what-item, .origin-item, .discovery-item, .lab-item, .breakthrough-item, .eco-item, .doki-item, .asl-item, .research-item, .closing-item {
+    opacity: 1 !important;
+  }
+
   /* === SCROLL PROGRESS === */
   .scroll-progress {
     position: fixed;
