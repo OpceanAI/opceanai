@@ -25,7 +25,7 @@ export default function Navigation() {
     <header
       className={`
         fixed top-0 left-0 right-0 z-50
-        transition-all duration-[var(--duration-gentle)] ease-[var(--ease-gentle)]
+        transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)]
         ${scrolled ? "py-3" : "py-5"}
       `}
     >
@@ -35,23 +35,11 @@ export default function Navigation() {
             flex items-center justify-between gap-3
             rounded-[var(--radius-pill)]
             px-5 py-2.5
-            transition-all duration-[var(--duration-gentle)] ease-[var(--ease-gentle)]
+            glass-elevated
+            transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)]
           `}
-          style={{
-            background: scrolled
-              ? "rgba(255, 255, 255, 0.65)"
-              : "rgba(255, 255, 255, 0.45)",
-            backdropFilter: "blur(24px) saturate(180%)",
-            WebkitBackdropFilter: "blur(24px) saturate(180%)",
-            border: "1px solid rgba(255, 255, 255, 0.5)",
-            boxShadow:
-              "0 8px 32px rgba(35, 24, 18, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6)",
-          }}
         >
-          <a
-            href="#"
-            className="font-display text-lg font-semibold tracking-tight text-deep-navy dark:text-[#F1F5F9] transition-colors duration-300"
-          >
+          <a href="#" className="font-display text-lg font-semibold tracking-tight text-text-primary">
             OpceanAI
           </a>
 
@@ -60,7 +48,7 @@ export default function Navigation() {
               <a
                 key={item.label}
                 href={item.href}
-                className="px-3 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 text-deep-navy/70 hover:text-deep-navy hover:bg-black/5 dark:text-[#94A3B8] dark:hover:text-[#F1F5F9] dark:hover:bg-white/5"
+                className="px-3 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 text-text-tertiary hover:text-text-primary hover:bg-white/[0.04]"
               >
                 {item.label}
               </a>
@@ -70,7 +58,7 @@ export default function Navigation() {
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <button
-              className="md:hidden w-8 h-8 flex items-center justify-center rounded-full text-deep-navy/70 dark:text-[#94A3B8] hover:text-deep-navy dark:hover:text-[#F1F5F9] transition-colors"
+              className="md:hidden w-8 h-8 flex items-center justify-center rounded-full text-text-tertiary hover:text-text-primary transition-colors"
               onClick={() => setOpen(!open)}
               aria-label="Toggle menu"
             >
@@ -80,23 +68,13 @@ export default function Navigation() {
         </div>
 
         {open && (
-          <div
-            className="md:hidden mt-2 rounded-2xl p-4 space-y-1"
-            style={{
-              background: "rgba(255, 255, 255, 0.65)",
-              backdropFilter: "blur(24px) saturate(180%)",
-              WebkitBackdropFilter: "blur(24px) saturate(180%)",
-              border: "1px solid rgba(255, 255, 255, 0.5)",
-              boxShadow:
-                "0 8px 32px rgba(35, 24, 18, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6)",
-            }}
-          >
+          <div className="md:hidden mt-2 rounded-2xl p-4 space-y-1 glass-elevated">
             {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="block px-4 py-2.5 text-sm font-medium text-deep-navy/70 dark:text-[#94A3B8] hover:text-deep-navy dark:hover:text-[#F1F5F9] rounded-xl hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+                className="block px-4 py-2.5 text-sm font-medium text-text-tertiary hover:text-text-primary rounded-xl hover:bg-white/[0.04] transition-colors"
               >
                 {item.label}
               </a>

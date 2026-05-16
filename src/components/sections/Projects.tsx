@@ -63,13 +63,6 @@ const projects = [
   },
 ];
 
-const statusColors: Record<string, string> = {
-  active: "bg-washed-mint/60 dark:bg-[#38BDF8]/30",
-  beta: "bg-aqua-glass/60 dark:bg-[#38BDF8]/20",
-  experimental: "bg-faded-sky/60 dark:bg-[#38BDF8]/15",
-  planning: "bg-dry-clay/60 dark:bg-[#475569]/40",
-};
-
 export default function Projects() {
   const containerRef = useRef<HTMLDivElement>(null);
   const targetRef = useRef<HTMLDivElement>(null);
@@ -94,14 +87,23 @@ export default function Projects() {
     });
   }, []);
 
+  const statusBadge = (status: string) => {
+    const colors: Record<string, string> = {
+      active: "badge-active",
+      experimental: "badge-experimental",
+      research: "badge-research",
+    };
+    return colors[status] || "badge-active";
+  };
+
   return (
     <section ref={containerRef} className="relative py-24 px-4">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16 space-y-3">
-          <h2 className="font-display text-3xl sm:text-4xl font-semibold text-deep-navy dark:text-[#F1F5F9] transition-colors duration-300">
+          <h2 className="font-display text-3xl sm:text-4xl font-semibold text-text-primary">
             Ecosystem
           </h2>
-          <p className="text-museum-blue/70 dark:text-[#94A3B8] max-w-md mx-auto transition-colors duration-300">
+          <p className="text-text-tertiary max-w-md mx-auto">
             Models, infrastructure, and research — built from the ground up.
           </p>
         </div>
@@ -115,36 +117,36 @@ export default function Projects() {
             return (
               <GlassCard
                 key={project.name}
-                className="project-card opacity-0 space-y-4"
+                className="project-card opacity-0"
               >
-                <div className="flex items-start justify-between">
-                  <div className="w-10 h-10 rounded-xl bg-aqua-glass/15 dark:bg-[#38BDF8]/10 flex items-center justify-center">
-                    <Icon className="w-5 h-5 text-deep-navy dark:text-[#38BDF8]" />
+                <div className="space-y-4">
+                  <div className="flex items-start justify-between">
+                    <div className="w-10 h-10 rounded-xl bg-accent-soft flex items-center justify-center">
+                      <Icon className="w-5 h-5 text-accent" />
+                    </div>
+                    <span className={`badge ${statusBadge(project.status)}`}>
+                      <span className="status-dot" />
+                      {project.status}
+                    </span>
                   </div>
-                  <span
-                    className={`inline-flex items-center gap-1.5 text-xs font-mono px-2.5 py-1 rounded-full ${statusColors[project.status]} text-deep-navy/70 dark:text-[#94A3B8] transition-colors duration-300`}
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-current" />
-                    {project.status}
-                  </span>
-                </div>
 
-                <div>
-                  <h3 className="font-display text-lg font-medium text-deep-navy dark:text-[#F1F5F9] transition-colors duration-300">
-                    {project.name}
-                  </h3>
-                  <p className="text-sm text-museum-blue/60 dark:text-[#94A3B8] mt-1 leading-relaxed transition-colors duration-300">
-                    {project.description}
-                  </p>
-                </div>
+                  <div>
+                    <h3 className="font-display text-lg font-medium text-text-primary">
+                      {project.name}
+                    </h3>
+                    <p className="text-sm text-text-tertiary mt-1 leading-relaxed">
+                      {project.description}
+                    </p>
+                  </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-white/20 dark:border-[#475569]/40">
-                  <span className="text-xs font-mono text-museum-blue/50 dark:text-[#94A3B8]/60 transition-colors duration-300">
-                    {project.category}
-                  </span>
-                  <span className="text-xs text-aqua-glass dark:text-[#38BDF8] hover:text-deep-navy dark:hover:text-[#F1F5F9] transition-colors cursor-pointer">
-                    Explore
-                  </span>
+                  <div className="flex items-center justify-between pt-2 border-t border-border-default">
+                    <span className="text-xs font-mono text-text-quaternary">
+                      {project.category}
+                    </span>
+                    <span className="text-xs text-accent hover:text-accent-hover transition-colors cursor-pointer">
+                      Explore
+                    </span>
+                  </div>
                 </div>
               </GlassCard>
             );

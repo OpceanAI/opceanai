@@ -20,23 +20,23 @@ export default function Home() {
 
       <section className="relative py-24 px-4 text-center">
         <div className="max-w-2xl mx-auto space-y-6">
-          <h2 className="font-display text-3xl sm:text-4xl font-semibold text-deep-navy dark:text-[#F1F5F9] transition-colors duration-300">
+          <h2 className="font-display text-3xl sm:text-4xl font-semibold text-text-primary">
             Ready to explore deeper?
           </h2>
-          <p className="text-museum-blue/70 dark:text-[#94A3B8] transition-colors duration-300">
+          <p className="text-text-tertiary">
             Dive into documentation, browse the codebase, or start building
             with OpceanAI today.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
             <a
               href="#docs"
-              className="inline-flex items-center gap-2 glass-surface text-deep-navy dark:text-[#F1F5F9] px-6 py-3 rounded-[var(--radius-button)] font-medium transition-all duration-[var(--duration-quick)] ease-[var(--ease-gentle)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-glass-hover)] active:scale-[0.97]"
+              className="btn-primary"
             >
               Read Documentation
             </a>
             <a
               href="#projects"
-              className="inline-flex items-center gap-2 glass-surface-tertiary text-museum-blue dark:text-[#94A3B8] px-6 py-3 rounded-[var(--radius-button)] font-medium transition-all duration-[var(--duration-quick)] ease-[var(--ease-gentle)] hover:bg-white/20 dark:hover:bg-white/5 active:scale-[0.97]"
+              className="btn-secondary"
             >
               View Projects
             </a>
