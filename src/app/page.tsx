@@ -1,5 +1,6 @@
 import Navigation from "@/components/sections/Navigation";
 import Hero from "@/components/sections/Hero";
+import WhatIs from "@/components/sections/WhatIs";
 import Origin from "@/components/sections/Origin";
 import Discovery from "@/components/sections/Discovery";
 import LabEra from "@/components/sections/LabEra";
@@ -20,6 +21,7 @@ export default function Home() {
       <AtmosphericBg />
       <Navigation />
       <Hero />
+      <WhatIs />
       <Origin />
       <Discovery />
       <LabEra />

@@ -54,6 +54,11 @@ export default function Hero() {
           <p className="text-base sm:text-lg text-text-quaternary max-w-lg mx-auto leading-relaxed reveal-word" style={{ "--word-delay": "1200ms" } as React.CSSProperties}>
             OpceanAI builds models, tools, and deep systems that turn ideas into infrastructure.
           </p>
+
+          <p className="text-sm text-text-quaternary max-w-md mx-auto leading-relaxed reveal-word" style={{ "--word-delay": "1400ms" } as React.CSSProperties}>
+            This is not a brand that was assembled for marketing.
+            This is a project that grew through experimentation, constraints, failures, learning, and persistence.
+          </p>
         </div>
 
         <form onSubmit={handleSubmit} className="max-w-xl mx-auto w-full reveal-word" style={{ "--word-delay": "1500ms" } as React.CSSProperties}>
