@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Search, ArrowRight, X, Sparkles, Zap } from "lucide-react";
+import { Search, ArrowRight, X, Sparkles, Zap, ExternalLink } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { search, SearchResult, EasterEgg } from "@/lib/search";
 
@@ -66,14 +66,19 @@ export default function Hero() {
     setFocused(false);
     inputRef.current?.blur();
 
-    const el = document.getElementById(item.sectionId);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-      el.classList.add("search-highlight");
-      setTimeout(() => el.classList.remove("search-highlight"), 2500);
+    if (item.sectionId.startsWith("detail-")) {
+      window.location.hash = item.sectionId;
       toast("info", `Navigating to ${item.title}`);
     } else {
-      toast("info", `Section "${item.title}" -- coming soon`);
+      const el = document.getElementById(item.sectionId);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        el.classList.add("search-highlight");
+        setTimeout(() => el.classList.remove("search-highlight"), 2500);
+        toast("info", `Navigating to ${item.title}`);
+      } else {
+        toast("info", `Section "${item.title}" -- coming soon`);
+      }
     }
   }, [toast]);
 
@@ -197,7 +202,7 @@ export default function Hero() {
                 onFocus={() => { setFocused(true); if (query.trim()) setShowDropdown(true); }}
                 onBlur={() => setFocused(false)}
                 onKeyDown={handleKeyDown}
-                placeholder="Search the ecosystem... (try yuuki, doki, rick roll)"
+                placeholder="Search the ecosystem..."
                 className="flex-1 bg-transparent outline-none text-text-primary placeholder:text-text-quaternary text-base font-body"
                 aria-label="Search"
                 autoComplete="off"
@@ -218,35 +223,53 @@ export default function Hero() {
             </div>
           </form>
 
-          {showDropdown && !easterEgg && (
+          {showDropdown && !easterEgg && results.length > 0 && (
             <div ref={dropdownRef} className="search-dropdown">
-              {results.length > 0 ? (
-                <>
-                  <div className="search-suggestions-header">Results</div>
-                  {results.map((item, i) => (
-                    <div
-                      key={item.id}
-                      className={`search-dropdown-item ${i === activeIndex ? "active" : ""}`}
-                      onMouseDown={() => handleSelect(item)}
-                      onMouseEnter={() => setActiveIndex(i)}
-                    >
-                      <div className={`search-dropdown-icon ${item.category}`}>
-                        {categoryIcons[item.category] || <Search className="w-4 h-4" />}
-                      </div>
-                      <div className="search-dropdown-text">
-                        <p className="search-dropdown-title">{item.title}</p>
-                        <p className="search-dropdown-desc">{item.description}</p>
-                      </div>
-                      <span className="search-dropdown-category">{item.category}</span>
+              <div className="search-suggestions-header">Results</div>
+              {results.map((item, i) => (
+                <div key={item.id}>
+                  <div
+                    className={`search-dropdown-item ${i === activeIndex ? "active" : ""}`}
+                    onMouseDown={() => handleSelect(item)}
+                    onMouseEnter={() => setActiveIndex(i)}
+                  >
+                    <div className={`search-dropdown-icon ${item.category}`}>
+                      {categoryIcons[item.category] || <Search className="w-4 h-4" />}
                     </div>
-                  ))}
-                </>
-              ) : (
-                <div className="search-empty">
-                  <p>No results for &ldquo;{query}&rdquo;</p>
-                  <p className="text-xs mt-1">Try: yuuki, doki, nhe, tsuki, origin, sakura</p>
+                    <div className="search-dropdown-text">
+                      <p className="search-dropdown-title">{item.title}</p>
+                      <p className="search-dropdown-desc">{item.description}</p>
+                    </div>
+                    <span className="search-dropdown-category">{item.category}</span>
+                  </div>
+                  {item.externalLinks && item.externalLinks.length > 0 && (
+                    <div className="search-dropdown-links">
+                      {item.externalLinks.map((link) => (
+                        <a
+                          key={link.url}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="search-dropdown-link"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          <span>{link.label}</span>
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              )}
+              ))}
+            </div>
+          )}
+
+          {showDropdown && !easterEgg && results.length === 0 && (
+            <div ref={dropdownRef} className="search-dropdown">
+              <div className="search-empty">
+                <p>No results for &ldquo;{query}&rdquo;</p>
+                <p className="text-xs mt-1">Try: yuuki, doki, nhe, tsuki, origin, sakura</p>
+              </div>
             </div>
           )}
         </div>

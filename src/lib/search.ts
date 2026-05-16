@@ -5,6 +5,7 @@ export interface SearchResult {
   sectionId: string;
   category: "model" | "project" | "research" | "era" | "concept" | "easter-egg";
   keywords: string[];
+  externalLinks?: { label: string; url: string }[];
 }
 
 export interface EasterEgg {
@@ -22,6 +23,10 @@ export const searchIndex: SearchResult[] = [
     sectionId: "detail-yuuki",
     category: "model",
     keywords: ["yuuki", "yuki", "yuu", "girls last tour", "iris", "v0.1", "nxg", "rxg", "lineage", "central", "flagship", "main model"],
+    externalLinks: [
+      { label: "YuuKi v0.1", url: "https://yuuki-web.vercel.app/" },
+      { label: "YuuKi RxG", url: "https://yuuki.opceanai.com/" },
+    ],
   },
   {
     id: "yumo",
@@ -77,7 +82,10 @@ export const searchIndex: SearchResult[] = [
     description: "Bringing Docker containers to Android. OCI compatible with 4 isolation layers.",
     sectionId: "detail-doki",
     category: "project",
-    keywords: ["doki", "doky", "docker", "android", "containers", "oci", "isolation", "layers", "system", "infrastructure", "product", "may 2026"],
+    keywords: ["doki", "docker", "android", "containers", "oci", "isolation", "layers", "system", "infrastructure", "product", "may 2026"],
+    externalLinks: [
+      { label: "Doki Website", url: "https://doki.opceanai.com" },
+    ],
   },
   {
     id: "asl",
@@ -228,13 +236,13 @@ export const easterEggs: EasterEgg[] = [
   },
   {
     trigger: "aguitachan",
-    action: "alert",
-    message: "That is awa-omg, the creator of OpceanAI. Contact: aguitachan3@gmail.com",
+    action: "redirect",
+    target: "https://aguita.site",
   },
   {
     trigger: "awa",
-    action: "alert",
-    message: "awa-omg is the creator of OpceanAI. From bots on a phone to an entire AI ecosystem.",
+    action: "redirect",
+    target: "https://aguita.site",
   },
 ];
 

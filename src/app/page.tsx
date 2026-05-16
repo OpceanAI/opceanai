@@ -11,12 +11,7 @@ import ASL from "@/components/sections/ASL";
 import Research from "@/components/sections/Research";
 import Closing from "@/components/sections/Closing";
 import Footer from "@/components/sections/Footer";
-import DetailYuuki from "@/components/sections/details/DetailYuuki";
-import DetailDoki from "@/components/sections/details/DetailDoki";
-import DetailASL from "@/components/sections/details/DetailASL";
-import DetailNHE from "@/components/sections/details/DetailNHE";
-import DetailTsuki from "@/components/sections/details/DetailTsuki";
-import DetailOrigin from "@/components/sections/details/DetailOrigin";
+import DetailView from "@/components/sections/details/DetailView";
 import AtmosphericBg from "@/components/background/AtmosphericBg";
 import LiquidFilters from "@/components/svg/LiquidFilters";
 
@@ -39,14 +34,7 @@ export default function Home() {
         <Research />
         <Closing />
         <Footer />
-
-        {/* Detailed sections — shown via search navigation */}
-        <DetailYuuki />
-        <DetailDoki />
-        <DetailASL />
-        <DetailNHE />
-        <DetailTsuki />
-        <DetailOrigin />
+        <DetailView />
       </div>
     </main>
   );
