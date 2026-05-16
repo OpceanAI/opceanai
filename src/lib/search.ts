@@ -15,100 +15,93 @@ export interface EasterEgg {
 }
 
 export const searchIndex: SearchResult[] = [
-  // === MODELS ===
   {
     id: "yuuki",
     title: "YuuKi",
-    description: "The central intellectual line of OpceanAI. From v0.1 to NxG to RxG — a lineage, not just a model name.",
+    description: "The central intellectual line of OpceanAI. From v0.1 to NxG to RxG.",
     sectionId: "detail-yuuki",
     category: "model",
     keywords: ["yuuki", "yuki", "yuu", "girls last tour", "iris", "v0.1", "nxg", "rxg", "lineage", "central", "flagship", "main model"],
   },
   {
     id: "yumo",
-    title: "Yumo — Mathematics",
-    description: "Specialized branch of the YuuKi ecosystem focused on mathematics. Targeted, domain-oriented model.",
+    title: "Yumo",
+    description: "Specialized branch of the YuuKi ecosystem focused on mathematics.",
     sectionId: "ecosystem",
     category: "model",
     keywords: ["yumo", "yu-mo", "math", "mathematics", "maths", "numbers", "calculation", "specialized"],
   },
   {
     id: "owo",
-    title: "OwO — Omni-Reasoning",
-    description: "OpceanAI with Omni-Reasoning. Short, memorable, and identity-driven.",
+    title: "OwO",
+    description: "OpceanAI with Omni-Reasoning.",
     sectionId: "ecosystem",
     category: "model",
     keywords: ["owo", "omni", "reasoning", "omni-reasoning", "owO"],
   },
   {
     id: "ovo",
-    title: "OvO — OpceanAI v0",
-    description: "Origin and versioning as architectural identity. Paired with OwO.",
+    title: "OvO",
+    description: "Origin and versioning as architectural identity.",
     sectionId: "ecosystem",
     category: "model",
     keywords: ["ovo", "v0", "version", "origin", "ovO"],
   },
   {
     id: "yaki",
-    title: "Yaki — Multimodal",
-    description: "Based on YuuKi, enhanced with multimodal abilities via LLaVA. Non-native VL model.",
+    title: "Yaki",
+    description: "Based on YuuKi, enhanced with multimodal abilities via LLaVA.",
     sectionId: "ecosystem",
     category: "model",
     keywords: ["yaki", "multimodal", "llava", "vl", "vision", "image", "visual", "capabilities"],
   },
   {
     id: "imprint",
-    title: "Imprint — Multimodal Research",
-    description: "The Imprint line expands the ecosystem into multimodal territory alongside Yaki.",
+    title: "Imprint",
+    description: "The Imprint line expands the ecosystem into multimodal territory.",
     sectionId: "ecosystem",
     category: "model",
     keywords: ["imprint", "imprint theory", "multimodal research", "cognitive", "patterns"],
   },
   {
     id: "tsuki",
-    title: "Tsuki — Token Compression",
+    title: "Tsuki",
     description: "Token compression model. 4,160 bilingual examples. 57.6% token reduction.",
     sectionId: "detail-tsuki",
     category: "model",
     keywords: ["tsuki", "compression", "token", "token reduction", "bilingual", "spanish", "english", "57.6", "4160", "quiet"],
   },
-
-  // === PROJECTS ===
   {
     id: "doki",
-    title: "Doki — Docker on Android",
+    title: "Doki",
     description: "Bringing Docker containers to Android. OCI compatible with 4 isolation layers.",
     sectionId: "detail-doki",
     category: "project",
-    keywords: ["doki", "docker", "android", "containers", "oci", "isolation", "layers", "system", "infrastructure", "product", "may 2026"],
+    keywords: ["doki", "doky", "docker", "android", "containers", "oci", "isolation", "layers", "system", "infrastructure", "product", "may 2026"],
   },
   {
     id: "asl",
-    title: "ASL — Android Subsystem for Linux",
-    description: "An alternative to Microsoft's WSL. Complete Linux kernel running in userspace on Android.",
+    title: "ASL",
+    description: "An alternative to Microsoft WSL. Complete Linux kernel running in userspace on Android.",
     sectionId: "detail-asl",
     category: "project",
     keywords: ["asl", "linux", "wsl", "kernel", "userspace", "android subsystem", "c++", "rust", "proot", "future", "planned"],
   },
-
-  // === RESEARCH ===
   {
     id: "nhe",
-    title: "NHE — Not Humanity Exam",
+    title: "NHE",
     description: "Measures traces of human cognitive structure in AI systems. Empirical implementation of The Imprint Theory.",
     sectionId: "detail-nhe",
     category: "research",
     keywords: ["nhe", "not humanity exam", "humanity", "exam", "benchmark", "hle", "mmlu", "big-bench", "arc", "cognitive", "imprint theory", "research", "patterns"],
   },
-
-  // === ERAS ===
   {
     id: "origin",
-    title: "Origin — Bots New Era",
-    description: "April 23, 2023. Ocean becomes OpceanAI. Sakura and Nebula — the first creations.",
+    title: "Origin",
+    description: "April 23, 2023. Ocean becomes OpceanAI. Sakura and Nebula.",
     sectionId: "detail-origin",
     category: "era",
-    keywords: ["origin", "ocean", "bots new", "sakura", "nebula", "april 23", "2023", "discord", "telegram", "bots", "first", "beginning", "main.py", "11k"],
+    keywords: ["origin", "ocean", "oceanai", "bots new", "sakura", "nebula", "april 23", "2023", "discord", "telegram", "bots", "first", "beginning", "main.py", "11k"],
   },
   {
     id: "discovery",
@@ -121,7 +114,7 @@ export const searchIndex: SearchResult[] = [
   {
     id: "lab",
     title: "OpceanAI Lab Era",
-    description: "2025. YuuKi v0.1 — the first prototype. Emotional origin from Girls' Last Tour.",
+    description: "2025. YuuKi v0.1. Emotional origin from Girls Last Tour.",
     sectionId: "lab",
     category: "era",
     keywords: ["lab", "laboratory", "2025", "prototype", "emotional", "depression", "girls last tour", "yuki bot", "discord bot"],
@@ -129,17 +122,15 @@ export const searchIndex: SearchResult[] = [
   {
     id: "breakthrough",
     title: "The Breakthrough",
-    description: "December 2025 training attempt. 2.66 years estimate. BitNet inspiration. GPT-2 82M.",
+    description: "December 2025 training attempt. 2.66 years estimate. BitNet. GPT-2 82M.",
     sectionId: "breakthrough",
     category: "era",
     keywords: ["breakthrough", "training", "december 2025", "2.66", "bitnet", "gpt-2", "82m", "llama", "tinigram", "snapdragon", "phone", "wikipedia", "pytorch"],
   },
-
-  // === CONCEPTS ===
   {
     id: "ecosystem",
     title: "The Ecosystem",
-    description: "OpceanAI is not one project. A growing system of ideas that learned how to become real.",
+    description: "OpceanAI is not one project. A growing system of ideas.",
     sectionId: "ecosystem",
     category: "concept",
     keywords: ["ecosystem", "organization", "projects", "all", "everything", "list", "models", "systems"],
@@ -158,47 +149,47 @@ export const easterEggs: EasterEgg[] = [
   {
     trigger: "rick roll",
     action: "redirect",
-    target: "https://www.youtube.com/watch?v=dQw4W4WxXcQ",
+    target: "https://youtu.be/dQw4w9WgXcQ",
   },
   {
     trigger: "rickroll",
     action: "redirect",
-    target: "https://www.youtube.com/watch?v=dQw4W4WxXcQ",
+    target: "https://youtu.be/dQw4w9WgXcQ",
   },
   {
     trigger: "never gonna give you up",
     action: "redirect",
-    target: "https://www.youtube.com/watch?v=dQw4W4WxXcQ",
+    target: "https://youtu.be/dQw4w9WgXcQ",
   },
   {
     trigger: "rick astley",
     action: "redirect",
-    target: "https://www.youtube.com/watch?v=dQw4W4WxXcQ",
+    target: "https://youtu.be/dQw4w9WgXcQ",
   },
   {
     trigger: "404",
     action: "alert",
-    message: "Error 404: Emotions not found. Just like OpceanAI's marketing budget.",
+    message: "Error 404: Emotions not found. Just like OpceanAI marketing budget.",
   },
   {
     trigger: "hello",
     action: "alert",
-    message: "Hello! You've found the OpceanAI search. Try searching for 'yuuki', 'doki', or 'nhe' to explore.",
+    message: "Hello. Try searching for yuuki, doki, or nhe to explore.",
   },
   {
     trigger: "hi",
     action: "alert",
-    message: "Hey! Welcome to OpceanAI. Try searching for 'yuuki', 'doki', 'tsuki', or 'nhe' to explore the ecosystem.",
+    message: "Hey. Welcome to OpceanAI. Try searching for yuuki, doki, tsuki, or nhe.",
   },
   {
     trigger: "secret",
     action: "alert",
-    message: "🔍 You found a secret! OpceanAI was born from a Snapdragon 685 phone. That's the real flex.",
+    message: "OpceanAI was born from a Snapdragon 685 phone. That is the real flex.",
   },
   {
     trigger: "snapdragon",
     action: "alert",
-    message: "📱 Yes, OpceanAI trained its first models on a Snapdragon 685 phone. No GPU cluster. Just persistence.",
+    message: "OpceanAI trained its first models on a Snapdragon 685 phone. No GPU cluster. Just persistence.",
   },
   {
     trigger: "girls last tour",
@@ -208,12 +199,12 @@ export const easterEggs: EasterEgg[] = [
   {
     trigger: "chito",
     action: "alert",
-    message: "🏍️ Girls' Last Tour inspired the name YuuKi. Yuu + snow-like suffix = a name born from atmosphere and emotion.",
+    message: "Girls Last Tour inspired the name YuuKi. Yuu + snow-like suffix.",
   },
   {
     trigger: "yuuri",
     action: "alert",
-    message: "🏍️ The name YuuKi comes from Yuu (Girls' Last Tour) + a Japanese snow-like suffix. Born from emotion, not product strategy.",
+    message: "The name YuuKi comes from Yuu (Girls Last Tour) + a Japanese snow-like suffix.",
   },
   {
     trigger: "opceanai",
@@ -233,50 +224,65 @@ export const easterEggs: EasterEgg[] = [
   {
     trigger: "conan",
     action: "alert",
-    message: "🔬 'There is always only one truth!' — Just like OpceanAI's commitment to precision over noise.",
+    message: "There is always only one truth. Just like OpceanAI commitment to precision over noise.",
   },
   {
     trigger: "aguitachan",
     action: "alert",
-    message: "👤 That's awa-omg — the creator of OpceanAI. You can reach them at aguitachan3@gmail.com",
+    message: "That is awa-omg, the creator of OpceanAI. Contact: aguitachan3@gmail.com",
   },
   {
     trigger: "awa",
     action: "alert",
-    message: "👤 awa-omg is the creator of OpceanAI. From bots on a phone to an entire AI ecosystem.",
+    message: "awa-omg is the creator of OpceanAI. From bots on a phone to an entire AI ecosystem.",
   },
 ];
+
+function levenshtein(a: string, b: string): number {
+  const matrix: number[][] = [];
+  for (let i = 0; i <= b.length; i++) matrix[i] = [i];
+  for (let j = 0; j <= a.length; j++) matrix[0][j] = j;
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(matrix[i - 1][j - 1] + 1, matrix[i][j - 1] + 1, matrix[i - 1][j] + 1);
+      }
+    }
+  }
+  return matrix[b.length][a.length];
+}
 
 export function search(query: string): { results: SearchResult[]; easterEgg?: EasterEgg } {
   const q = query.toLowerCase().trim();
 
   if (!q) return { results: [] };
 
-  // Check easter eggs first
   for (const egg of easterEggs) {
     if (q.includes(egg.trigger.toLowerCase())) {
       return { results: [], easterEgg: egg };
     }
   }
 
-  // Search through index
   const words = q.split(/\s+/).filter((w) => w.length > 1);
 
   const scored = searchIndex.map((item) => {
     let score = 0;
 
-    // Exact title match
     if (item.title.toLowerCase().includes(q)) score += 10;
 
-    // Keyword matches
     for (const keyword of item.keywords) {
       for (const word of words) {
         if (keyword.includes(word)) score += 3;
         if (keyword === word) score += 5;
+
+        const dist = levenshtein(keyword, word);
+        const maxLen = Math.max(keyword.length, word.length);
+        if (dist <= 2 && maxLen > 3) score += 2;
       }
     }
 
-    // Description match
     if (item.description.toLowerCase().includes(q)) score += 2;
 
     return { item, score };

@@ -36,6 +36,13 @@ export default function Hero() {
       setEasterEgg(e || null);
       setShowDropdown(true);
       setActiveIndex(0);
+
+      if (e && e.action === "redirect" && e.target) {
+        window.open(e.target, "_blank");
+        setQuery("");
+        setShowDropdown(false);
+        inputRef.current?.blur();
+      }
     } else {
       setResults([]);
       setEasterEgg(null);
@@ -66,7 +73,7 @@ export default function Hero() {
       setTimeout(() => el.classList.remove("search-highlight"), 2500);
       toast("info", `Navigating to ${item.title}`);
     } else {
-      toast("info", `Section "${item.title}" — coming soon`);
+      toast("info", `Section "${item.title}" -- coming soon`);
     }
   }, [toast]);
 
@@ -160,7 +167,6 @@ export default function Hero() {
           </p>
         </div>
 
-        {/* Search with dropdown */}
         <div className="max-w-xl mx-auto w-full relative reveal-word" style={{ "--word-delay": "1500ms" } as React.CSSProperties}>
           <form onSubmit={handleSubmit}>
             <div
@@ -191,7 +197,7 @@ export default function Hero() {
                 onFocus={() => { setFocused(true); if (query.trim()) setShowDropdown(true); }}
                 onBlur={() => setFocused(false)}
                 onKeyDown={handleKeyDown}
-                placeholder="Search the ecosystem... (try 'yuuki', 'doki', 'rick roll')"
+                placeholder="Search the ecosystem... (try yuuki, doki, rick roll)"
                 className="flex-1 bg-transparent outline-none text-text-primary placeholder:text-text-quaternary text-base font-body"
                 aria-label="Search"
                 autoComplete="off"
@@ -212,28 +218,9 @@ export default function Hero() {
             </div>
           </form>
 
-          {/* Dropdown */}
-          {showDropdown && (
+          {showDropdown && !easterEgg && (
             <div ref={dropdownRef} className="search-dropdown">
-              {easterEgg ? (
-                <div
-                  className="search-dropdown-item"
-                  onMouseDown={() => handleEasterEgg(easterEgg)}
-                >
-                  <div className="search-dropdown-icon model">
-                    <Sparkles className="w-4 h-4" />
-                  </div>
-                  <div className="search-dropdown-text">
-                    <p className="search-dropdown-title">
-                      {easterEgg.action === "redirect" ? "🎬 External link" : easterEgg.action === "alert" ? "💡 Did you know?" : "📍 Navigate"}
-                    </p>
-                    <p className="search-dropdown-desc">
-                      {easterEgg.action === "redirect" ? "Click to open" : easterEgg.message || "Navigate to section"}
-                    </p>
-                  </div>
-                  <span className="search-dropdown-category">easter egg</span>
-                </div>
-              ) : results.length > 0 ? (
+              {results.length > 0 ? (
                 <>
                   <div className="search-suggestions-header">Results</div>
                   {results.map((item, i) => (
