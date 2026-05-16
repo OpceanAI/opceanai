@@ -1,9 +1,43 @@
 "use client";
 
+import { useMemo } from "react";
+
 export default function AtmosphericBg() {
+  const stars = useMemo(() => {
+    return Array.from({ length: 80 }, (_, i) => ({
+      id: i,
+      x: Math.random() * 100,
+      y: Math.random() * 100,
+      size: Math.random() * 1.5 + 0.5,
+      duration: Math.random() * 4 + 2,
+      delay: Math.random() * 4,
+      opacity: Math.random() * 0.3 + 0.1,
+    }));
+  }, []);
+
   return (
     <div className="fixed inset-0 -z-20 overflow-hidden pointer-events-none">
-      {/* Subtle dark gradients — depth through luminance, not color */}
+      {/* Star field — Linear-style */}
+      {stars.map((star) => (
+        <div
+          key={star.id}
+          className="star"
+          style={{
+            left: `${star.x}%`,
+            top: `${star.y}%`,
+            width: `${star.size}px`,
+            height: `${star.size}px`,
+            opacity: star.opacity,
+            "--star-duration": `${star.duration}s`,
+            "--star-delay": `${star.delay}s`,
+          } as React.CSSProperties}
+        />
+      ))}
+
+      {/* Aurora effect — top */}
+      <div className="aurora" />
+
+      {/* Gradient mesh — subtle cyan depth */}
       <div
         className="absolute rounded-full"
         style={{
@@ -41,7 +75,7 @@ export default function AtmosphericBg() {
         }}
       />
 
-      {/* Ambient depth layers */}
+      {/* Ambient depth fog */}
       <div
         className="absolute inset-0"
         style={{

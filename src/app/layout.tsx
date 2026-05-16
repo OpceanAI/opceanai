@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import ScrollProgress from "@/components/ui/ScrollProgress";
+import CursorFollower from "@/components/ui/CursorFollower";
+import WaterRipple from "@/components/ui/WaterRipple";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -33,6 +36,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${cormorant.variable} ${inter.variable} ${jetbrains.variable}`}>
       <body className="antialiased">
+        <ScrollProgress />
+        <CursorFollower />
+        <WaterRipple />
         {children}
       </body>
     </html>

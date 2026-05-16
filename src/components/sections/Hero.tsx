@@ -7,9 +7,11 @@ import GlassButton from "@/components/glass/GlassButton";
 export default function Hero() {
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const inputRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setMounted(true);
     const el = inputRef.current;
     if (!el) return;
 
@@ -32,9 +34,15 @@ export default function Hero() {
     }
   };
 
+  const headingWords = ["OpceanAI"];
+  const subtitleWords = ["Building", "intelligent", "systems", "that", "feel", "natural."];
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20">
-      <div className="max-w-3xl w-full text-center space-y-10">
+      {/* Ambient glow behind hero */}
+      <div className="ambient-glow" style={{ top: "30%", left: "50%", transform: "translate(-50%, -50%)" }} />
+
+      <div className="max-w-3xl w-full text-center space-y-10 relative z-10">
         <div className="space-y-6">
           <div className="inline-flex items-center gap-2">
             <span className="status-dot text-accent" />
@@ -44,14 +52,26 @@ export default function Hero() {
           </div>
 
           <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-text-primary tracking-tight" style={{ lineHeight: 1.05 }}>
-            OpceanAI
+            {mounted
+              ? headingWords.map((word, i) => (
+                  <span key={i} className="reveal-word" style={{ "--word-delay": `${i * 100 + 200}ms` } as React.CSSProperties}>
+                    {word}{" "}
+                  </span>
+                ))
+              : "OpceanAI"}
           </h1>
 
           <p className="font-display text-xl sm:text-2xl text-text-tertiary font-light max-w-xl mx-auto leading-snug">
-            Building intelligent systems that feel natural.
+            {mounted
+              ? subtitleWords.map((word, i) => (
+                  <span key={i} className="reveal-word" style={{ "--word-delay": `${i * 60 + 500}ms` } as React.CSSProperties}>
+                    {word}{" "}
+                  </span>
+                ))
+              : "Building intelligent systems that feel natural."}
           </p>
 
-          <p className="text-base text-text-quaternary max-w-lg mx-auto leading-relaxed">
+          <p className="text-base text-text-quaternary max-w-lg mx-auto leading-relaxed reveal-word" style={{ "--word-delay": "800ms" } as React.CSSProperties}>
             A calm surface for complex ideas. Explore projects, tools, and
             living interfaces where clarity meets luminous depth.
           </p>
