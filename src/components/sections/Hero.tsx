@@ -1,24 +1,123 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { Search, ArrowRight } from "lucide-react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { Search, ArrowRight, X, Sparkles, Zap } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
+import { search, SearchResult, EasterEgg } from "@/lib/search";
+
+const categoryIcons: Record<string, React.ReactNode> = {
+  model: <Sparkles className="w-4 h-4" />,
+  project: <Zap className="w-4 h-4" />,
+  research: <Search className="w-4 h-4" />,
+  era: <Search className="w-4 h-4" />,
+  concept: <Search className="w-4 h-4" />,
+};
 
 export default function Hero() {
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [results, setResults] = useState<SearchResult[]>([]);
+  const [easterEgg, setEasterEgg] = useState<EasterEgg | null>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
   const { toast } = useToast();
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    if (query.trim()) {
+      const { results: r, easterEgg: e } = search(query);
+      setResults(r);
+      setEasterEgg(e || null);
+      setShowDropdown(true);
+      setActiveIndex(0);
+    } else {
+      setResults([]);
+      setEasterEgg(null);
+      setShowDropdown(false);
+    }
+  }, [query]);
+
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setShowDropdown(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  const handleSelect = useCallback((item: SearchResult) => {
+    setShowDropdown(false);
+    setQuery("");
+    setFocused(false);
+    inputRef.current?.blur();
+
+    const el = document.getElementById(item.sectionId);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      el.classList.add("search-highlight");
+      setTimeout(() => el.classList.remove("search-highlight"), 2500);
+      toast("info", `Navigating to ${item.title}`);
+    } else {
+      toast("info", `Section "${item.title}" — coming soon`);
+    }
+  }, [toast]);
+
+  const handleEasterEgg = useCallback((egg: EasterEgg) => {
+    setShowDropdown(false);
+    setQuery("");
+    setFocused(false);
+    inputRef.current?.blur();
+
+    if (egg.action === "redirect" && egg.target) {
+      window.open(egg.target, "_blank");
+    } else if (egg.action === "alert" && egg.message) {
+      toast("info", egg.message);
+    } else if (egg.action === "section" && egg.target) {
+      const el = document.getElementById(egg.target);
+      if (el) {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        el.classList.add("search-highlight");
+        setTimeout(() => el.classList.remove("search-highlight"), 2500);
+      }
+    }
+  }, [toast]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (query.trim()) {
-      toast("info", `Searching: "${query}"`);
-      setQuery("");
+    if (easterEgg) {
+      handleEasterEgg(easterEgg);
+    } else if (results.length > 0) {
+      handleSelect(results[activeIndex] || results[0]);
+    } else if (query.trim()) {
+      toast("info", `No results for "${query}". Try: yuuki, doki, nhe, tsuki, origin`);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      setActiveIndex((prev) => Math.min(prev + 1, results.length - 1));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      setActiveIndex((prev) => Math.max(prev - 1, 0));
+    } else if (e.key === "Enter") {
+      e.preventDefault();
+      if (easterEgg) {
+        handleEasterEgg(easterEgg);
+      } else if (results.length > 0) {
+        handleSelect(results[activeIndex] || results[0]);
+      }
+    } else if (e.key === "Escape") {
+      setShowDropdown(false);
+      inputRef.current?.blur();
     }
   };
 
@@ -26,7 +125,7 @@ export default function Hero() {
   const subtitleWords = ["A", "technology", "organization", "focused", "on", "AI", "models,", "infrastructure,", "and", "systems."];
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20">
+    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20">
       <div className="ambient-glow" style={{ top: "30%", left: "50%", transform: "translate(-50%, -50%)" }} />
 
       <div className="max-w-4xl w-full text-center space-y-12 relative z-10">
@@ -61,40 +160,109 @@ export default function Hero() {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="max-w-xl mx-auto w-full reveal-word" style={{ "--word-delay": "1500ms" } as React.CSSProperties}>
-          <div
-            className={`
-              glass-spotlight
-              relative flex items-center gap-3
-              rounded-[var(--radius-pill)]
-              transition-all duration-300
-              ${focused ? "scale-[1.01]" : ""}
-            `}
-            style={{
-              padding: "6px 6px 6px 20px",
-              background: focused ? "var(--glass-bg-hover)" : "var(--glass-bg)",
-              border: `1px solid ${focused ? "var(--glass-border-hover)" : "var(--glass-border)"}`,
-              boxShadow: focused
-                ? "var(--shadow-lg), 0 0 0 2px var(--color-accent-glow)"
-                : "var(--shadow-md)",
-            }}
-          >
-            <Search className={`w-5 h-5 shrink-0 transition-colors duration-200 ${focused ? "text-accent" : "text-text-quaternary"}`} />
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onFocus={() => setFocused(true)}
-              onBlur={() => setFocused(false)}
-              placeholder="Explore the ecosystem..."
-              className="flex-1 bg-transparent outline-none text-text-primary placeholder:text-text-quaternary text-base font-body"
-              aria-label="Search"
-            />
-            <button type="submit" className="shrink-0 w-10 h-10 rounded-full bg-text-primary/10 hover:bg-text-primary/15 flex items-center justify-center transition-colors duration-200" aria-label="Submit">
-              <ArrowRight className="w-4 h-4 text-text-primary" />
-            </button>
-          </div>
-        </form>
+        {/* Search with dropdown */}
+        <div className="max-w-xl mx-auto w-full relative reveal-word" style={{ "--word-delay": "1500ms" } as React.CSSProperties}>
+          <form onSubmit={handleSubmit}>
+            <div
+              className={`
+                glass-spotlight
+                relative flex items-center gap-3
+                rounded-[var(--radius-pill)]
+                transition-all duration-300
+                ${focused ? "scale-[1.01] rounded-b-none" : ""}
+              `}
+              style={{
+                padding: "6px 6px 6px 20px",
+                background: focused ? "var(--glass-bg-hover)" : "var(--glass-bg)",
+                border: `1px solid ${focused ? "var(--glass-border-hover)" : "var(--glass-border)"}`,
+                boxShadow: focused
+                  ? "var(--shadow-lg), 0 0 0 2px var(--color-accent-glow)"
+                  : "var(--shadow-md)",
+                borderBottomLeftRadius: showDropdown ? "0" : undefined,
+                borderBottomRightRadius: showDropdown ? "0" : undefined,
+              }}
+            >
+              <Search className={`w-5 h-5 shrink-0 transition-colors duration-200 ${focused ? "text-accent" : "text-text-quaternary"}`} />
+              <input
+                ref={inputRef}
+                type="text"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                onFocus={() => { setFocused(true); if (query.trim()) setShowDropdown(true); }}
+                onBlur={() => setFocused(false)}
+                onKeyDown={handleKeyDown}
+                placeholder="Search the ecosystem... (try 'yuuki', 'doki', 'rick roll')"
+                className="flex-1 bg-transparent outline-none text-text-primary placeholder:text-text-quaternary text-base font-body"
+                aria-label="Search"
+                autoComplete="off"
+              />
+              {query && (
+                <button
+                  type="button"
+                  onClick={() => { setQuery(""); setShowDropdown(false); inputRef.current?.focus(); }}
+                  className="shrink-0 w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors"
+                  aria-label="Clear"
+                >
+                  <X className="w-3.5 h-3.5 text-text-quaternary" />
+                </button>
+              )}
+              <button type="submit" className="shrink-0 w-10 h-10 rounded-full bg-text-primary/10 hover:bg-text-primary/15 flex items-center justify-center transition-colors duration-200" aria-label="Submit">
+                <ArrowRight className="w-4 h-4 text-text-primary" />
+              </button>
+            </div>
+          </form>
+
+          {/* Dropdown */}
+          {showDropdown && (
+            <div ref={dropdownRef} className="search-dropdown">
+              {easterEgg ? (
+                <div
+                  className="search-dropdown-item"
+                  onMouseDown={() => handleEasterEgg(easterEgg)}
+                >
+                  <div className="search-dropdown-icon model">
+                    <Sparkles className="w-4 h-4" />
+                  </div>
+                  <div className="search-dropdown-text">
+                    <p className="search-dropdown-title">
+                      {easterEgg.action === "redirect" ? "🎬 External link" : easterEgg.action === "alert" ? "💡 Did you know?" : "📍 Navigate"}
+                    </p>
+                    <p className="search-dropdown-desc">
+                      {easterEgg.action === "redirect" ? "Click to open" : easterEgg.message || "Navigate to section"}
+                    </p>
+                  </div>
+                  <span className="search-dropdown-category">easter egg</span>
+                </div>
+              ) : results.length > 0 ? (
+                <>
+                  <div className="search-suggestions-header">Results</div>
+                  {results.map((item, i) => (
+                    <div
+                      key={item.id}
+                      className={`search-dropdown-item ${i === activeIndex ? "active" : ""}`}
+                      onMouseDown={() => handleSelect(item)}
+                      onMouseEnter={() => setActiveIndex(i)}
+                    >
+                      <div className={`search-dropdown-icon ${item.category}`}>
+                        {categoryIcons[item.category] || <Search className="w-4 h-4" />}
+                      </div>
+                      <div className="search-dropdown-text">
+                        <p className="search-dropdown-title">{item.title}</p>
+                        <p className="search-dropdown-desc">{item.description}</p>
+                      </div>
+                      <span className="search-dropdown-category">{item.category}</span>
+                    </div>
+                  ))}
+                </>
+              ) : (
+                <div className="search-empty">
+                  <p>No results for &ldquo;{query}&rdquo;</p>
+                  <p className="text-xs mt-1">Try: yuuki, doki, nhe, tsuki, origin, sakura</p>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
 
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2 reveal-word" style={{ "--word-delay": "1800ms" } as React.CSSProperties}>
           <a href="#origin" className="btn-secondary">Explore the story</a>
