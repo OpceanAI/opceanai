@@ -134,7 +134,11 @@ export default function Hero() {
   };
 
   const titleWords = ["OpceanAI"];
-  const subtitleWords = ["A", "technology", "organization", "focused", "on", "AI", "models,", "infrastructure,", "and", "systems."];
+  const subtitleLines = [
+    "Bots became models.",
+    "Models became systems.",
+    "Systems became infrastructure.",
+  ];
 
   return (
     <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20">
@@ -152,23 +156,25 @@ export default function Hero() {
               : "OpceanAI"}
           </h1>
 
-          <p className="font-display text-xl sm:text-2xl md:text-3xl text-text-tertiary font-light max-w-2xl mx-auto leading-snug">
-            {mounted
-              ? subtitleWords.map((word, i) => (
-                  <span key={i} className="reveal-word" style={{ "--word-delay": `${i * 50 + 600}ms` } as React.CSSProperties}>
-                    {word}{" "}
-                  </span>
-                ))
-              : "A technology organization focused on AI models, infrastructure, and systems."}
-          </p>
+          <div className="space-y-2">
+            {subtitleLines.map((line, i) => (
+              <p
+                key={i}
+                className="font-display text-xl sm:text-2xl md:text-3xl text-text-tertiary font-light leading-snug reveal-word"
+                style={{ "--word-delay": `${i * 200 + 600}ms` } as React.CSSProperties}
+              >
+                {line}
+              </p>
+            ))}
+          </div>
 
           <p className="text-base sm:text-lg text-text-quaternary max-w-lg mx-auto leading-relaxed reveal-word" style={{ "--word-delay": "1200ms" } as React.CSSProperties}>
-            OpceanAI builds models, tools, and deep systems that turn ideas into infrastructure.
+            Born on a Snapdragon 685 phone. Built through constraints, not resources.
+            Now an ecosystem of models, systems, and infrastructure.
           </p>
 
           <p className="text-sm text-text-quaternary max-w-md mx-auto leading-relaxed reveal-word" style={{ "--word-delay": "1400ms" } as React.CSSProperties}>
-            This is not a brand that was assembled for marketing.
-            This is a project that grew through experimentation, constraints, failures, learning, and persistence.
+            Not one project. A growing system of ideas that learned how to become real.
           </p>
         </div>
 
