@@ -16,22 +16,24 @@ import LiquidFilters from "@/components/svg/LiquidFilters";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen">
+    <main className="relative min-h-screen w-full overflow-hidden">
       <LiquidFilters />
       <AtmosphericBg />
       <Navigation />
-      <Hero />
-      <WhatIs />
-      <Origin />
-      <Discovery />
-      <LabEra />
-      <Breakthrough />
-      <Ecosystem />
-      <Doki />
-      <ASL />
-      <Research />
-      <Closing />
-      <Footer />
+      <div className="w-full max-w-7xl mx-auto">
+        <Hero />
+        <WhatIs />
+        <Origin />
+        <Discovery />
+        <LabEra />
+        <Breakthrough />
+        <Ecosystem />
+        <Doki />
+        <ASL />
+        <Research />
+        <Closing />
+        <Footer />
+      </div>
     </main>
   );
 }

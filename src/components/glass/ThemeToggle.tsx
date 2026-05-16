@@ -10,19 +10,24 @@ export default function ThemeToggle() {
   useEffect(() => {
     setMounted(true);
     const stored = localStorage.getItem("opceanai-theme");
-    if (stored) {
-      const isDark = stored === "dark";
-      setDark(isDark);
-      document.documentElement.classList.toggle("dark", isDark);
-    } else {
-      document.documentElement.classList.add("dark");
-    }
+    const isDark = stored === "dark" || !stored;
+    setDark(isDark);
+    document.documentElement.classList.toggle("dark", isDark);
   }, []);
 
   const toggle = () => {
     const next = !dark;
     setDark(next);
-    document.documentElement.classList.toggle("dark", next);
+
+    const supportsViewTransition = "startViewTransition" in document;
+    if (supportsViewTransition) {
+      document.startViewTransition(() => {
+        document.documentElement.classList.toggle("dark", next);
+      });
+    } else {
+      document.documentElement.classList.toggle("dark", next);
+    }
+
     localStorage.setItem("opceanai-theme", next ? "dark" : "light");
   };
 
