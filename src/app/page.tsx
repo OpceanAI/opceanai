@@ -1,7 +1,14 @@
 import Navigation from "@/components/sections/Navigation";
 import Hero from "@/components/sections/Hero";
-import Projects from "@/components/sections/Projects";
-import Philosophy from "@/components/sections/Philosophy";
+import Origin from "@/components/sections/Origin";
+import Discovery from "@/components/sections/Discovery";
+import LabEra from "@/components/sections/LabEra";
+import Breakthrough from "@/components/sections/Breakthrough";
+import Ecosystem from "@/components/sections/Ecosystem";
+import Doki from "@/components/sections/Doki";
+import ASL from "@/components/sections/ASL";
+import Research from "@/components/sections/Research";
+import Closing from "@/components/sections/Closing";
 import Footer from "@/components/sections/Footer";
 import AtmosphericBg from "@/components/background/AtmosphericBg";
 import LiquidFilters from "@/components/svg/LiquidFilters";
@@ -13,22 +20,15 @@ export default function Home() {
       <AtmosphericBg />
       <Navigation />
       <Hero />
-      <Projects />
-      <Philosophy />
-
-      <section id="docs" className="relative py-32 px-4 text-center">
-        <div className="max-w-2xl mx-auto space-y-6">
-          <h2 className="section-heading">Ready to explore deeper?</h2>
-          <p className="section-subtitle">
-            Dive into documentation, browse the codebase, or start building with OpceanAI today.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-4">
-            <a href="#docs" className="btn-primary">Read Documentation</a>
-            <a href="#projects" className="btn-secondary">View Projects</a>
-          </div>
-        </div>
-      </section>
-
+      <Origin />
+      <Discovery />
+      <LabEra />
+      <Breakthrough />
+      <Ecosystem />
+      <Doki />
+      <ASL />
+      <Research />
+      <Closing />
       <Footer />
     </main>
   );

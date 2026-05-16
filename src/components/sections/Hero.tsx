@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Search, ArrowRight } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 
@@ -8,20 +8,10 @@ export default function Hero() {
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const inputRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
   useEffect(() => {
     setMounted(true);
-    const el = inputRef.current;
-    if (!el) return;
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = el.getBoundingClientRect();
-      el.style.setProperty("--mx", `${((e.clientX - rect.left) / rect.width) * 100}%`);
-      el.style.setProperty("--my", `${((e.clientY - rect.top) / rect.height) * 100}%`);
-    };
-    el.addEventListener("mousemove", handleMouseMove);
-    return () => el.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -32,48 +22,42 @@ export default function Hero() {
     }
   };
 
-  const headingWords = ["OpceanAI"];
-  const subtitleWords = ["Building", "intelligent", "systems", "that", "feel", "natural."];
+  const titleWords = ["OpceanAI"];
+  const subtitleWords = ["A", "technology", "organization", "focused", "on", "AI", "models,", "infrastructure,", "and", "systems."];
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20">
       <div className="ambient-glow" style={{ top: "30%", left: "50%", transform: "translate(-50%, -50%)" }} />
 
-      <div className="max-w-3xl w-full text-center space-y-10 relative z-10">
-        <div className="space-y-6">
-          <div className="inline-flex items-center gap-2 reveal-word" style={{ "--word-delay": "100ms" } as React.CSSProperties}>
-            <span className="status-dot-pulse text-accent" />
-            <span className="badge badge-active">Intelligent Systems</span>
-          </div>
-
+      <div className="max-w-4xl w-full text-center space-y-12 relative z-10">
+        <div className="space-y-8">
           <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-text-primary tracking-tight" style={{ lineHeight: 1.05 }}>
             {mounted
-              ? headingWords.map((word, i) => (
-                  <span key={i} className="reveal-word" style={{ "--word-delay": `${i * 100 + 200}ms` } as React.CSSProperties}>
+              ? titleWords.map((word, i) => (
+                  <span key={i} className="reveal-word" style={{ "--word-delay": `${i * 150 + 200}ms` } as React.CSSProperties}>
                     {word}{" "}
                   </span>
                 ))
               : "OpceanAI"}
           </h1>
 
-          <p className="font-display text-xl sm:text-2xl text-text-tertiary font-light max-w-xl mx-auto leading-snug">
+          <p className="font-display text-xl sm:text-2xl md:text-3xl text-text-tertiary font-light max-w-2xl mx-auto leading-snug">
             {mounted
               ? subtitleWords.map((word, i) => (
-                  <span key={i} className="reveal-word" style={{ "--word-delay": `${i * 60 + 500}ms` } as React.CSSProperties}>
+                  <span key={i} className="reveal-word" style={{ "--word-delay": `${i * 50 + 600}ms` } as React.CSSProperties}>
                     {word}{" "}
                   </span>
                 ))
-              : "Building intelligent systems that feel natural."}
+              : "A technology organization focused on AI models, infrastructure, and systems."}
           </p>
 
-          <p className="text-base text-text-quaternary max-w-lg mx-auto leading-relaxed reveal-word" style={{ "--word-delay": "800ms" } as React.CSSProperties}>
-            A calm surface for complex ideas. Explore projects, tools, and living interfaces where clarity meets luminous depth.
+          <p className="text-base sm:text-lg text-text-quaternary max-w-lg mx-auto leading-relaxed reveal-word" style={{ "--word-delay": "1200ms" } as React.CSSProperties}>
+            OpceanAI builds models, tools, and deep systems that turn ideas into infrastructure.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="max-w-2xl mx-auto w-full">
+        <form onSubmit={handleSubmit} className="max-w-xl mx-auto w-full reveal-word" style={{ "--word-delay": "1500ms" } as React.CSSProperties}>
           <div
-            ref={inputRef}
             className={`
               glass-spotlight
               relative flex items-center gap-3
@@ -97,27 +81,23 @@ export default function Hero() {
               onChange={(e) => setQuery(e.target.value)}
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
-              placeholder="What would you like to explore?"
+              placeholder="Explore the ecosystem..."
               className="flex-1 bg-transparent outline-none text-text-primary placeholder:text-text-quaternary text-base font-body"
-              aria-label="Search or ask a question"
+              aria-label="Search"
             />
-            <button
-              type="submit"
-              className="shrink-0 w-10 h-10 rounded-full bg-text-primary/10 hover:bg-text-primary/15 flex items-center justify-center transition-colors duration-200"
-              aria-label="Submit"
-            >
+            <button type="submit" className="shrink-0 w-10 h-10 rounded-full bg-text-primary/10 hover:bg-text-primary/15 flex items-center justify-center transition-colors duration-200" aria-label="Submit">
               <ArrowRight className="w-4 h-4 text-text-primary" />
             </button>
           </div>
         </form>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2 reveal-word" style={{ "--word-delay": "1000ms" } as React.CSSProperties}>
-          <a href="#projects" className="btn-secondary">Explore Projects</a>
-          <a href="#docs" className="btn-secondary">Read Docs</a>
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-2 reveal-word" style={{ "--word-delay": "1800ms" } as React.CSSProperties}>
+          <a href="#origin" className="btn-secondary">Explore the story</a>
+          <a href="#ecosystem" className="btn-ghost">View the ecosystem</a>
         </div>
       </div>
 
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
         <div className="w-6 h-10 rounded-full border border-border-default flex items-start justify-center p-1.5" style={{ animation: "scroll-bounce 2s ease-in-out infinite" }}>
           <div className="w-1.5 h-1.5 rounded-full bg-text-quaternary/50" />
         </div>
