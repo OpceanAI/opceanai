@@ -3,6 +3,8 @@ import { Cormorant_Garamond, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import ScrollProgress from "@/components/ui/ScrollProgress";
 import WaterRipple from "@/components/ui/WaterRipple";
+import { ToastProvider } from "@/components/ui/Toast";
+import SpotlightSearch from "@/components/ui/SpotlightSearch";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -13,7 +15,7 @@ const cormorant = Cormorant_Garamond({
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-body",
-  weight: ["400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 const jetbrains = JetBrains_Mono({
@@ -33,11 +35,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${cormorant.variable} ${inter.variable} ${jetbrains.variable}`}>
+    <html lang="en" className={`${cormorant.variable} ${inter.variable} ${jetbrains.variable} dark`}>
       <body className="antialiased">
-        <ScrollProgress />
-        <WaterRipple />
-        {children}
+        <ToastProvider>
+          <ScrollProgress />
+          <WaterRipple />
+          <SpotlightSearch />
+          {children}
+        </ToastProvider>
       </body>
     </html>
   );

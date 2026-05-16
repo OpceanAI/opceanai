@@ -2,27 +2,24 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Search, ArrowRight } from "lucide-react";
-import GlassButton from "@/components/glass/GlassButton";
+import { useToast } from "@/components/ui/Toast";
 
 export default function Hero() {
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
   const [mounted, setMounted] = useState(false);
   const inputRef = useRef<HTMLDivElement>(null);
+  const { toast } = useToast();
 
   useEffect(() => {
     setMounted(true);
     const el = inputRef.current;
     if (!el) return;
-
     const handleMouseMove = (e: MouseEvent) => {
       const rect = el.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 100;
-      const y = ((e.clientY - rect.top) / rect.height) * 100;
-      el.style.setProperty("--mx", `${x}%`);
-      el.style.setProperty("--my", `${y}%`);
+      el.style.setProperty("--mx", `${((e.clientX - rect.left) / rect.width) * 100}%`);
+      el.style.setProperty("--my", `${((e.clientY - rect.top) / rect.height) * 100}%`);
     };
-
     el.addEventListener("mousemove", handleMouseMove);
     return () => el.removeEventListener("mousemove", handleMouseMove);
   }, []);
@@ -30,7 +27,8 @@ export default function Hero() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (query.trim()) {
-      console.log("Query:", query);
+      toast("info", `Searching: "${query}"`);
+      setQuery("");
     }
   };
 
@@ -39,16 +37,13 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20">
-      {/* Ambient glow behind hero */}
       <div className="ambient-glow" style={{ top: "30%", left: "50%", transform: "translate(-50%, -50%)" }} />
 
       <div className="max-w-3xl w-full text-center space-y-10 relative z-10">
         <div className="space-y-6">
-          <div className="inline-flex items-center gap-2">
-            <span className="status-dot text-accent" />
-            <span className="badge badge-active">
-              Intelligent Systems
-            </span>
+          <div className="inline-flex items-center gap-2 reveal-word" style={{ "--word-delay": "100ms" } as React.CSSProperties}>
+            <span className="status-dot-pulse text-accent" />
+            <span className="badge badge-active">Intelligent Systems</span>
           </div>
 
           <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-text-primary tracking-tight" style={{ lineHeight: 1.05 }}>
@@ -72,8 +67,7 @@ export default function Hero() {
           </p>
 
           <p className="text-base text-text-quaternary max-w-lg mx-auto leading-relaxed reveal-word" style={{ "--word-delay": "800ms" } as React.CSSProperties}>
-            A calm surface for complex ideas. Explore projects, tools, and
-            living interfaces where clarity meets luminous depth.
+            A calm surface for complex ideas. Explore projects, tools, and living interfaces where clarity meets luminous depth.
           </p>
         </div>
 
@@ -81,20 +75,19 @@ export default function Hero() {
           <div
             ref={inputRef}
             className={`
+              glass-spotlight
               relative flex items-center gap-3
               rounded-[var(--radius-pill)]
-              transition-all duration-[var(--duration-normal)] ease-[var(--ease-default)]
+              transition-all duration-300
               ${focused ? "scale-[1.01]" : ""}
             `}
             style={{
               padding: "6px 6px 6px 20px",
-              background: focused ? "rgba(15, 16, 17, 0.80)" : "rgba(15, 16, 17, 0.65)",
-              backdropFilter: "blur(24px) saturate(180%)",
-              WebkitBackdropFilter: "blur(24px) saturate(180%)",
-              border: `1px solid ${focused ? "rgba(255, 255, 255, 0.10)" : "rgba(255, 255, 255, 0.06)"}`,
+              background: focused ? "var(--glass-bg-hover)" : "var(--glass-bg)",
+              border: `1px solid ${focused ? "var(--glass-border-hover)" : "var(--glass-border)"}`,
               boxShadow: focused
-                ? "0 12px 40px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(45, 212, 191, 0.15)"
-                : "0 8px 32px rgba(0, 0, 0, 0.3)",
+                ? "var(--shadow-lg), 0 0 0 2px var(--color-accent-glow)"
+                : "var(--shadow-md)",
             }}
           >
             <Search className={`w-5 h-5 shrink-0 transition-colors duration-200 ${focused ? "text-accent" : "text-text-quaternary"}`} />
@@ -105,7 +98,7 @@ export default function Hero() {
               onFocus={() => setFocused(true)}
               onBlur={() => setFocused(false)}
               placeholder="What would you like to explore?"
-              className="flex-1 bg-transparent outline-none text-text-primary placeholder:text-text-quaternary text-base font-body transition-colors duration-300"
+              className="flex-1 bg-transparent outline-none text-text-primary placeholder:text-text-quaternary text-base font-body"
               aria-label="Search or ask a question"
             />
             <button
@@ -118,13 +111,9 @@ export default function Hero() {
           </div>
         </form>
 
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-          <GlassButton variant="secondary" icon={false}>
-            Explore Projects
-          </GlassButton>
-          <GlassButton variant="secondary" icon={false}>
-            Read Docs
-          </GlassButton>
+        <div className="flex flex-wrap items-center justify-center gap-3 pt-2 reveal-word" style={{ "--word-delay": "1000ms" } as React.CSSProperties}>
+          <a href="#projects" className="btn-secondary">Explore Projects</a>
+          <a href="#docs" className="btn-secondary">Read Docs</a>
         </div>
       </div>
 
