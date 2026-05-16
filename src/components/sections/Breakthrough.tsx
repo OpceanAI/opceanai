@@ -21,11 +21,11 @@ export default function Breakthrough() {
   return (
     <section ref={sectionRef} className="relative py-32 px-4">
       <div className="max-w-3xl mx-auto text-center">
-        <span className="inline-block text-xs font-mono uppercase tracking-widest text-warning mb-6 breakthrough-item opacity-0">Breakthrough</span>
-        <h2 className="section-heading mb-6 breakthrough-item opacity-0">December 2025: the first training attempt</h2>
+        <span className="inline-block text-xs font-mono uppercase tracking-widest text-warning mb-6 breakthrough-item">Breakthrough</span>
+        <h2 className="section-heading mb-6 breakthrough-item">December 2025: the first training attempt</h2>
 
         <div ref={itemsRef} className="space-y-8">
-          <div className="glass-panel glass-spotlight p-8 text-left breakthrough-item opacity-0">
+          <div className="glass-panel glass-spotlight p-8 text-left breakthrough-item">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-2xl bg-warning-soft flex items-center justify-center shrink-0">
                 <AlertTriangle className="w-5 h-5 text-warning" />
@@ -43,7 +43,7 @@ export default function Breakthrough() {
             </div>
           </div>
 
-          <div className="glass-panel glass-spotlight p-8 text-left breakthrough-item opacity-0">
+          <div className="glass-panel glass-spotlight p-8 text-left breakthrough-item">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-2xl bg-accent-soft flex items-center justify-center shrink-0">
                 <Zap className="w-5 h-5 text-accent" />
@@ -63,7 +63,7 @@ export default function Breakthrough() {
             </div>
           </div>
 
-          <div className="glass-panel glass-spotlight p-8 text-left breakthrough-item opacity-0">
+          <div className="glass-panel glass-spotlight p-8 text-left breakthrough-item">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-2xl bg-surface-3 flex items-center justify-center shrink-0">
                 <Terminal className="w-5 h-5 text-text-tertiary" />

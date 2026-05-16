@@ -21,16 +21,16 @@ export default function Closing() {
     <section ref={sectionRef} className="relative py-32 px-4">
       <div className="max-w-3xl mx-auto text-center">
         <div ref={itemsRef} className="space-y-8">
-          <h2 className="section-heading closing-item opacity-0">
+          <h2 className="section-heading closing-item">
             OpceanAI is not one project.
           </h2>
-          <p className="text-text-tertiary text-lg leading-relaxed closing-item opacity-0">
+          <p className="text-text-tertiary text-lg leading-relaxed closing-item">
             It is a growing system of ideas that learned how to become real.
           </p>
 
-          <div className="divider max-w-xs mx-auto closing-item opacity-0" />
+          <div className="divider max-w-xs mx-auto closing-item" />
 
-          <div className="space-y-3 closing-item opacity-0">
+          <div className="space-y-3 closing-item">
             <p className="text-sm text-text-quaternary">
               Bots becoming models.
             </p>
@@ -45,9 +45,9 @@ export default function Closing() {
             </p>
           </div>
 
-          <div className="divider max-w-xs mx-auto closing-item opacity-0" />
+          <div className="divider max-w-xs mx-auto closing-item" />
 
-          <blockquote className="closing-item opacity-0">
+          <blockquote className="closing-item">
             <p className="font-display text-lg text-text-secondary italic leading-relaxed">
               &ldquo;OpceanAI exists to build systems that feel intentional, useful, and technically alive.&rdquo;
             </p>

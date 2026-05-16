@@ -48,21 +48,21 @@ export default function Research() {
       <div className="max-w-4xl mx-auto">
         {/* NHE */}
         <div className="text-center mb-20">
-          <span className="inline-block text-xs font-mono uppercase tracking-widest text-info mb-6 research-item opacity-0">Research</span>
-          <h2 className="section-heading mb-6 research-item opacity-0">NHE — Not Humanity Exam</h2>
+          <span className="inline-block text-xs font-mono uppercase tracking-widest text-info mb-6 research-item">Research</span>
+          <h2 className="section-heading mb-6 research-item">NHE — Not Humanity Exam</h2>
           <div ref={itemsRef} className="space-y-6 max-w-2xl mx-auto text-left">
-            <p className="text-text-tertiary text-base leading-relaxed research-item opacity-0">
+            <p className="text-text-tertiary text-base leading-relaxed research-item">
               Every existing benchmark — HLE, MMLU, BIG-Bench, ARC — measures nearly the same dimension:
               what a model knows, how much human knowledge it can reproduce, how accurately it can reason.
             </p>
-            <p className="text-text-primary text-lg font-medium research-item opacity-0">
+            <p className="text-text-primary text-lg font-medium research-item">
               NHE asks a fundamentally different question: not how much the model knows, but how human it still thinks.
             </p>
-            <p className="text-text-tertiary text-sm leading-relaxed research-item opacity-0">
+            <p className="text-text-tertiary text-sm leading-relaxed research-item">
               NHE measures the presence of six cognitive patterns structurally embedded within human language itself.
               These are patterns that systems trained on human text cannot fully escape regardless of scale, capability, or intelligence level.
             </p>
-            <div className="glass-panel glass-spotlight p-6 research-item opacity-0">
+            <div className="glass-panel glass-spotlight p-6 research-item">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-xl bg-info-soft flex items-center justify-center shrink-0">
                   <Fingerprint className="w-5 h-5 text-info" />
@@ -81,10 +81,10 @@ export default function Research() {
 
         {/* Contact */}
         <div className="text-center mb-20">
-          <span className="inline-block text-xs font-mono uppercase tracking-widest text-text-quaternary mb-6 research-item opacity-0">Contact</span>
+          <span className="inline-block text-xs font-mono uppercase tracking-widest text-text-quaternary mb-6 research-item">Contact</span>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {contacts.map((c) => (
-              <div key={c.label} className="glass-panel p-6 text-center research-item opacity-0">
+              <div key={c.label} className="glass-panel p-6 text-center research-item">
                 <Mail className="w-5 h-5 text-text-quaternary mx-auto mb-3" />
                 <p className="text-xs text-text-quaternary mb-1">{c.label}</p>
                 <a href={`mailto:${c.email}`} className="text-sm text-text-primary hover:text-accent transition-colors font-mono">
@@ -97,20 +97,20 @@ export default function Research() {
 
         {/* Links */}
         <div className="text-center">
-          <span className="inline-block text-xs font-mono uppercase tracking-widest text-text-quaternary mb-6 research-item opacity-0">Ecosystem Links</span>
+          <span className="inline-block text-xs font-mono uppercase tracking-widest text-text-quaternary mb-6 research-item">Ecosystem Links</span>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-left">
             {links.map((group) => (
               <div key={group.category} className="space-y-3">
-                <h4 className="text-xs font-mono uppercase tracking-wider text-text-quaternary research-item opacity-0">{group.category}</h4>
+                <h4 className="text-xs font-mono uppercase tracking-wider text-text-quaternary research-item">{group.category}</h4>
                 {group.items.map((item) => (
                   <a
                     key={item.label}
                     href={item.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm text-text-tertiary hover:text-text-primary transition-colors group research-item opacity-0"
+                    className="flex items-center gap-2 text-sm text-text-tertiary hover:text-text-primary transition-colors group research-item"
                   >
-                    <ExternalLink className="w-3 h-3 shrink-0 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ExternalLink className="w-3 h-3 shrink-0 group-hover:opacity-100 transition-opacity" />
                     <span className="group-hover:text-accent transition-colors">{item.label}</span>
                   </a>
                 ))}

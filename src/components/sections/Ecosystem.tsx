@@ -41,7 +41,7 @@ export default function Ecosystem() {
           {models.map((model) => {
             const Icon = model.icon;
             return (
-              <div key={model.name} className="eco-card opacity-0 glass-panel glass-spotlight group cursor-pointer">
+              <div key={model.name} className="eco-card glass-panel glass-spotlight group cursor-pointer">
                 <div className="p-6 space-y-4">
                   <div className="flex items-start justify-between">
                     <div className={`w-10 h-10 rounded-xl bg-${model.color}-soft flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>

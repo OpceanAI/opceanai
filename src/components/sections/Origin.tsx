@@ -23,16 +23,16 @@ export default function Origin() {
   return (
     <section id="origin" ref={sectionRef} className="relative py-32 px-4">
       <div className="max-w-3xl mx-auto text-center">
-        <span className="inline-block text-xs font-mono uppercase tracking-widest text-accent mb-6 origin-item opacity-0">Origin</span>
-        <h2 className="section-heading mb-6 origin-item opacity-0">Where it began</h2>
-        <p className="text-text-tertiary text-lg leading-relaxed max-w-xl mx-auto mb-16 origin-item opacity-0">
+        <span className="inline-block text-xs font-mono uppercase tracking-widest text-accent mb-6 origin-item">Origin</span>
+        <h2 className="section-heading mb-6 origin-item">Where it began</h2>
+        <p className="text-text-tertiary text-lg leading-relaxed max-w-xl mx-auto mb-16 origin-item">
           OpceanAI was born on April 23, 2023, originally under the name <strong className="text-text-primary font-medium">Ocean</strong>.
           At that stage, the mission was simple: build bots for Discord and Telegram.
           That period became known as <strong className="text-text-primary font-medium">Bots New</strong>.
         </p>
 
         <div ref={contentRef} className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="origin-item opacity-0 glass-panel glass-spotlight p-8 text-left">
+          <div className="origin-item glass-panel glass-spotlight p-8 text-left">
             <div className="w-12 h-12 rounded-2xl bg-accent-soft flex items-center justify-center mb-4">
               <span className="text-xl font-display text-accent font-semibold">S</span>
             </div>
@@ -43,7 +43,7 @@ export default function Origin() {
             </p>
           </div>
 
-          <div className="origin-item opacity-0 glass-panel glass-spotlight p-8 text-left">
+          <div className="origin-item glass-panel glass-spotlight p-8 text-left">
             <div className="w-12 h-12 rounded-2xl bg-info-soft flex items-center justify-center mb-4">
               <span className="text-xl font-display text-info font-semibold">N</span>
             </div>
@@ -54,7 +54,7 @@ export default function Origin() {
           </div>
         </div>
 
-        <blockquote className="mt-16 origin-item opacity-0">
+        <blockquote className="mt-16 origin-item">
           <p className="font-display text-lg text-text-secondary italic leading-relaxed">
             &ldquo;Sakura and Nebula were not just the first projects. They were the first signs of a system becoming an organization.&rdquo;
           </p>

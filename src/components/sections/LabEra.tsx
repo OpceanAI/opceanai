@@ -21,14 +21,14 @@ export default function LabEra() {
   return (
     <section ref={sectionRef} className="relative py-32 px-4">
       <div className="max-w-3xl mx-auto text-center">
-        <span className="inline-block text-xs font-mono uppercase tracking-widest text-info mb-6 lab-item opacity-0">Lab Era</span>
-        <h2 className="section-heading mb-6 lab-item opacity-0">OpceanAI Lab</h2>
-        <p className="text-text-tertiary text-lg leading-relaxed max-w-xl mx-auto mb-12 lab-item opacity-0">
+        <span className="inline-block text-xs font-mono uppercase tracking-widest text-info mb-6 lab-item">Lab Era</span>
+        <h2 className="section-heading mb-6 lab-item">OpceanAI Lab</h2>
+        <p className="text-text-tertiary text-lg leading-relaxed max-w-xl mx-auto mb-12 lab-item">
           In 2025, awa decided to create something historic: <strong className="text-text-primary font-medium">YuuKi v0.1</strong>.
           This became the first prototype of the OpceanAI Lab era.
         </p>
 
-        <div ref={itemsRef} className="glass-panel glass-spotlight p-8 text-left lab-item opacity-0">
+        <div ref={itemsRef} className="glass-panel glass-spotlight p-8 text-left lab-item">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-2xl bg-info-soft flex items-center justify-center shrink-0">
               <FlaskConical className="w-5 h-5 text-info" />

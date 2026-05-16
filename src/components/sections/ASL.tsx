@@ -27,19 +27,19 @@ export default function ASL() {
   return (
     <section ref={sectionRef} className="relative py-32 px-4">
       <div className="max-w-3xl mx-auto text-center">
-        <span className="inline-block text-xs font-mono uppercase tracking-widest text-text-quaternary mb-6 asl-item opacity-0">Future</span>
-        <h2 className="section-heading mb-6 asl-item opacity-0">ASL</h2>
-        <p className="text-text-tertiary text-lg leading-relaxed max-w-xl mx-auto mb-4 asl-item opacity-0">
+        <span className="inline-block text-xs font-mono uppercase tracking-widest text-text-quaternary mb-6 asl-item">Future</span>
+        <h2 className="section-heading mb-6 asl-item">ASL</h2>
+        <p className="text-text-tertiary text-lg leading-relaxed max-w-xl mx-auto mb-4 asl-item">
           Android Subsystem for Linux. An alternative to Microsoft&apos;s WSL.
         </p>
-        <p className="text-text-secondary text-base leading-relaxed max-w-lg mx-auto mb-12 asl-item opacity-0">
+        <p className="text-text-secondary text-base leading-relaxed max-w-lg mx-auto mb-12 asl-item">
           A complete Linux kernel running in userspace, so Linux applications believe they are running on native Linux rather than Android.
           To the Android system, ASL appears as just another process. Internally, it is a real kernel.
         </p>
 
         <div ref={itemsRef} className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
           {techStack.map((t) => (
-            <div key={t.label} className="asl-item opacity-0 glass-panel p-6 text-left">
+            <div key={t.label} className="asl-item glass-panel p-6 text-left">
               <div className="w-10 h-10 rounded-xl bg-surface-3 flex items-center justify-center mb-4">
                 <t.icon className="w-5 h-5 text-text-tertiary" />
               </div>
@@ -49,7 +49,7 @@ export default function ASL() {
           ))}
         </div>
 
-        <div className="space-y-3 asl-item opacity-0">
+        <div className="space-y-3 asl-item">
           <div className="flex flex-wrap items-center justify-center gap-2">
             <span className="badge badge-research">kernel-first</span>
             <span className="badge badge-research">not distribution-first</span>
