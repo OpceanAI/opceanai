@@ -191,7 +191,9 @@
 
   body {
     font-family: var(--font-body), system-ui, -apple-system, sans-serif;
+    background: #08090a;
     background: var(--color-canvas);
+    color: #f7f8f8;
     color: var(--color-text-primary);
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
