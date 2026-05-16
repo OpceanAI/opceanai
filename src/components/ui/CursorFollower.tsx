@@ -36,13 +36,13 @@ export default function CursorFollower() {
 
     let rafId: number;
     const animate = () => {
-      const dx = posRef.current.x - followerPosRef.x;
-      const dy = posRef.current.y - followerPosRef.y;
-      followerPosRef.x += dx * 0.12;
-      followerPosRef.y += dy * 0.12;
+      const dx = posRef.current.x - followerPosRef.current.x;
+      const dy = posRef.current.y - followerPosRef.current.y;
+      followerPosRef.current.x += dx * 0.12;
+      followerPosRef.current.y += dy * 0.12;
 
       if (followerRef.current) {
-        followerRef.current.style.transform = `translate(${followerPosRef.x}px, ${followerPosRef.y}px) translate(-50%, -50%)`;
+        followerRef.current.style.transform = `translate(${followerPosRef.current.x}px, ${followerPosRef.current.y}px) translate(-50%, -50%)`;
       }
       rafId = requestAnimationFrame(animate);
     };
