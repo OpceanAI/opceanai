@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { animate, stagger, onScroll } from "animejs";
-import { Calculator, Minimize2, Sparkles, ArrowRight } from "lucide-react";
+import { Calculator, ArrowRight } from "lucide-react";
 
 const yuuKiLine = [
   { version: "v0.1", label: "First prototype", desc: "The first prototype of the OpceanAI Lab era. Where it all began." },
@@ -17,7 +17,6 @@ const ecosystemModels = [
     description: "The Yumo models emerged as a specialized branch of the YuuKi ecosystem. Based on YuuKi, but specialized in mathematics. Demonstrates that OpceanAI creates targeted, domain-oriented models — specialized, focused, mathematical, structured.",
     image: "/yuuki/yuuki.jpg",
     badge: "badge-active",
-    color: "info",
   },
   {
     name: "OwO",
@@ -25,7 +24,6 @@ const ecosystemModels = [
     description: "Short, memorable, and identity-driven. Shows that OpceanAI uses naming not only as branding, but as architectural identity.",
     image: "/owo/OwO.webp",
     badge: "badge-research",
-    color: "info",
   },
   {
     name: "OvO",
@@ -33,7 +31,6 @@ const ecosystemModels = [
     description: "Origin and versioning as architectural identity. Paired with OwO — one for reasoning, one for origin/versioning.",
     image: "/ovo/OvO.webp",
     badge: "badge-research",
-    color: "info",
   },
   {
     name: "Yaki",
@@ -41,23 +38,20 @@ const ecosystemModels = [
     description: "Based on YuuKi, enhanced with multimodal abilities. Capabilities injected via LLaVA. A non-native VL model — different from YuuKi VL models. Shows that OpceanAI is not limited to one modality or one architecture style.",
     image: "/yaki/Yaki.webp",
     badge: "badge-experimental",
-    color: "warning",
   },
   {
     name: "Imprint",
     tagline: "Multimodal research",
     description: "The Imprint line expands the ecosystem into multimodal territory alongside Yaki. Exploring multiple paths toward intelligence.",
-    icon: Sparkles,
+    image: "/imprint/nhe.webp",
     badge: "badge-research",
-    color: "info",
   },
   {
     name: "Tsuki",
     tagline: "Token compression",
     description: "A token compression model created as a quiet contribution to the ecosystem. Trained on 4,160 bilingual examples (Spanish and English), six different task types. Result: average 57.6% token reduction. Its value is precision, not loud branding.",
-    icon: Minimize2,
+    image: "/tsuki/tsuki.webp",
     badge: "badge-active",
-    color: "accent",
   },
 ];
 
@@ -125,15 +119,9 @@ export default function Ecosystem() {
                 <div key={model.name} className="glass-panel glass-spotlight group cursor-pointer eco-item">
                   <div className="p-6 space-y-4">
                     <div className="flex items-start justify-between">
-                      {"image" in model ? (
-                        <div className="w-10 h-10 rounded-xl overflow-hidden transition-transform duration-300 group-hover:scale-110">
-                          <img src={model.image} alt={model.name} className="w-full h-full object-cover" />
-                        </div>
-                      ) : (
-                        <div className={`w-10 h-10 rounded-xl bg-${model.color}-soft flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
-                          {model.icon && <model.icon className={`w-5 h-5 text-${model.color}`} />}
-                        </div>
-                      )}
+                      <div className="w-10 h-10 rounded-xl overflow-hidden transition-transform duration-300 group-hover:scale-110">
+                        <img src={model.image} alt={model.name} className="w-full h-full object-cover" />
+                      </div>
                       <span className={`badge ${model.badge}`}>
                         <span className="status-dot" />
                         {model.tagline}
@@ -155,8 +143,8 @@ export default function Ecosystem() {
           <div className="text-center">
             <div className="glass-panel glass-spotlight p-10 mx-auto max-w-2xl text-left eco-item">
               <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 rounded-2xl bg-accent-soft flex items-center justify-center shrink-0">
-                  <Minimize2 className="w-6 h-6 text-accent" />
+                <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0">
+                  <img src="/tsuki/tsuki.webp" alt="Tsuki" className="w-full h-full object-cover" />
                 </div>
                 <div>
                   <h3 className="font-display text-xl font-medium text-text-primary">Tsuki — Token Compression</h3>
