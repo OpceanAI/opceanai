@@ -43,8 +43,8 @@ export default function Origin() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
             <div className="glass-panel glass-spotlight p-8 origin-item">
-              <div className="w-12 h-12 rounded-2xl bg-accent-soft flex items-center justify-center mb-4">
-                <span className="text-xl font-display text-accent font-semibold">S</span>
+              <div className="w-12 h-12 rounded-2xl overflow-hidden mb-4">
+                <img src="/sakura/sakura.jpg" alt="Sakura" className="w-full h-full object-cover" />
               </div>
               <h3 className="font-display text-xl font-medium text-text-primary mb-3">Sakura</h3>
               <ul className="space-y-2 text-sm text-text-tertiary">
