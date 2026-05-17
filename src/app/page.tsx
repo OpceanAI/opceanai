@@ -6,6 +6,7 @@ import Discovery from "@/components/sections/Discovery";
 import LabEra from "@/components/sections/LabEra";
 import Breakthrough from "@/components/sections/Breakthrough";
 import Ecosystem from "@/components/sections/Ecosystem";
+import Stats from "@/components/sections/Stats";
 import Doki from "@/components/sections/Doki";
 import ASL from "@/components/sections/ASL";
 import Research from "@/components/sections/Research";
@@ -29,6 +30,7 @@ export default function Home() {
         <LabEra />
         <Breakthrough />
         <Ecosystem />
+        <Stats />
         <Doki />
         <ASL />
         <Research />

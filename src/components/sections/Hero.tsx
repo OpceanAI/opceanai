@@ -4,6 +4,12 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { Search, ArrowRight, X, Sparkles, Zap, ExternalLink } from "lucide-react";
 import { useToast } from "@/components/ui/Toast";
 import { search, SearchResult, EasterEgg } from "@/lib/search";
+import dynamic from "next/dynamic";
+
+const AsciiHero = dynamic(() => import("@/components/three/AsciiHero"), {
+  ssr: false,
+  loading: () => null,
+});
 
 const categoryIcons: Record<string, React.ReactNode> = {
   model: <Sparkles className="w-4 h-4" />,
@@ -13,6 +19,12 @@ const categoryIcons: Record<string, React.ReactNode> = {
   concept: <Search className="w-4 h-4" />,
 };
 
+const subtitleLines = [
+  "Bots became models.",
+  "Models became systems.",
+  "Systems became infrastructure.",
+];
+
 export default function Hero() {
   const [query, setQuery] = useState("");
   const [focused, setFocused] = useState(false);
@@ -21,6 +33,10 @@ export default function Hero() {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [easterEgg, setEasterEgg] = useState<EasterEgg | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [typedLines, setTypedLines] = useState<string[]>([]);
+  const [currentLine, setCurrentLine] = useState(0);
+  const [currentChar, setCurrentChar] = useState(0);
+  const [cursorVisible, setCursorVisible] = useState(true);
   const { toast } = useToast();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -28,6 +44,30 @@ export default function Hero() {
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    const blink = setInterval(() => setCursorVisible((v) => !v), 530);
+    return () => clearInterval(blink);
+  }, []);
+
+  useEffect(() => {
+    if (currentLine >= subtitleLines.length) return;
+
+    const line = subtitleLines[currentLine];
+    if (currentChar < line.length) {
+      const timeout = setTimeout(() => {
+        setCurrentChar((c) => c + 1);
+      }, 40 + Math.random() * 30);
+      return () => clearTimeout(timeout);
+    } else {
+      const timeout = setTimeout(() => {
+        setTypedLines((prev) => [...prev, line]);
+        setCurrentLine((l) => l + 1);
+        setCurrentChar(0);
+      }, 400);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentChar, currentLine]);
 
   useEffect(() => {
     if (query.trim()) {
@@ -133,39 +173,34 @@ export default function Hero() {
     }
   };
 
-  const titleWords = ["OpceanAI"];
-  const subtitleLines = [
-    "Bots became models.",
-    "Models became systems.",
-    "Systems became infrastructure.",
-  ];
-
   return (
-    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20">
-      <div className="ambient-glow" style={{ top: "30%", left: "50%", transform: "translate(-50%, -50%)" }} />
+    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20 overflow-hidden">
+      <AsciiHero />
 
       <div className="max-w-4xl w-full text-center space-y-12 relative z-10">
         <div className="space-y-8">
-          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-text-primary tracking-tight" style={{ lineHeight: 1.05 }}>
-            {mounted
-              ? titleWords.map((word, i) => (
-                  <span key={i} className="reveal-word" style={{ "--word-delay": `${i * 150 + 200}ms` } as React.CSSProperties}>
-                    {word}{" "}
-                  </span>
-                ))
-              : "OpceanAI"}
+          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-text-primary tracking-tight reveal-word" style={{ "--word-delay": "200ms", lineHeight: 1.05 } as React.CSSProperties}>
+            OpceanAI
           </h1>
 
-          <div className="space-y-2">
-            {subtitleLines.map((line, i) => (
+          <div className="space-y-2 min-h-[7rem] sm:min-h-[8rem]">
+            {typedLines.map((line, i) => (
               <p
                 key={i}
-                className="font-display text-xl sm:text-2xl md:text-3xl text-text-tertiary font-light leading-snug reveal-word"
-                style={{ "--word-delay": `${i * 200 + 600}ms` } as React.CSSProperties}
+                className="font-display text-xl sm:text-2xl md:text-3xl text-text-tertiary font-light leading-snug"
               >
                 {line}
               </p>
             ))}
+            {currentLine < subtitleLines.length && (
+              <p className="font-display text-xl sm:text-2xl md:text-3xl text-text-tertiary font-light leading-snug">
+                {subtitleLines[currentLine].slice(0, currentChar)}
+                <span
+                  className="inline-block w-0.5 h-6 sm:h-8 bg-accent ml-0.5 align-middle"
+                  style={{ opacity: cursorVisible ? 1 : 0, transition: "opacity 0.1s" }}
+                />
+              </p>
+            )}
           </div>
 
           <p className="text-base sm:text-lg text-text-quaternary max-w-lg mx-auto leading-relaxed reveal-word" style={{ "--word-delay": "1200ms" } as React.CSSProperties}>
