@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { animate, stagger, onScroll } from "animejs";
-import { Brain, Calculator, GitBranch, Eye, Layers, Minimize2, Fingerprint, Sparkles, ArrowRight } from "lucide-react";
+import { Calculator, GitBranch, Eye, Layers, Minimize2, Fingerprint, Sparkles, ArrowRight } from "lucide-react";
 
 const yuuKiLine = [
   { version: "v0.1", label: "First prototype", desc: "The first prototype of the OpceanAI Lab era. Where it all began." },
@@ -15,7 +15,7 @@ const ecosystemModels = [
     name: "Yumo",
     tagline: "Specialized mathematics",
     description: "The Yumo models emerged as a specialized branch of the YuuKi ecosystem. Based on YuuKi, but specialized in mathematics. Demonstrates that OpceanAI creates targeted, domain-oriented models — specialized, focused, mathematical, structured.",
-    icon: Calculator,
+    image: "/yuuki/yuuki.jpg",
     badge: "badge-active",
     color: "info",
   },
@@ -92,8 +92,8 @@ export default function Ecosystem() {
               {yuuKiLine.map((v, i) => (
                 <div key={v.version} className="glass-panel glass-spotlight p-8 text-left eco-item group">
                   <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl bg-accent-soft flex items-center justify-center">
-                      <Brain className="w-5 h-5 text-accent" />
+                    <div className="w-10 h-10 rounded-xl overflow-hidden">
+                      <img src="/yuuki/yuuki.jpg" alt={v.version} className="w-full h-full object-cover" />
                     </div>
                     <div>
                       <p className="font-display text-lg font-medium text-text-primary">{v.version}</p>
@@ -121,30 +121,33 @@ export default function Ecosystem() {
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-12">
-              {ecosystemModels.map((model) => {
-                const Icon = model.icon;
-                return (
-                  <div key={model.name} className="glass-panel glass-spotlight group cursor-pointer eco-item">
-                    <div className="p-6 space-y-4">
-                      <div className="flex items-start justify-between">
-                        <div className={`w-10 h-10 rounded-xl bg-${model.color}-soft flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
-                          <Icon className={`w-5 h-5 text-${model.color}`} />
+              {ecosystemModels.map((model) => (
+                <div key={model.name} className="glass-panel glass-spotlight group cursor-pointer eco-item">
+                  <div className="p-6 space-y-4">
+                    <div className="flex items-start justify-between">
+                      {"image" in model ? (
+                        <div className="w-10 h-10 rounded-xl overflow-hidden transition-transform duration-300 group-hover:scale-110">
+                          <img src={model.image} alt={model.name} className="w-full h-full object-cover" />
                         </div>
-                        <span className={`badge ${model.badge}`}>
-                          <span className="status-dot" />
-                          {model.tagline}
-                        </span>
-                      </div>
-                      <div>
-                        <h3 className="font-display text-lg font-medium text-text-primary group-hover:text-accent transition-colors duration-200">
-                          {model.name}
-                        </h3>
-                        <p className="text-sm text-text-tertiary mt-1.5 leading-relaxed">{model.description}</p>
-                      </div>
+                      ) : (
+                        <div className={`w-10 h-10 rounded-xl bg-${model.color}-soft flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+                          {model.icon && <model.icon className={`w-5 h-5 text-${model.color}`} />}
+                        </div>
+                      )}
+                      <span className={`badge ${model.badge}`}>
+                        <span className="status-dot" />
+                        {model.tagline}
+                      </span>
+                    </div>
+                    <div>
+                      <h3 className="font-display text-lg font-medium text-text-primary group-hover:text-accent transition-colors duration-200">
+                        {model.name}
+                      </h3>
+                      <p className="text-sm text-text-tertiary mt-1.5 leading-relaxed">{model.description}</p>
                     </div>
                   </div>
-                );
-              })}
+                </div>
+              ))}
             </div>
           </div>
 

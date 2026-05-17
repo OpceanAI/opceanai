@@ -32,7 +32,7 @@ export const searchIndex: SearchResult[] = [
     id: "yumo",
     title: "Yumo",
     description: "Specialized branch of the YuuKi ecosystem focused on mathematics.",
-    sectionId: "ecosystem",
+    sectionId: "detail-yumo",
     category: "model",
     keywords: ["yumo", "yu-mo", "math", "mathematics", "maths", "numbers", "calculation", "specialized"],
   },

@@ -38,6 +38,17 @@ const detailContents: DetailContent[] = [
     ),
   },
   {
+    id: "detail-yumo",
+    title: "Yumo",
+    label: "Mathematics",
+    labelColor: "text-accent",
+    subtitle: "Specialized branch of the YuuKi ecosystem.",
+    description: "Based on YuuKi, but specialized in mathematics. Demonstrates that OpceanAI creates targeted, domain-oriented models.",
+    render: () => (
+      <DetailYumo />
+    ),
+  },
+  {
     id: "detail-doki",
     title: "Doki",
     label: "Current Product",
@@ -99,21 +110,21 @@ const detailContents: DetailContent[] = [
 
 function DetailYuuki() {
   const timeline = [
-    { version: "v0.1", date: "2025", label: "First Prototype", description: "The first prototype of the OpceanAI Lab era. Born from curiosity, emotional context, and a desire to give form to an internal vision." },
-    { version: "NxG", date: "2026", label: "Next Generation", description: "The continuing development of the original AI line. Represents the evolution from initial prototype to a more capable system." },
-    { version: "RxG", date: "2026", label: "Refined Generation", description: "The current state of the YuuKi lineage. The most mature version, representing years of iteration and learning." },
+    { version: "v0.1", date: "2025", label: "First prototype", description: "The first prototype of the OpceanAI Lab era. Where it all began." },
+    { version: "NxG", date: "2026", label: "Next generation", description: "The continuing development of the original AI line." },
+    { version: "RxG", date: "2026", label: "Refined generation", description: "The current state of the YuuKi lineage." },
   ];
 
   return (
     <div className="space-y-16">
       <div className="glass-panel p-10 text-left detail-item">
         <div className="flex items-start gap-4 mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-info-soft flex items-center justify-center shrink-0">
-            <Heart className="w-6 h-6 text-info" />
+          <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0">
+            <img src="/yuuki/yuuki.jpg" alt="YuuKi" className="w-full h-full object-cover" />
           </div>
           <div>
-            <h3 className="font-display text-xl font-medium text-text-primary">The Origin of the Name</h3>
-            <p className="text-sm text-text-quaternary mt-1">Born from emotion, not product strategy</p>
+            <h3 className="font-display text-xl font-medium text-text-primary">The origin of the name YuuKi</h3>
+            <p className="text-sm text-text-quaternary mt-1">The name YuuKi comes from a very specific personal and emotional context.</p>
           </div>
         </div>
         <div className="space-y-4 text-sm text-text-tertiary leading-relaxed">
@@ -129,8 +140,8 @@ function DetailYuuki() {
           {timeline.map((v, i) => (
             <div key={v.version} className="glass-panel p-8 text-left detail-item group">
               <div className="flex items-start gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-accent-soft flex items-center justify-center shrink-0">
-                  <Brain className="w-6 h-6 text-accent" />
+                <div className="w-14 h-14 rounded-2xl overflow-hidden shrink-0">
+                  <img src="/yuuki/yuuki.jpg" alt={v.version} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
@@ -154,6 +165,34 @@ function DetailYuuki() {
       <div className="glass-panel p-10 text-center detail-item">
         <p className="font-display text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
           &ldquo;This rename turned a technical milestone into an identity. Iris was the first milestone. YuuKi became the real symbol.&rdquo;
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function DetailYumo() {
+  return (
+    <div className="space-y-16">
+      <div className="glass-panel p-10 text-left detail-item">
+        <div className="flex items-start gap-4 mb-6">
+          <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0">
+            <img src="/yuuki/yuuki.jpg" alt="Yumo" className="w-full h-full object-cover" />
+          </div>
+          <div>
+            <h3 className="font-display text-xl font-medium text-text-primary">Yumo</h3>
+            <p className="text-sm text-text-quaternary mt-1">Mathematics-specialized models</p>
+          </div>
+        </div>
+        <div className="space-y-4 text-sm text-text-tertiary leading-relaxed">
+          <p>The Yumo models emerged as a specialized branch of the YuuKi ecosystem. Based on YuuKi, but specialized in mathematics.</p>
+          <p>Demonstrates that OpceanAI creates targeted, domain-oriented models — specialized, focused, mathematical, structured.</p>
+        </div>
+      </div>
+
+      <div className="glass-panel p-10 text-center detail-item">
+        <p className="font-display text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
+          &ldquo;Specialized, focused, mathematical, structured.&rdquo;
         </p>
       </div>
     </div>
