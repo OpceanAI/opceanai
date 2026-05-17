@@ -196,6 +196,36 @@ export default function Hero() {
         ))}
       </div>
 
+      {/* Desktop Hero Particles */}
+      <div className="hero-particles hidden md:block">
+        {Array.from({ length: 30 }).map((_, i) => (
+          <div
+            key={i}
+            className="hero-particle"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              "--duration": `${8 + Math.random() * 12}s`,
+              "--delay": `${Math.random() * 5}s`,
+              "--dx": `${-30 + Math.random() * 60}px`,
+              "--dy": `${-40 + Math.random() * 80}px`,
+            } as React.CSSProperties}
+          />
+        ))}
+      </div>
+
+      {/* Desktop Light Rays */}
+      <div className="hero-light-rays hidden md:block" />
+
+      {/* Desktop Volumetric Fog */}
+      <div className="hero-volumetric-fog hidden md:block" />
+
+      {/* Desktop Film Grain */}
+      <div className="hero-film-grain hidden md:block" />
+
+      {/* Desktop Fog Bottom */}
+      <div className="hero-fog hidden md:block" />
+
       <div className="max-w-4xl w-full text-center space-y-12 relative z-10">
         <div className="space-y-8">
           <h1 className="hero-headline font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-text-primary tracking-tight reveal-word" style={{ "--word-delay": "200ms" } as React.CSSProperties}>
@@ -335,8 +365,8 @@ export default function Hero() {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2 reveal-word" style={{ "--word-delay": "1800ms" } as React.CSSProperties}>
-          <a href="#origin" className="cta-pill">Explore the story</a>
-          <a href="#ecosystem" className="cta-pill cta-pill-secondary">View the ecosystem</a>
+          <a href="#origin" className="cta-pill hero-cta-animated hero-cta-magnetic">Explore the story</a>
+          <a href="#ecosystem" className="cta-pill cta-pill-secondary hero-cta-magnetic">View the ecosystem</a>
         </div>
       </div>
 

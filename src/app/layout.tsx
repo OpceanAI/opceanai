@@ -2,12 +2,17 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import ScrollProgress from "@/components/ui/ScrollProgress";
+import ScrollProgressBar from "@/components/ui/ScrollProgressBar";
 import WaterRipple from "@/components/ui/WaterRipple";
 import { ToastProvider } from "@/components/ui/Toast";
 import SpotlightSearch from "@/components/ui/SpotlightSearch";
 import Preloader from "@/components/preloader/Preloader";
 import Scanlines from "@/components/effects/Scanlines";
 import BackToTop from "@/components/ui/BackToTop";
+import CustomCursor from "@/components/ui/CustomCursor";
+import dynamic from "next/dynamic";
+
+const BlueprintGrid = dynamic(() => import("@/components/background/BlueprintGrid"), { ssr: false });
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -127,8 +132,11 @@ export default function RootLayout({
 
         <Preloader />
         <Scanlines />
+        <CustomCursor />
+        <BlueprintGrid variant="lines" opacity={0.02} size={48} className="fixed inset-0 -z-10 pointer-events-none" />
         <ToastProvider>
           <ScrollProgress />
+          <ScrollProgressBar />
           <WaterRipple />
           <SpotlightSearch />
           <main id="main-content">{children}</main>

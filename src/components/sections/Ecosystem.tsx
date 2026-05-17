@@ -3,6 +3,8 @@
 import { useEffect, useRef } from "react";
 import { animate, stagger, onScroll } from "animejs";
 import { Calculator, ArrowRight } from "lucide-react";
+import SpotlightCard from "@/components/glass/SpotlightCard";
+import ScrollReveal from "@/components/ui/ScrollReveal";
 
 const yuuKiLine = [
   { version: "v0.1", label: "First prototype", desc: "The first prototype of the OpceanAI Lab era. Where it all began." },
@@ -84,23 +86,25 @@ export default function Ecosystem() {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
               {yuuKiLine.map((v, i) => (
-                <div key={v.version} className="glass-panel glass-spotlight glass-shimmer p-8 text-left eco-item group haptic-tap">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-10 h-10 rounded-xl overflow-hidden">
-                      <img src="/yuuki/yuuki.jpg" alt={v.version} className="w-full h-full object-cover" />
+                <SpotlightCard key={v.version}>
+                  <div className="glass-panel glass-spotlight glass-shimmer p-8 text-left eco-item group haptic-tap hover-lift hover-border">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-10 h-10 rounded-xl overflow-hidden hover-image-zoom">
+                        <img src="/yuuki/yuuki.jpg" alt={v.version} className="w-full h-full object-cover" />
+                      </div>
+                      <div>
+                        <p className="font-display text-lg font-medium text-text-primary">{v.version}</p>
+                        <p className="text-xs text-text-quaternary">{v.label}</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-display text-lg font-medium text-text-primary">{v.version}</p>
-                      <p className="text-xs text-text-quaternary">{v.label}</p>
-                    </div>
+                    <p className="text-sm text-text-tertiary leading-relaxed">{v.desc}</p>
+                    {i < yuuKiLine.length - 1 && (
+                      <div className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10">
+                        <ArrowRight className="w-4 h-4 text-text-quaternary" />
+                      </div>
+                    )}
                   </div>
-                  <p className="text-sm text-text-tertiary leading-relaxed">{v.desc}</p>
-                  {i < yuuKiLine.length - 1 && (
-                    <div className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10">
-                      <ArrowRight className="w-4 h-4 text-text-quaternary" />
-                    </div>
-                  )}
-                </div>
+                </SpotlightCard>
               ))}
             </div>
           </div>
@@ -116,32 +120,36 @@ export default function Ecosystem() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-12">
               {ecosystemModels.map((model) => (
-                <div key={model.name} className="glass-panel glass-spotlight glass-shimmer group cursor-pointer eco-item haptic-tap">
-                  <div className="p-6 space-y-4">
-                    <div className="flex items-start justify-between">
-                      <div className="w-10 h-10 rounded-xl overflow-hidden transition-transform duration-300 group-hover:scale-110">
-                        <img src={model.image} alt={model.name} className="w-full h-full object-cover" />
+                <SpotlightCard key={model.name}>
+                  <div className="glass-panel glass-spotlight glass-shimmer group cursor-pointer eco-item haptic-tap hover-lift hover-border">
+                    <div className="p-6 space-y-4">
+                      <div className="flex items-start justify-between">
+                        <div className="w-10 h-10 rounded-xl overflow-hidden transition-transform duration-300 group-hover:scale-110 hover-image-zoom">
+                          <img src={model.image} alt={model.name} className="w-full h-full object-cover" />
+                        </div>
+                        <span className={`badge ${model.badge}`}>
+                          <span className="status-dot" />
+                          {model.tagline}
+                        </span>
                       </div>
-                      <span className={`badge ${model.badge}`}>
-                        <span className="status-dot" />
-                        {model.tagline}
-                      </span>
-                    </div>
-                    <div>
-                      <h3 className="font-display text-lg font-medium text-text-primary group-hover:text-accent transition-colors duration-200">
-                        {model.name}
-                      </h3>
-                      <p className="text-sm text-text-tertiary mt-1.5 leading-relaxed">{model.description}</p>
+                      <div>
+                        <h3 className="font-display text-lg font-medium text-text-primary group-hover:text-accent transition-colors duration-200">
+                          {model.name}
+                        </h3>
+                        <p className="text-sm text-text-tertiary mt-1.5 leading-relaxed">{model.description}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </SpotlightCard>
               ))}
             </div>
           </div>
 
           {/* Tsuki highlight */}
-          <div className="text-center">
-            <div className="glass-panel glass-spotlight glass-shimmer glass-edge-glow p-10 mx-auto max-w-2xl text-left eco-item haptic-tap">
+          <ScrollReveal animation="scale">
+            <div className="text-center">
+              <SpotlightCard intensity={1.5}>
+                <div className="glass-panel glass-spotlight glass-shimmer glass-edge-glow p-10 mx-auto max-w-2xl text-left eco-item haptic-tap hover-lift">
               <div className="flex items-start gap-4 mb-6">
                 <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0">
                   <img src="/tsuki/tsuki.webp" alt="Tsuki" className="w-full h-full object-cover" />
@@ -177,8 +185,10 @@ export default function Ecosystem() {
               <p className="text-sm text-text-secondary italic leading-relaxed">
                 &ldquo;Quality over noise, even without recognition.&rdquo;
               </p>
+                </div>
+              </SpotlightCard>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </div>
     </section>

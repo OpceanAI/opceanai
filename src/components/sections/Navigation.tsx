@@ -160,13 +160,13 @@ export default function Navigation() {
         className={`
           fixed top-0 left-0 right-0 z-50 hidden md:block
           transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]
-          ${scrolled ? "py-2" : "py-4"}
+          ${scrolled ? "py-2 nav-compact" : "py-4"}
           ${hidden ? "-translate-y-full" : "translate-y-0"}
         `}
       >
         <nav className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center justify-between gap-3 rounded-[var(--radius-pill)] px-4 py-2 glass-elevated">
-            <a href="#hero" className="font-display text-lg font-semibold tracking-tight text-text-primary chromatic-hover">
+          <div className="flex items-center justify-between gap-3 rounded-[var(--radius-pill)] px-4 py-2 glass-elevated glass-shimmer glass-edge-reflection">
+            <a href="#hero" className="font-display text-lg font-semibold tracking-tight text-text-primary chromatic-hover nav-logo-hover">
               OpceanAI
             </a>
 
@@ -176,7 +176,7 @@ export default function Navigation() {
                   key={item.label}
                   href={item.href}
                   data-active={activeSection === item.href.slice(1)}
-                  className="px-3 py-1.5 text-sm font-medium rounded-full transition-colors duration-200"
+                  className="px-3 py-1.5 text-sm font-medium rounded-full transition-colors duration-200 nav-hover-glow"
                   style={{
                     color: activeSection === item.href.slice(1) ? "var(--color-text-primary)" : "var(--color-text-tertiary)",
                   }}
@@ -193,7 +193,7 @@ export default function Navigation() {
                 onClick={openSearch}
               >
                 <Command className="w-3.5 h-3.5" />
-                <span className="text-xs font-mono">K</span>
+                <span className="shortcut-hint">K</span>
               </button>
               <button
                 className="hidden md:flex items-center justify-center w-9 h-9 rounded-lg text-text-tertiary hover:text-text-primary hover:bg-white/[0.04] transition-colors"
