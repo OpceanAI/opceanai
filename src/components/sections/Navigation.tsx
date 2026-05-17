@@ -117,7 +117,7 @@ export default function Navigation() {
       {/* Desktop Top Bar */}
       <header
         className={`
-          fixed top-0 left-0 right-0 z-50
+          fixed top-0 left-0 right-0 z-50 hidden md:block
           transition-all duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]
           ${scrolled ? "py-2" : "py-4"}
           ${hidden ? "-translate-y-full" : "translate-y-0"}
@@ -175,7 +175,7 @@ export default function Navigation() {
       </header>
 
       {/* Mobile Top Bar */}
-      <header className="fixed top-0 left-0 right-0 z-50 md:hidden px-3 pt-2">
+      <header className="fixed top-0 left-0 right-0 z-40 md:hidden px-3 pt-2">
         <div className="flex items-center justify-between rounded-[var(--radius-pill)] px-4 py-2 glass-elevated">
           <a href="#hero" className="font-display text-base font-semibold tracking-tight text-text-primary chromatic-hover">
             OpceanAI
@@ -197,7 +197,7 @@ export default function Navigation() {
       {open && (
         <div
           ref={mobileMenuRef}
-          className="fixed inset-0 z-[60] md:hidden"
+          className="fixed inset-0 z-[350] md:hidden"
           style={{ animation: "fade-in 200ms ease-out" }}
         >
           <div className="absolute inset-0 bg-canvas/60 backdrop-blur-sm" onClick={() => setOpen(false)} />
