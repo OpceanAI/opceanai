@@ -477,65 +477,64 @@ function DetailOrigin() {
     { icon: Heart, label: "Keep moving forward", desc: "Persistence over perfection" },
   ];
 
-  const firstProjects = [
-    {
-      name: "Sakura",
-      color: "accent",
-      image: "/sakura/sakura.jpg",
-      details: [
-        { label: "Language", value: "Python" },
-        { label: "Structure", value: "Single main.py" },
-        { label: "Size", value: "~11k lines" },
-        { label: "Type", value: "Monolithic" },
-      ],
-      description: "A massive monolithic beginning. Written as a single main.py file with around 11,000 lines of code. A direct, bold, experimental approach that defined the early spirit of OpceanAI.",
-    },
-    {
-      name: "Nebula",
-      icon: "N",
-      color: "info",
-      details: [
-        { label: "Language", value: "JavaScript / TypeScript" },
-        { label: "Structure", value: "Modular" },
-        { label: "Style", value: "Different approach" },
-        { label: "Era", value: "Foundational" },
-      ],
-      description: "Built with JS/TS, representing a different implementation style. A contrasting path to Sakura, but part of the same foundational era that established the DNA of the organization.",
-    },
-  ];
-
   return (
     <div className="space-y-16">
       <div className="space-y-8">
         <h3 className="font-display text-2xl font-medium text-text-primary text-center detail-item">The First Creations</h3>
-        {firstProjects.map((project) => (
-          <div key={project.name} className="glass-panel p-10 text-left detail-item group">
-            <div className="flex items-start gap-4 mb-6">
-              {"image" in project ? (
-                <div className="w-14 h-14 rounded-2xl overflow-hidden shrink-0">
-                  <img src={project.image} alt={project.name} className="w-full h-full object-cover" />
-                </div>
-              ) : (
-                <div className={`w-14 h-14 rounded-2xl ${project.color === "accent" ? "bg-accent-soft" : "bg-info-soft"} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}>
-                  <span className={`text-xl font-display font-semibold ${project.color === "accent" ? "text-accent" : "text-info"}`}>{project.icon}</span>
-                </div>
-              )}
-              <div>
-                <h4 className="font-display text-2xl font-medium text-text-primary">{project.name}</h4>
-                <p className="text-sm text-text-quaternary mt-1">Bots New Era</p>
-              </div>
+
+        {/* Sakura */}
+        <div className="glass-panel p-10 text-left detail-item group">
+          <div className="flex items-start gap-4 mb-6">
+            <div className="w-14 h-14 rounded-2xl overflow-hidden shrink-0">
+              <img src="/sakura/sakura.jpg" alt="Sakura" className="w-full h-full object-cover" />
             </div>
-            <p className="text-sm text-text-tertiary leading-relaxed mb-6">{project.description}</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {project.details.map((d) => (
-                <div key={d.label} className="bg-surface-2 rounded-lg p-3 text-center">
-                  <p className="text-xs text-text-quaternary mb-1">{d.label}</p>
-                  <p className="text-sm font-medium text-text-primary">{d.value}</p>
-                </div>
-              ))}
+            <div>
+              <h4 className="font-display text-2xl font-medium text-text-primary">Sakura</h4>
+              <p className="text-sm text-text-quaternary mt-1">Bots New Era</p>
             </div>
           </div>
-        ))}
+          <p className="text-sm text-text-tertiary leading-relaxed mb-6">A massive monolithic beginning. Written as a single main.py file with around 11,000 lines of code. A direct, bold, experimental approach that defined the early spirit of OpceanAI.</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {[
+              { label: "Language", value: "Python" },
+              { label: "Structure", value: "Single main.py" },
+              { label: "Size", value: "~11k lines" },
+              { label: "Type", value: "Monolithic" },
+            ].map((d) => (
+              <div key={d.label} className="bg-surface-2 rounded-lg p-3 text-center">
+                <p className="text-xs text-text-quaternary mb-1">{d.label}</p>
+                <p className="text-sm font-medium text-text-primary">{d.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Nebula */}
+        <div className="glass-panel p-10 text-left detail-item group">
+          <div className="flex items-start gap-4 mb-6">
+            <div className="w-14 h-14 rounded-2xl bg-info-soft flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110">
+              <span className="text-xl font-display font-semibold text-info">N</span>
+            </div>
+            <div>
+              <h4 className="font-display text-2xl font-medium text-text-primary">Nebula</h4>
+              <p className="text-sm text-text-quaternary mt-1">Bots New Era</p>
+            </div>
+          </div>
+          <p className="text-sm text-text-tertiary leading-relaxed mb-6">Built with JS/TS, representing a different implementation style. A contrasting path to Sakura, but part of the same foundational era that established the DNA of the organization.</p>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            {[
+              { label: "Language", value: "JavaScript / TypeScript" },
+              { label: "Structure", value: "Modular" },
+              { label: "Style", value: "Different approach" },
+              { label: "Era", value: "Foundational" },
+            ].map((d) => (
+              <div key={d.label} className="bg-surface-2 rounded-lg p-3 text-center">
+                <p className="text-xs text-text-quaternary mb-1">{d.label}</p>
+                <p className="text-sm font-medium text-text-primary">{d.value}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="space-y-8">
