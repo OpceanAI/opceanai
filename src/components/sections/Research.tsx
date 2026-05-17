@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { animate, stagger, onScroll } from "animejs";
-import { Fingerprint, Mail, ExternalLink, Github } from "lucide-react";
+import { Mail, ExternalLink, Github } from "lucide-react";
 
 const contacts = [
   { label: "General Contact", email: "opceanai@gmail.com" },
@@ -104,8 +104,8 @@ export default function Research() {
 
               <div className="glass-panel glass-spotlight p-8 text-left research-item">
                 <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-info-soft flex items-center justify-center shrink-0">
-                    <Fingerprint className="w-6 h-6 text-info" />
+                  <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0">
+                    <img src="/imprint/nhe.webp" alt="Imprint" className="w-full h-full object-cover" />
                   </div>
                   <div className="space-y-3">
                     <h3 className="font-display text-lg font-medium text-text-primary">The Imprint Theory</h3>

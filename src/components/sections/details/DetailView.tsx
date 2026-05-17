@@ -5,7 +5,7 @@ import { animate, stagger } from "animejs";
 import {
   Brain, Calendar, GitBranch, Heart, Zap, ArrowRight,
   Container, Shield, Smartphone, Server, Cpu, Code, Terminal,
-  Fingerprint, Search, Target, Layers, AlertCircle,
+  Search, Target, Layers, AlertCircle,
   Minimize2, Languages, BarChart3, Database,
   FileCode, X, ExternalLink,
 } from "lucide-react";
@@ -407,8 +407,8 @@ function DetailNHE() {
 
       <div className="glass-panel p-10 text-left detail-item">
         <div className="flex items-start gap-4 mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-info-soft flex items-center justify-center shrink-0">
-            <Fingerprint className="w-6 h-6 text-info" />
+          <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0">
+            <img src="/imprint/nhe.webp" alt="Imprint" className="w-full h-full object-cover" />
           </div>
           <div>
             <h3 className="font-display text-xl font-medium text-text-primary">The Imprint Theory</h3>
