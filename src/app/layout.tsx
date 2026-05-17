@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     description: "From bots on a Snapdragon 685 phone to an ecosystem of AI models, systems, and infrastructure. Built through constraints, not resources.",
     images: [
       {
-        url: "/og-image.png",
+        url: "/favicon/logo.jpg",
         width: 1200,
         height: 630,
         alt: "OpceanAI",
@@ -54,11 +54,13 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "OpceanAI — A growing system of ideas",
     description: "From bots on a Snapdragon 685 phone to an ecosystem of AI models, systems, and infrastructure.",
-    images: ["/og-image.png"],
+    images: ["/favicon/logo.jpg"],
     creator: "@opceanai",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon/logo.jpg",
+    shortcut: "/favicon/logo.jpg",
+    apple: "/favicon/logo.jpg",
   },
 };
 
