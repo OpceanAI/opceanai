@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Menu, X, Command, Keyboard } from "lucide-react";
+import { Menu, X, Command, Keyboard, Search, Home, Layers, User } from "lucide-react";
 import ThemeToggle from "@/components/glass/ThemeToggle";
 import KeyboardShortcutsModal, { useKeyboardShortcuts } from "@/components/ui/KeyboardShortcuts";
 
@@ -12,6 +12,12 @@ const navItems = [
   { label: "About", href: "#about" },
 ];
 
+const mobileTabs = [
+  { label: "Origin", href: "#origin", icon: Home },
+  { label: "Ecosystem", href: "#ecosystem", icon: Layers },
+  { label: "About", href: "#about", icon: User },
+];
+
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -19,6 +25,7 @@ export default function Navigation() {
   const [activeSection, setActiveSection] = useState("");
   const [lastScroll, setLastScroll] = useState(0);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [tabBarShrink, setTabBarShrink] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
@@ -60,6 +67,7 @@ export default function Navigation() {
         setScrolled(current > 20);
         setHidden(current > lastScroll && current > 100);
         setLastScroll(current);
+        setTabBarShrink(current > 200);
 
         const sections = navItems.map((item) => ({
           id: item.href.slice(1),
@@ -106,6 +114,7 @@ export default function Navigation() {
 
   return (
     <>
+      {/* Desktop Top Bar */}
       <header
         className={`
           fixed top-0 left-0 right-0 z-50
@@ -165,57 +174,105 @@ export default function Navigation() {
         </nav>
       </header>
 
-      {/* Fullscreen Mobile Menu */}
+      {/* Mobile Top Bar */}
+      <header className="fixed top-0 left-0 right-0 z-50 md:hidden px-3 pt-2">
+        <div className="flex items-center justify-between rounded-[var(--radius-pill)] px-4 py-2 glass-elevated">
+          <a href="#hero" className="font-display text-base font-semibold tracking-tight text-text-primary chromatic-hover">
+            OpceanAI
+          </a>
+          <div className="flex items-center gap-1">
+            <ThemeToggle />
+            <button
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-text-tertiary"
+              onClick={() => setOpen(!open)}
+              aria-label="Toggle menu"
+            >
+              {open ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+            </button>
+          </div>
+        </div>
+      </header>
+
+      {/* Fullscreen Mobile Menu (Bottom Sheet style) */}
       {open && (
         <div
           ref={mobileMenuRef}
-          className="fixed inset-0 z-[60] bg-canvas/95 backdrop-blur-xl md:hidden"
-          style={{ animation: "fade-in 300ms ease-out" }}
+          className="fixed inset-0 z-[60] md:hidden"
+          style={{ animation: "fade-in 200ms ease-out" }}
         >
-          <div className="flex flex-col h-full p-6 pt-20">
-            <div className="flex-1 flex flex-col justify-center space-y-2">
-              {navItems.map((item, i) => (
-                <a
-                  key={item.label}
-                  href={item.href}
-                  onClick={() => setOpen(false)}
-                  className="block py-4 text-2xl font-display font-light text-text-primary hover:text-accent transition-colors border-b border-border-subtle"
-                  style={{
-                    animation: `slide-up 300ms ease-out ${i * 80}ms both`,
-                  }}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </div>
+          <div className="absolute inset-0 bg-canvas/60 backdrop-blur-sm" onClick={() => setOpen(false)} />
+          <div className="absolute bottom-0 left-0 right-0 mobile-bottom-sheet open">
+            <div className="mobile-sheet-handle" />
+            <div className="px-6 pb-8 pt-2">
+              <div className="space-y-1">
+                {navItems.map((item, i) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setOpen(false)}
+                    className="block py-4 text-xl font-display font-light text-text-primary hover:text-accent transition-colors border-b border-border-subtle"
+                    style={{
+                      animation: `slide-up 300ms ease-out ${i * 80}ms both`,
+                    }}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
 
-            <div className="pb-8 space-y-4">
-              <button
-                onClick={() => { setOpen(false); openSearch(); }}
-                className="w-full flex items-center justify-between py-3 text-text-tertiary hover:text-text-primary transition-colors"
-              >
-                <span className="text-sm">Search</span>
-                <div className="flex items-center gap-1">
-                  <kbd className="text-xs font-mono bg-surface-2 px-2 py-1 rounded border border-border-default">Cmd</kbd>
-                  <span className="text-xs text-text-quaternary">+</span>
+              <div className="mt-6 space-y-3">
+                <button
+                  onClick={() => { setOpen(false); openSearch(); }}
+                  className="w-full flex items-center justify-between py-3 text-text-tertiary hover:text-text-primary transition-colors"
+                >
+                  <span className="text-sm flex items-center gap-2">
+                    <Search className="w-4 h-4" />
+                    Search
+                  </span>
                   <kbd className="text-xs font-mono bg-surface-2 px-2 py-1 rounded border border-border-default">K</kbd>
-                </div>
-              </button>
-              <button
-                onClick={() => setShowModal(true)}
-                className="w-full flex items-center justify-between py-3 text-text-tertiary hover:text-text-primary transition-colors"
-              >
-                <span className="text-sm">Keyboard Shortcuts</span>
-                <kbd className="text-xs font-mono bg-surface-2 px-2 py-1 rounded border border-border-default">?</kbd>
-              </button>
-              <div className="flex items-center justify-between py-3">
-                <span className="text-sm text-text-tertiary">Theme</span>
-                <ThemeToggle />
+                </button>
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="w-full flex items-center justify-between py-3 text-text-tertiary hover:text-text-primary transition-colors"
+                >
+                  <span className="text-sm flex items-center gap-2">
+                    <Keyboard className="w-4 h-4" />
+                    Keyboard Shortcuts
+                  </span>
+                  <kbd className="text-xs font-mono bg-surface-2 px-2 py-1 rounded border border-border-default">?</kbd>
+                </button>
               </div>
             </div>
           </div>
         </div>
       )}
+
+      {/* Mobile Bottom Tab Bar */}
+      <nav className={`mobile-tab-bar md:hidden ${tabBarShrink ? "shrink" : ""}`}>
+        {mobileTabs.map((tab) => {
+          const Icon = tab.icon;
+          const isActive = activeSection === tab.href.slice(1);
+          return (
+            <a
+              key={tab.label}
+              href={tab.href}
+              className={`mobile-tab-item ${isActive ? "active" : ""}`}
+            >
+              <Icon className="w-5 h-5" />
+              <span>{tab.label}</span>
+            </a>
+          );
+        })}
+      </nav>
+
+      {/* Mobile Floating Search Button */}
+      <button
+        className="mobile-search-btn md:hidden"
+        onClick={openSearch}
+        aria-label="Search"
+      >
+        <Search className="w-5 h-5" />
+      </button>
 
       <KeyboardShortcutsModal visible={showModal} onClose={() => setShowModal(false)} />
 

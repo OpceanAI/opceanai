@@ -81,6 +81,14 @@ function AsciiPostProcessing({ color, invert, mobile }: { color: string; invert:
   );
 }
 
+function GradientMesh() {
+  return (
+    <div className="gradient-mesh">
+      <div />
+    </div>
+  );
+}
+
 export default function AsciiHero() {
   const [dark, setDark] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
@@ -109,15 +117,18 @@ export default function AsciiHero() {
 
   return (
     <div className="absolute inset-0 -z-10 opacity-35">
-      <Canvas
-        camera={{ position: [0, 0, 6], fov: 50 }}
-        gl={{ alpha: true, antialias: false }}
-        dpr={isMobile ? [1, 1] : undefined}
-        style={{ background: "transparent" }}
-      >
-        <AsciiObjects mobile={isMobile} />
-        <AsciiPostProcessing color={asciiColor} invert={invert} mobile={isMobile} />
-      </Canvas>
+      {isMobile ? (
+        <GradientMesh />
+      ) : (
+        <Canvas
+          camera={{ position: [0, 0, 6], fov: 50 }}
+          gl={{ alpha: true, antialias: false }}
+          style={{ background: "transparent" }}
+        >
+          <AsciiObjects mobile={false} />
+          <AsciiPostProcessing color={asciiColor} invert={invert} mobile={false} />
+        </Canvas>
+      )}
     </div>
   );
 }

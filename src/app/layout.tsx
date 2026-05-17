@@ -7,6 +7,7 @@ import { ToastProvider } from "@/components/ui/Toast";
 import SpotlightSearch from "@/components/ui/SpotlightSearch";
 import Preloader from "@/components/preloader/Preloader";
 import Scanlines from "@/components/effects/Scanlines";
+import BackToTop from "@/components/ui/BackToTop";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -73,6 +74,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${cormorant.variable} ${inter.variable} ${jetbrains.variable} dark`}
+      suppressHydrationWarning
     >
       <head>
         <script
@@ -98,13 +100,39 @@ export default function RootLayout({
         />
       </head>
       <body className="antialiased">
+        <a href="#main-content" className="skip-link">Skip to content</a>
+
+        {/* SVG Refraction Filter for Liquid Glass */}
+        <svg style={{ display: "none" }} xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="lg-dist" x="0%" y="0%" width="100%" height="100%">
+              <feTurbulence
+                type="fractalNoise"
+                baseFrequency="0.008 0.008"
+                numOctaves="2"
+                seed="92"
+                result="noise"
+              />
+              <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
+              <feDisplacementMap
+                in="SourceGraphic"
+                in2="blurred"
+                scale="8"
+                xChannelSelector="R"
+                yChannelSelector="G"
+              />
+            </filter>
+          </defs>
+        </svg>
+
         <Preloader />
         <Scanlines />
         <ToastProvider>
           <ScrollProgress />
           <WaterRipple />
           <SpotlightSearch />
-          {children}
+          <main id="main-content">{children}</main>
+          <BackToTop />
         </ToastProvider>
       </body>
     </html>
