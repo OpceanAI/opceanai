@@ -480,8 +480,8 @@ function DetailOrigin() {
   const firstProjects = [
     {
       name: "Sakura",
-      icon: "S",
       color: "accent",
+      image: "/sakura/sakura.jpg",
       details: [
         { label: "Language", value: "Python" },
         { label: "Structure", value: "Single main.py" },
@@ -511,9 +511,15 @@ function DetailOrigin() {
         {firstProjects.map((project) => (
           <div key={project.name} className="glass-panel p-10 text-left detail-item group">
             <div className="flex items-start gap-4 mb-6">
-              <div className={`w-14 h-14 rounded-2xl ${project.color === "accent" ? "bg-accent-soft" : "bg-info-soft"} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}>
-                <span className={`text-xl font-display font-semibold ${project.color === "accent" ? "text-accent" : "text-info"}`}>{project.icon}</span>
-              </div>
+              {"image" in project ? (
+                <div className="w-14 h-14 rounded-2xl overflow-hidden shrink-0">
+                  <img src={project.image} alt={project.name} className="w-full h-full object-cover" />
+                </div>
+              ) : (
+                <div className={`w-14 h-14 rounded-2xl ${project.color === "accent" ? "bg-accent-soft" : "bg-info-soft"} flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110`}>
+                  <span className={`text-xl font-display font-semibold ${project.color === "accent" ? "text-accent" : "text-info"}`}>{project.icon}</span>
+                </div>
+              )}
               <div>
                 <h4 className="font-display text-2xl font-medium text-text-primary">{project.name}</h4>
                 <p className="text-sm text-text-quaternary mt-1">Bots New Era</p>
