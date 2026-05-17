@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { animate, stagger, onScroll } from "animejs";
-import { Calculator, GitBranch, Eye, Layers, Minimize2, Fingerprint, Sparkles, ArrowRight } from "lucide-react";
+import { Calculator, Minimize2, Sparkles, ArrowRight } from "lucide-react";
 
 const yuuKiLine = [
   { version: "v0.1", label: "First prototype", desc: "The first prototype of the OpceanAI Lab era. Where it all began." },
@@ -23,7 +23,7 @@ const ecosystemModels = [
     name: "OwO",
     tagline: "OpceanAI with Omni-Reasoning",
     description: "Short, memorable, and identity-driven. Shows that OpceanAI uses naming not only as branding, but as architectural identity.",
-    icon: GitBranch,
+    image: "/owo/OwO.webp",
     badge: "badge-research",
     color: "info",
   },
@@ -31,7 +31,7 @@ const ecosystemModels = [
     name: "OvO",
     tagline: "OpceanAI v0",
     description: "Origin and versioning as architectural identity. Paired with OwO — one for reasoning, one for origin/versioning.",
-    icon: Layers,
+    image: "/ovo/OvO.webp",
     badge: "badge-research",
     color: "info",
   },
@@ -39,7 +39,7 @@ const ecosystemModels = [
     name: "Yaki",
     tagline: "Multimodal",
     description: "Based on YuuKi, enhanced with multimodal abilities. Capabilities injected via LLaVA. A non-native VL model — different from YuuKi VL models. Shows that OpceanAI is not limited to one modality or one architecture style.",
-    icon: Eye,
+    image: "/yaki/Yaki.webp",
     badge: "badge-experimental",
     color: "warning",
   },
