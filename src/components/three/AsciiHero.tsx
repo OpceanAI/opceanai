@@ -1,12 +1,11 @@
 "use client";
 
-import { useRef, useMemo, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
-import { EffectComposer, EffectPass, RenderPass } from "postprocessing";
-import { ASCIIEffect } from "./ASCIIEffect";
+import { EffectComposer, ASCII } from "@react-three/postprocessing";
 import * as THREE from "three";
 
-function AsciiScene({ dark }: { dark: boolean }) {
+function AsciiObjects() {
   const meshRef = useRef<THREE.Mesh>(null);
   const groupRef = useRef<THREE.Group>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
@@ -35,9 +34,6 @@ function AsciiScene({ dark }: { dark: boolean }) {
     }
   });
 
-  const asciiColor = dark ? "#2dd4bf" : "#0d9488";
-  const invert = dark ? 1.0 : 0.0;
-
   return (
     <>
       <ambientLight intensity={0.05} />
@@ -48,75 +44,34 @@ function AsciiScene({ dark }: { dark: boolean }) {
       <group ref={groupRef}>
         <mesh ref={meshRef}>
           <torusKnotGeometry args={[1.2, 0.4, 128, 32]} />
-          <meshStandardMaterial
-            color={dark ? "#1a1a2e" : "#e0e0e0"}
-            metalness={0.3}
-            roughness={0.7}
-          />
+          <meshStandardMaterial color="#1a1a2e" metalness={0.3} roughness={0.7} />
         </mesh>
 
         <mesh position={[3, 0.5, -2]}>
           <icosahedronGeometry args={[0.8, 1]} />
-          <meshStandardMaterial
-            color={dark ? "#16213e" : "#d0d0d0"}
-            metalness={0.5}
-            roughness={0.5}
-          />
+          <meshStandardMaterial color="#16213e" metalness={0.5} roughness={0.5} />
         </mesh>
 
         <mesh position={[-3, -0.5, -1]}>
           <octahedronGeometry args={[0.6, 0]} />
-          <meshStandardMaterial
-            color={dark ? "#0f3460" : "#c0c0c0"}
-            metalness={0.4}
-            roughness={0.6}
-          />
+          <meshStandardMaterial color="#0f3460" metalness={0.4} roughness={0.6} />
         </mesh>
       </group>
-
-      <AsciiPostProcessing color={asciiColor} invert={invert} />
     </>
   );
 }
 
-function AsciiPostProcessing({ color, invert }: { color: string; invert: number }) {
-  const { gl, scene, camera, size } = useThree();
-  const composerRef = useRef<EffectComposer | null>(null);
-
-  useEffect(() => {
-    const composer = new EffectComposer(gl);
-    composer.addPass(new RenderPass(scene, camera));
-
-    const asciiEffect = new ASCIIEffect({
-      cellSize: 10,
-      color: color,
-      invert: invert === 1,
-      fontSize: 60,
-    });
-
-    const effectPass = new EffectPass(camera, asciiEffect);
-    composer.addPass(effectPass);
-
-    composerRef.current = composer;
-
-    return () => {
-      composer.dispose();
-    };
-  }, [gl, scene, camera, color, invert]);
-
-  useFrame((_, delta) => {
-    if (composerRef.current) {
-      composerRef.current.render(delta);
-    }
-  }, 1);
-
-  useEffect(() => {
-    if (composerRef.current) {
-      composerRef.current.setSize(size.width, size.height);
-    }
-  }, [size]);
-
-  return null;
+function AsciiPostProcessing({ color, invert }: { color: string; invert: boolean }) {
+  return (
+    <EffectComposer>
+      <ASCII
+        cellSize={10}
+        color={color}
+        invert={invert}
+        fontSize={60}
+      />
+    </EffectComposer>
+  );
 }
 
 export default function AsciiHero() {
@@ -134,14 +89,18 @@ export default function AsciiHero() {
     return () => observer.disconnect();
   }, []);
 
+  const asciiColor = dark ? "#2dd4bf" : "#0d9488";
+  const invert = dark;
+
   return (
-    <div className="absolute inset-0 -z-10 opacity-40">
+    <div className="absolute inset-0 -z-10 opacity-35">
       <Canvas
         camera={{ position: [0, 0, 6], fov: 50 }}
         gl={{ alpha: true, antialias: false }}
         style={{ background: "transparent" }}
       >
-        <AsciiScene dark={dark} />
+        <AsciiObjects />
+        <AsciiPostProcessing color={asciiColor} invert={invert} />
       </Canvas>
     </div>
   );

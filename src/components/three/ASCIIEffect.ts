@@ -1,6 +1,5 @@
-import { Effect, EffectAttribute } from "postprocessing";
-import { CanvasTexture, Color, RepeatWrapping, Texture, Uniform, Vector2 } from "three";
-import * as THREE from "three";
+import { Effect } from "postprocessing";
+import { CanvasTexture, Color, NearestFilter, RepeatWrapping, Texture, Uniform } from "three";
 
 export interface ASCIIEffectProps {
   characters?: string;
@@ -12,44 +11,21 @@ export interface ASCIIEffectProps {
 
 const defaultCharacters = " .'`^\",:;Il!i~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ0OZmwqpdbkhao*#MW&8%B@$";
 
-const vertexShader = /* glsl */ `
-  in vec3 position;
-  in vec2 uv;
-  out vec2 vUv;
-  void main() {
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-`;
-
 const fragmentShader = /* glsl */ `
-  precision highp float;
-
-  uniform sampler2D tDiffuse;
   uniform sampler2D tCharacters;
   uniform float uCellSize;
   uniform float uInvert;
   uniform vec3 uColor;
   uniform vec2 uResolution;
 
-  in vec2 vUv;
-  out vec4 fragColor;
-
-  float getBrightness(vec2 uv) {
+  void mainImage(const in vec4 inputColor, const in vec2 uv, out vec4 outputColor) {
     vec2 cell = uResolution / uCellSize;
     vec2 grid = 1.0 / cell;
     vec2 cellUV = grid * (floor(uv / grid) + grid * 0.5);
-    vec3 color = texture2D(tDiffuse, cellUV).rgb;
-    return dot(color, vec3(0.299, 0.587, 0.114));
-  }
+    vec2 charUV = mod(uv, grid) / grid;
 
-  void main() {
-    vec2 cell = uResolution / uCellSize;
-    vec2 grid = 1.0 / cell;
-    vec2 cellUV = floor(vUv / grid);
-    vec2 charUV = mod(vUv, grid) / grid;
-
-    float brightness = getBrightness(vUv);
+    vec3 sceneColor = texture2D(inputBuffer, cellUV).rgb;
+    float brightness = dot(sceneColor, vec3(0.299, 0.587, 0.114));
     brightness = mix(brightness, 1.0 - brightness, uInvert);
 
     float charCount = 70.0;
@@ -64,7 +40,7 @@ const fragmentShader = /* glsl */ `
     float brightnessFactor = mix(0.3, 1.0, brightness);
 
     vec3 finalColor = uColor * brightnessFactor;
-    fragColor = vec4(finalColor, finalAlpha * 0.8);
+    outputColor = vec4(finalColor, finalAlpha * 0.85);
   }
 `;
 
@@ -78,9 +54,7 @@ export class ASCIIEffect extends Effect {
     color = "#2dd4bf",
     invert = false,
   }: ASCIIEffectProps = {}) {
-    super("ASCIIEffect", fragmentShader, {
-      attributes: EffectAttribute.CONVOLUTION,
-    });
+    super("ASCIIEffect", fragmentShader);
 
     this.charactersTexture = this.createCharactersTexture(characters, fontSize);
     this.uniforms.set("tCharacters", new Uniform(this.charactersTexture));
@@ -116,14 +90,14 @@ export class ASCIIEffect extends Effect {
     texture.wrapS = RepeatWrapping;
     texture.wrapT = RepeatWrapping;
     texture.needsUpdate = true;
-    texture.minFilter = THREE.NearestFilter;
-    texture.magFilter = THREE.NearestFilter;
+    texture.minFilter = NearestFilter;
+    texture.magFilter = NearestFilter;
 
     return texture;
   }
 
-  update(renderer: THREE.WebGLRenderer): void {
-    const size = renderer.getSize(new Vector2());
-    this.uniforms.get("uResolution")!.value = [size.x, size.y];
+  override setSize(width: number, height: number): void {
+    super.setSize(width, height);
+    this.uniforms.get("uResolution")!.value = [width, height];
   }
 }
