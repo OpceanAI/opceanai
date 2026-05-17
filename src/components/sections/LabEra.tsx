@@ -2,7 +2,6 @@
 
 import { useEffect, useRef } from "react";
 import { animate, stagger, onScroll } from "animejs";
-import { FlaskConical } from "lucide-react";
 
 export default function LabEra() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -35,8 +34,8 @@ export default function LabEra() {
 
           <div className="glass-panel p-8 mx-auto max-w-lg text-left lab-item">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl bg-info-soft flex items-center justify-center shrink-0">
-                <FlaskConical className="w-5 h-5 text-info" />
+              <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0">
+                <img src="/yuuki/yuuki.jpg" alt="YuuKi" className="w-full h-full object-cover" />
               </div>
               <div className="space-y-4">
                 <h3 className="font-display text-lg font-medium text-text-primary">The origin of the name YuuKi</h3>
