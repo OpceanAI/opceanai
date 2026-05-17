@@ -512,8 +512,8 @@ function DetailOrigin() {
         {/* Nebula */}
         <div className="glass-panel p-10 text-left detail-item group">
           <div className="flex items-start gap-4 mb-6">
-            <div className="w-14 h-14 rounded-2xl bg-info-soft flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110">
-              <span className="text-xl font-display font-semibold text-info">N</span>
+            <div className="w-14 h-14 rounded-2xl overflow-hidden shrink-0 transition-transform duration-300 group-hover:scale-110">
+              <img src="/nebula/nebula-anime.jpg" alt="Nebula" className="w-full h-full object-cover" />
             </div>
             <div>
               <h4 className="font-display text-2xl font-medium text-text-primary">Nebula</h4>
