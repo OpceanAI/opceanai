@@ -61,7 +61,7 @@ export default function Doki() {
           {/* 3 highlighted capabilities */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
             {capabilities.map((c) => (
-              <div key={c.title} className="glass-panel glass-spotlight p-8 doki-item">
+              <div key={c.title} className="glass-panel glass-spotlight glass-shimmer p-8 doki-item haptic-tap">
                 <div className="w-12 h-12 rounded-2xl bg-accent-soft flex items-center justify-center mb-5">
                   <c.icon className="w-6 h-6 text-accent" />
                 </div>

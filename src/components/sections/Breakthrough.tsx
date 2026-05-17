@@ -41,7 +41,7 @@ export default function Breakthrough() {
               So a dataset was downloaded — essentially all of Wikipedia — and the work began.
             </p>
 
-            <div className="glass-panel p-8 mx-auto max-w-lg text-left breakthrough-item">
+            <div className="glass-panel glass-shimmer p-8 mx-auto max-w-lg text-left breakthrough-item haptic-tap">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-warning-soft flex items-center justify-center shrink-0">
                   <Database className="w-5 h-5 text-warning" />
@@ -58,7 +58,7 @@ export default function Breakthrough() {
 
             <div className="divider max-w-xs mx-auto breakthrough-item" />
 
-            <div className="glass-panel p-8 mx-auto max-w-lg text-left breakthrough-item">
+            <div className="glass-panel glass-shimmer p-8 mx-auto max-w-lg text-left breakthrough-item haptic-tap">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-surface-3 flex items-center justify-center shrink-0">
                   <Cpu className="w-5 h-5 text-text-tertiary" />
@@ -111,7 +111,7 @@ export default function Breakthrough() {
           <div className="divider max-w-xs mx-auto breakthrough-item" />
 
           {/* The rename meaning */}
-          <div className="glass-panel p-8 mx-auto max-w-lg text-left breakthrough-item">
+          <div className="glass-panel glass-shimmer p-8 mx-auto max-w-lg text-left breakthrough-item haptic-tap">
             <h4 className="text-xs font-mono uppercase tracking-wider text-text-quaternary mb-3">Why the rename mattered</h4>
             <p className="text-sm text-text-tertiary leading-relaxed mb-3">
               This rename turned a technical milestone into an identity.
@@ -138,7 +138,7 @@ export default function Breakthrough() {
               Awa wanted to stop. Wanted to do nothing. Wanted a better path.
             </p>
 
-            <div className="glass-panel p-8 mx-auto max-w-lg text-left breakthrough-item">
+            <div className="glass-panel glass-shimmer p-8 mx-auto max-w-lg text-left breakthrough-item haptic-tap">
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 rounded-2xl bg-accent-soft flex items-center justify-center shrink-0">
                   <Zap className="w-5 h-5 text-accent" />

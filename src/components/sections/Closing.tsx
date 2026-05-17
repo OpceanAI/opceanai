@@ -43,7 +43,7 @@ export default function Closing() {
             And that story should be told with the same level of care and precision that the work itself demands.
           </p>
 
-          <div className="glass-panel p-10 mx-auto max-w-2xl closing-item">
+          <div className="glass-panel glass-shimmer glass-edge-glow p-10 mx-auto max-w-2xl closing-item haptic-tap">
             <p className="font-display text-xl sm:text-2xl text-text-primary/90 italic leading-relaxed">
               &ldquo;OpceanAI is not one project.
               It is a growing system of ideas that learned how to become real.&rdquo;

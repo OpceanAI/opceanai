@@ -42,8 +42,8 @@ export default function Origin() {
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
-            <div className="glass-panel glass-spotlight p-8 origin-item">
-              <div className="w-12 h-12 rounded-2xl overflow-hidden mb-4">
+            <div className="glass-panel glass-spotlight glass-shimmer p-8 origin-item haptic-tap">
+              <div className="w-12 h-12 rounded-2xl overflow-hidden mb-4 system-shadow">
                 <img src="/sakura/sakura.jpg" alt="Sakura" className="w-full h-full object-cover" />
               </div>
               <h3 className="font-display text-xl font-medium text-text-primary mb-3">Sakura</h3>
@@ -67,8 +67,8 @@ export default function Origin() {
               </ul>
             </div>
 
-            <div className="glass-panel glass-spotlight p-8 origin-item">
-              <div className="w-12 h-12 rounded-2xl overflow-hidden mb-4">
+            <div className="glass-panel glass-spotlight glass-shimmer p-8 origin-item haptic-tap">
+              <div className="w-12 h-12 rounded-2xl overflow-hidden mb-4 system-shadow">
                 <img src="/nebula/nebula-anime.jpg" alt="Nebula" className="w-full h-full object-cover" />
               </div>
               <h3 className="font-display text-xl font-medium text-text-primary mb-3">Nebula</h3>
@@ -93,7 +93,7 @@ export default function Origin() {
             </div>
           </div>
 
-          <div className="glass-panel p-8 mx-auto max-w-lg text-left origin-item">
+          <div className="glass-panel glass-shimmer p-8 mx-auto max-w-lg text-left origin-item haptic-tap">
             <h4 className="text-xs font-mono uppercase tracking-wider text-text-quaternary mb-4">The DNA of this era</h4>
             <div className="flex flex-wrap gap-2">
               {dna.map((item) => (

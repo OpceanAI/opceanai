@@ -32,9 +32,9 @@ export default function LabEra() {
             This became the first prototype of the OpceanAI Lab era.
           </p>
 
-          <div className="glass-panel p-8 mx-auto max-w-lg text-left lab-item">
+          <div className="glass-panel glass-shimmer p-8 mx-auto max-w-lg text-left lab-item haptic-tap">
             <div className="flex items-start gap-4">
-              <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0">
+              <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0 system-shadow">
                 <img src="/yuuki/yuuki.jpg" alt="YuuKi" className="w-full h-full object-cover" />
               </div>
               <div className="space-y-4">
@@ -58,7 +58,7 @@ export default function LabEra() {
             </div>
           </div>
 
-          <div className="glass-panel p-8 mx-auto max-w-lg text-left lab-item">
+          <div className="glass-panel glass-shimmer p-8 mx-auto max-w-lg text-left lab-item haptic-tap">
             <h4 className="text-xs font-mono uppercase tracking-wider text-text-quaternary mb-3">Why this matters</h4>
             <p className="text-sm text-text-tertiary leading-relaxed mb-3">
               This part of the story should not be treated like trivia.

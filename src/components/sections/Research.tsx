@@ -68,7 +68,7 @@ export default function Research() {
                 Every existing benchmark — HLE, MMLU, BIG-Bench, ARC — measures nearly the same dimension:
               </p>
 
-              <div className="glass-panel p-8 text-left research-item">
+              <div className="glass-panel glass-shimmer p-8 text-left research-item haptic-tap">
                 <ul className="space-y-3 text-sm text-text-secondary">
                   <li className="flex items-start gap-3">
                     <span className="text-info mt-1.5 w-1.5 h-1.5 rounded-full bg-info shrink-0" />
@@ -102,7 +102,7 @@ export default function Research() {
                 These are patterns that systems trained on human text cannot fully escape regardless of scale, capability, or intelligence level.
               </p>
 
-              <div className="glass-panel glass-spotlight p-8 text-left research-item">
+              <div className="glass-panel glass-spotlight glass-shimmer glass-edge-glow p-8 text-left research-item haptic-tap">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0">
                     <img src="/imprint/nhe.webp" alt="Imprint" className="w-full h-full object-cover" />
@@ -143,7 +143,7 @@ export default function Research() {
             <span className="inline-block text-xs font-mono uppercase tracking-widest text-text-quaternary mb-6 research-item">Contact</span>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {contacts.map((c) => (
-                <div key={c.label} className="glass-panel p-6 text-center research-item">
+                <div key={c.label} className="glass-panel glass-shimmer p-6 text-center research-item haptic-tap">
                   <Mail className="w-5 h-5 text-text-quaternary mx-auto mb-3" />
                   <p className="text-xs text-text-quaternary mb-1">{c.label}</p>
                   <a href={`mailto:${c.email}`} className="text-sm text-text-primary hover:text-accent transition-colors font-mono">

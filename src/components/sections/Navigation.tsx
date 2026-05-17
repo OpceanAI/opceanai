@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import { Menu, X, Command, Keyboard, Search, Home, Layers, User } from "lucide-react";
+import { Command, Keyboard, Search, Home, Layers, User } from "lucide-react";
 import ThemeToggle from "@/components/glass/ThemeToggle";
 import KeyboardShortcutsModal, { useKeyboardShortcuts } from "@/components/ui/KeyboardShortcuts";
 
@@ -18,17 +18,30 @@ const mobileTabs = [
   { label: "About", href: "#about", icon: User },
 ];
 
+function HamburgerIcon({ open }: { open: boolean }) {
+  return (
+    <div className={`hamburger-x ${open ? "open" : ""}`} aria-hidden="true">
+      <span />
+      <span />
+      <span />
+    </div>
+  );
+}
+
 export default function Navigation() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [activeSection, setActiveSection] = useState("");
   const [lastScroll, setLastScroll] = useState(0);
-  const [searchOpen, setSearchOpen] = useState(false);
   const [tabBarShrink, setTabBarShrink] = useState(false);
   const navRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
   const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const touchStartY = useRef(0);
+  const touchCurrentY = useRef(0);
+  const isDragging = useRef(false);
 
   const openSearch = useCallback(() => {
     window.dispatchEvent(new KeyboardEvent("keydown", { key: "k", metaKey: true, ctrlKey: true }));
@@ -112,6 +125,34 @@ export default function Navigation() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+    touchCurrentY.current = e.touches[0].clientY;
+    isDragging.current = true;
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!isDragging.current || !sheetRef.current) return;
+    touchCurrentY.current = e.touches[0].clientY;
+    const diff = touchCurrentY.current - touchStartY.current;
+    if (diff > 0) {
+      sheetRef.current.style.transform = `translateY(${diff}px)`;
+    }
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    if (!isDragging.current || !sheetRef.current) return;
+    isDragging.current = false;
+    const diff = touchCurrentY.current - touchStartY.current;
+    if (diff > 150) {
+      setOpen(false);
+    } else {
+      sheetRef.current.style.transform = "";
+    }
+    touchStartY.current = 0;
+    touchCurrentY.current = 0;
+  }, []);
+
   return (
     <>
       {/* Desktop Top Bar */}
@@ -162,13 +203,6 @@ export default function Navigation() {
                 <Keyboard className="w-4 h-4" />
               </button>
               <ThemeToggle />
-              <button
-                className="md:hidden w-9 h-9 flex items-center justify-center rounded-lg text-text-tertiary hover:text-text-primary hover:bg-white/[0.04] transition-colors"
-                onClick={() => setOpen(!open)}
-                aria-label="Toggle menu"
-              >
-                {open ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-              </button>
             </div>
           </div>
         </nav>
@@ -176,18 +210,18 @@ export default function Navigation() {
 
       {/* Mobile Top Bar */}
       <header className="fixed top-0 left-0 right-0 z-40 md:hidden px-3 pt-2">
-        <div className="flex items-center justify-between rounded-[var(--radius-pill)] px-4 py-2 glass-elevated">
+        <div className="flex items-center justify-between rounded-[var(--radius-pill)] px-4 py-2 glass-elevated glass-shimmer">
           <a href="#hero" className="font-display text-base font-semibold tracking-tight text-text-primary chromatic-hover">
             OpceanAI
           </a>
           <div className="flex items-center gap-1">
             <ThemeToggle />
             <button
-              className="w-8 h-8 flex items-center justify-center rounded-lg text-text-tertiary"
+              className="w-8 h-8 flex items-center justify-center rounded-lg text-text-tertiary haptic-tap"
               onClick={() => setOpen(!open)}
               aria-label="Toggle menu"
             >
-              {open ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+              <HamburgerIcon open={open} />
             </button>
           </div>
         </div>
@@ -201,7 +235,13 @@ export default function Navigation() {
           style={{ animation: "fade-in 200ms ease-out" }}
         >
           <div className="absolute inset-0 bg-canvas/60 backdrop-blur-sm" onClick={() => setOpen(false)} />
-          <div className="absolute bottom-0 left-0 right-0 mobile-bottom-sheet open">
+          <div
+            ref={sheetRef}
+            className="absolute bottom-0 left-0 right-0 mobile-bottom-sheet open glass-frosted chromatic-edge"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
             <div className="mobile-sheet-handle" />
             <div className="px-6 pb-8 pt-2">
               <div className="space-y-1">
@@ -210,9 +250,9 @@ export default function Navigation() {
                     key={item.label}
                     href={item.href}
                     onClick={() => setOpen(false)}
-                    className="block py-4 text-xl font-display font-light text-text-primary hover:text-accent transition-colors border-b border-border-subtle"
+                    className="block py-4 text-xl font-display font-light text-text-primary hover:text-accent transition-colors border-b border-border-subtle haptic-tap"
                     style={{
-                      animation: `slide-up 300ms ease-out ${i * 80}ms both`,
+                      animation: `slide-up 300ms ease-out ${i * 50}ms both`,
                     }}
                   >
                     {item.label}
@@ -223,7 +263,7 @@ export default function Navigation() {
               <div className="mt-6 space-y-3">
                 <button
                   onClick={() => { setOpen(false); openSearch(); }}
-                  className="w-full flex items-center justify-between py-3 text-text-tertiary hover:text-text-primary transition-colors"
+                  className="w-full flex items-center justify-between py-3 text-text-tertiary hover:text-text-primary transition-colors haptic-tap"
                 >
                   <span className="text-sm flex items-center gap-2">
                     <Search className="w-4 h-4" />
@@ -233,7 +273,7 @@ export default function Navigation() {
                 </button>
                 <button
                   onClick={() => setShowModal(true)}
-                  className="w-full flex items-center justify-between py-3 text-text-tertiary hover:text-text-primary transition-colors"
+                  className="w-full flex items-center justify-between py-3 text-text-tertiary hover:text-text-primary transition-colors haptic-tap"
                 >
                   <span className="text-sm flex items-center gap-2">
                     <Keyboard className="w-4 h-4" />
@@ -256,7 +296,7 @@ export default function Navigation() {
             <a
               key={tab.label}
               href={tab.href}
-              className={`mobile-tab-item ${isActive ? "active" : ""}`}
+              className={`mobile-tab-item haptic-tap ${isActive ? "active" : ""}`}
             >
               <Icon className="w-5 h-5" />
               <span>{tab.label}</span>
@@ -267,7 +307,7 @@ export default function Navigation() {
 
       {/* Mobile Floating Search Button */}
       <button
-        className="mobile-search-btn md:hidden"
+        className="mobile-search-btn md:hidden haptic-tap"
         onClick={openSearch}
         aria-label="Search"
       >

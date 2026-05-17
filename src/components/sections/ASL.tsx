@@ -44,7 +44,7 @@ export default function ASL() {
             so that Linux applications believe they are running on native Linux rather than Android.
           </p>
 
-          <div className="glass-panel p-8 mx-auto max-w-lg text-left asl-item">
+          <div className="glass-panel glass-shimmer p-8 mx-auto max-w-lg text-left asl-item haptic-tap">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-2xl bg-surface-3 flex items-center justify-center shrink-0">
                 <Server className="w-5 h-5 text-text-tertiary" />
@@ -67,7 +67,7 @@ export default function ASL() {
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {techStack.map((t) => (
-              <div key={t.label} className="glass-panel p-6 text-left asl-item">
+              <div key={t.label} className="glass-panel glass-shimmer p-6 text-left asl-item haptic-tap">
                 <div className="w-10 h-10 rounded-xl bg-surface-3 flex items-center justify-center mb-4">
                   <t.icon className="w-5 h-5 text-text-tertiary" />
                 </div>
@@ -77,7 +77,7 @@ export default function ASL() {
             ))}
           </div>
 
-          <div className="glass-panel p-8 mx-auto max-w-lg text-left asl-item">
+          <div className="glass-panel glass-shimmer p-8 mx-auto max-w-lg text-left asl-item haptic-tap">
             <div className="flex flex-wrap gap-2 mb-4">
               <span className="badge badge-research">kernel-first</span>
               <span className="badge badge-research">not distribution-first</span>

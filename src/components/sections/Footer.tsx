@@ -51,12 +51,12 @@ function TiltCard({ children, className = "" }: { children: React.ReactNode; cla
   }, []);
 
   return (
-    <div
-      ref={ref}
-      className={className}
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
-    >
+      <div
+        ref={ref}
+        className={`${className} glass-shimmer`}
+        onMouseMove={handleMove}
+        onMouseLeave={handleLeave}
+      >
       {children}
     </div>
   );

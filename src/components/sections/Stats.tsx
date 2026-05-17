@@ -68,8 +68,8 @@ function AnimatedCounter({ stat }: { stat: Stat }) {
   }, [started, stat]);
 
   return (
-    <div ref={ref} className="text-center">
-      <p className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-accent tracking-tight">
+    <div ref={ref} className="text-center counter-animate">
+      <p className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-accent tracking-tight gradient-heading">
         {stat.prefix}{count}{stat.suffix}
       </p>
       <p className="text-xs font-mono text-text-quaternary mt-2 uppercase tracking-wider">

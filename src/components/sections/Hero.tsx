@@ -177,9 +177,28 @@ export default function Hero() {
     <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20 overflow-hidden">
       <AsciiHero />
 
+      {/* Hero Ambient Glow */}
+      <div className="hero-ambient-glow" />
+
+      {/* Hero Star Field */}
+      <div className="hero-stars">
+        {Array.from({ length: 40 }).map((_, i) => (
+          <div
+            key={i}
+            className="hero-star"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              "--duration": `${2 + Math.random() * 4}s`,
+              "--delay": `${Math.random() * 3}s`,
+            } as React.CSSProperties}
+          />
+        ))}
+      </div>
+
       <div className="max-w-4xl w-full text-center space-y-12 relative z-10">
         <div className="space-y-8">
-          <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-text-primary tracking-tight reveal-word" style={{ "--word-delay": "200ms", lineHeight: 1.05 } as React.CSSProperties}>
+          <h1 className="hero-headline font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-text-primary tracking-tight reveal-word" style={{ "--word-delay": "200ms" } as React.CSSProperties}>
             OpceanAI
           </h1>
 
@@ -187,16 +206,16 @@ export default function Hero() {
             {typedLines.map((line, i) => (
               <p
                 key={i}
-                className="font-display text-xl sm:text-2xl md:text-3xl text-text-tertiary font-light leading-snug"
+                className="hero-subtitle font-display text-xl sm:text-2xl md:text-3xl text-text-tertiary font-light leading-snug"
               >
                 {line}
               </p>
             ))}
             {currentLine < subtitleLines.length && (
-              <p className="font-display text-xl sm:text-2xl md:text-3xl text-text-tertiary font-light leading-snug">
+              <p className="hero-subtitle font-display text-xl sm:text-2xl md:text-3xl text-text-tertiary font-light leading-snug typewriter-mobile">
                 {subtitleLines[currentLine].slice(0, currentChar)}
                 <span
-                  className="inline-block w-0.5 h-6 sm:h-8 bg-accent ml-0.5 align-middle"
+                  className="inline-block w-0.5 h-6 sm:h-8 bg-accent ml-0.5 align-middle cursor"
                   style={{ opacity: cursorVisible ? 1 : 0, transition: "opacity 0.1s" }}
                 />
               </p>
@@ -252,13 +271,13 @@ export default function Hero() {
                 <button
                   type="button"
                   onClick={() => { setQuery(""); setShowDropdown(false); inputRef.current?.focus(); }}
-                  className="shrink-0 w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors"
+                  className="shrink-0 w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors haptic-tap"
                   aria-label="Clear"
                 >
                   <X className="w-3.5 h-3.5 text-text-quaternary" />
                 </button>
               )}
-              <button type="submit" className="shrink-0 w-10 h-10 rounded-full bg-text-primary/10 hover:bg-text-primary/15 flex items-center justify-center transition-colors duration-200" aria-label="Submit">
+              <button type="submit" className="shrink-0 w-10 h-10 rounded-full bg-text-primary/10 hover:bg-text-primary/15 flex items-center justify-center transition-colors duration-200 haptic-tap" aria-label="Submit">
                 <ArrowRight className="w-4 h-4 text-text-primary" />
               </button>
             </div>
@@ -316,23 +335,17 @@ export default function Hero() {
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-3 pt-2 reveal-word" style={{ "--word-delay": "1800ms" } as React.CSSProperties}>
-          <a href="#origin" className="btn-secondary">Explore the story</a>
-          <a href="#ecosystem" className="btn-ghost">View the ecosystem</a>
+          <a href="#origin" className="cta-pill">Explore the story</a>
+          <a href="#ecosystem" className="cta-pill cta-pill-secondary">View the ecosystem</a>
         </div>
       </div>
 
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2">
-        <div className="w-6 h-10 rounded-full border border-border-default flex items-start justify-center p-1.5" style={{ animation: "scroll-bounce 2s ease-in-out infinite" }}>
-          <div className="w-1.5 h-1.5 rounded-full bg-text-quaternary/50" />
-        </div>
+      {/* Scroll Hint Chevron */}
+      <div className="scroll-hint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M6 9l6 6 6-6" />
+        </svg>
       </div>
-
-      <style jsx>{`
-        @keyframes scroll-bounce {
-          0%, 100% { transform: translateY(0); opacity: 1; }
-          50% { transform: translateY(8px); opacity: 0.5; }
-        }
-      `}</style>
     </section>
   );
 }

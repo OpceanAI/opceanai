@@ -84,7 +84,7 @@ export default function Ecosystem() {
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
               {yuuKiLine.map((v, i) => (
-                <div key={v.version} className="glass-panel glass-spotlight p-8 text-left eco-item group">
+                <div key={v.version} className="glass-panel glass-spotlight glass-shimmer p-8 text-left eco-item group haptic-tap">
                   <div className="flex items-center gap-3 mb-4">
                     <div className="w-10 h-10 rounded-xl overflow-hidden">
                       <img src="/yuuki/yuuki.jpg" alt={v.version} className="w-full h-full object-cover" />
@@ -116,7 +116,7 @@ export default function Ecosystem() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-12">
               {ecosystemModels.map((model) => (
-                <div key={model.name} className="glass-panel glass-spotlight group cursor-pointer eco-item">
+                <div key={model.name} className="glass-panel glass-spotlight glass-shimmer group cursor-pointer eco-item haptic-tap">
                   <div className="p-6 space-y-4">
                     <div className="flex items-start justify-between">
                       <div className="w-10 h-10 rounded-xl overflow-hidden transition-transform duration-300 group-hover:scale-110">
@@ -141,7 +141,7 @@ export default function Ecosystem() {
 
           {/* Tsuki highlight */}
           <div className="text-center">
-            <div className="glass-panel glass-spotlight p-10 mx-auto max-w-2xl text-left eco-item">
+            <div className="glass-panel glass-spotlight glass-shimmer glass-edge-glow p-10 mx-auto max-w-2xl text-left eco-item haptic-tap">
               <div className="flex items-start gap-4 mb-6">
                 <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0">
                   <img src="/tsuki/tsuki.webp" alt="Tsuki" className="w-full h-full object-cover" />

@@ -39,7 +39,7 @@ export default function WhatIs() {
             Its evolution reflects a path from simple bots to foundational AI work, then to system-level software and infrastructure.
           </p>
 
-          <div className="glass-panel p-8 mx-auto max-w-lg text-left what-item">
+          <div className="glass-panel glass-shimmer p-8 mx-auto max-w-lg text-left what-item haptic-tap">
             <p className="text-sm text-text-tertiary italic leading-relaxed">
               &ldquo;OpceanAI exists to build systems that feel intentional, useful, and technically alive.&rdquo;
             </p>

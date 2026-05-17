@@ -83,8 +83,10 @@ function AsciiPostProcessing({ color, invert, mobile }: { color: string; invert:
 
 function GradientMesh() {
   return (
-    <div className="gradient-mesh">
-      <div />
+    <div className="hero-mesh">
+      <div className="hero-mesh-orb" />
+      <div className="hero-mesh-orb" />
+      <div className="hero-mesh-orb" />
     </div>
   );
 }

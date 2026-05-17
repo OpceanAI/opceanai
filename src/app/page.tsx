@@ -21,6 +21,7 @@ export default function Home() {
     <main className="relative min-h-screen w-full overflow-hidden">
       <LiquidFilters />
       <AtmosphericBg />
+      <div className="wallpaper-mesh md:hidden" />
       <Navigation />
       <div className="w-full max-w-7xl mx-auto">
         <Hero />

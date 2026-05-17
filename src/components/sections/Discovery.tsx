@@ -35,7 +35,7 @@ export default function Discovery() {
             At that moment, there was no deep familiarity with the modern AI ecosystem.
           </p>
 
-          <div className="glass-panel p-8 mx-auto max-w-lg text-left discovery-item">
+          <div className="glass-panel glass-shimmer p-8 mx-auto max-w-lg text-left discovery-item haptic-tap">
             <h4 className="text-xs font-mono uppercase tracking-wider text-text-quaternary mb-4">The environment was still very early</h4>
             <ul className="space-y-3 text-sm text-text-tertiary">
               <li className="flex items-start gap-3">
