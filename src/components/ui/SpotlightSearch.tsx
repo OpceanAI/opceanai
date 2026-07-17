@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback, useRef } from "react";
-import { Search, ArrowRight, Command, FileText, Github, BookOpen, Layers } from "lucide-react";
+import { Search, Command, FileText, Github, BookOpen, Layers } from "@/components/icons/Icons";
 
 const commands = [
   { id: "projects", label: "Explore Projects", shortcut: "P", icon: Layers },
@@ -37,7 +37,11 @@ export default function SpotlightSearch() {
     const handleKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "k") {
         e.preventDefault();
-        open ? handleClose() : handleOpen();
+        if (open) {
+          handleClose();
+        } else {
+          handleOpen();
+        }
       }
       if (e.key === "Escape" && open) handleClose();
     };
@@ -95,9 +99,7 @@ export default function SpotlightSearch() {
               }}
               onMouseEnter={() => setActiveIndex(i)}
             >
-              <div className="spotlight-item-icon">
-                <item.icon className="w-4 h-4" />
-              </div>
+              <item.icon className="spotlight-item-icon" />
               <span className="spotlight-item-text">{item.label}</span>
               <span className="spotlight-item-shortcut">
                 <Command className="w-3 h-3 inline mr-0.5" />{item.shortcut}

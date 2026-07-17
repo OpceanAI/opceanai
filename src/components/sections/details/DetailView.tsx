@@ -1,14 +1,13 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
-import { animate, stagger } from "animejs";
+import { useState, useEffect, useCallback } from "react";
 import {
   Brain, Calendar, GitBranch, Heart, Zap, ArrowRight,
   Container, Shield, Smartphone, Server, Cpu, Code, Terminal,
   Search, Target, Layers, AlertCircle,
   Minimize2, Languages, BarChart3, Database,
   FileCode, X, ExternalLink,
-} from "lucide-react";
+} from "@/components/icons/Icons";
 
 interface DetailContent {
   id: string;
@@ -77,7 +76,7 @@ const detailContents: DetailContent[] = [
     id: "detail-nhe",
     title: "NHE",
     label: "Research",
-    labelColor: "text-info",
+    labelColor: "text-accent",
     subtitle: "Not Humanity Exam",
     description: "Not how much the model knows. But how human it still thinks.",
     render: () => (
@@ -117,36 +116,35 @@ function DetailYuuki() {
 
   return (
     <div className="space-y-16">
-      <div className="glass-panel p-10 text-left detail-item">
+      <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-left">
         <div className="flex items-start gap-4 mb-6">
-          <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0">
+          <div className="w-12 h-12 rounded-xl overflow-hidden shrink-0">
             <img src="/yuuki/yuuki.jpg" alt="YuuKi" className="w-full h-full object-cover" />
           </div>
           <div>
-            <h3 className="font-display text-xl font-medium text-text-primary">The origin of the name YuuKi</h3>
-            <p className="text-sm text-text-quaternary mt-1">The name YuuKi comes from a very specific personal and emotional context.</p>
+            <h3 className="text-xl font-medium text-text-primary">The YuuKi line</h3>
+            <p className="text-sm text-text-quaternary mt-1">Not a single release — a continuing lineage.</p>
           </div>
         </div>
         <div className="space-y-4 text-sm text-text-tertiary leading-relaxed">
-          <p>Around October 2025, after personal problems, awa entered a period of depression. During that time, <strong className="text-text-primary">Girls&apos; Last Tour</strong> became deeply meaningful. Its style, atmosphere, and emotional tone made a strong impact.</p>
-          <p>After finishing the manga, awa felt unable to continue carrying that emotional state in the same way. A Discord bot called <strong className="text-text-primary">Yuki</strong> was created, but it did not become what was hoped for, and it was eventually discontinued.</p>
-          <p>Even so, that emotional path remained important, because it became part of the name and identity of what would later become <strong className="text-accent font-medium">YuuKi</strong>.</p>
+          <p><strong className="text-text-primary">YuuKi</strong> is the central model lineage of OpceanAI. Each generation carries the previous one forward: the architecture, the training approach, and the constraints it was built under.</p>
+          <p>The line began as an early prototype and has been developed continuously since — from <strong className="text-text-primary">v0.1</strong> through <strong className="text-text-primary">NxG</strong> to the current <strong className="text-accent font-medium">RxG</strong> generation.</p>
         </div>
       </div>
 
       <div className="space-y-6">
-        <h3 className="font-display text-2xl font-medium text-text-primary text-center detail-item">The Lineage</h3>
+        <h3 className="text-2xl font-medium text-text-primary text-center">The Lineage</h3>
         <div className="space-y-6">
           {timeline.map((v, i) => (
-            <div key={v.version} className="glass-panel p-8 text-left detail-item group">
+            <div key={v.version} className="p-8 rounded-xl bg-surface-1 border border-border-default text-left group">
               <div className="flex items-start gap-4">
-                <div className="w-14 h-14 rounded-2xl overflow-hidden shrink-0">
+                <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0">
                   <img src="/yuuki/yuuki.jpg" alt={v.version} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <h4 className="font-display text-xl font-medium text-text-primary group-hover:text-accent transition-colors">{v.version}</h4>
-                    <span className="text-xs font-mono text-text-quaternary bg-surface-2 px-2 py-0.5 rounded">{v.date}</span>
+                    <h4 className="text-xl font-medium text-text-primary group-hover:text-accent transition-colors">{v.version}</h4>
+                    <span className="font-mono text-xs text-text-quaternary">{v.date}</span>
                     <span className="text-xs text-text-tertiary">{v.label}</span>
                   </div>
                   <p className="text-sm text-text-tertiary leading-relaxed">{v.description}</p>
@@ -162,8 +160,8 @@ function DetailYuuki() {
         </div>
       </div>
 
-      <div className="glass-panel p-10 text-center detail-item">
-        <p className="font-display text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
+      <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-center">
+        <p className="text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
           &ldquo;This rename turned a technical milestone into an identity. Iris was the first milestone. YuuKi became the real symbol.&rdquo;
         </p>
       </div>
@@ -174,13 +172,13 @@ function DetailYuuki() {
 function DetailYumo() {
   return (
     <div className="space-y-16">
-      <div className="glass-panel p-10 text-left detail-item">
+      <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-left">
         <div className="flex items-start gap-4 mb-6">
-          <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0">
+          <div className="w-12 h-12 rounded-xl overflow-hidden shrink-0">
             <img src="/yuuki/yuuki.jpg" alt="Yumo" className="w-full h-full object-cover" />
           </div>
           <div>
-            <h3 className="font-display text-xl font-medium text-text-primary">Yumo</h3>
+            <h3 className="text-xl font-medium text-text-primary">Yumo</h3>
             <p className="text-sm text-text-quaternary mt-1">Mathematics-specialized models</p>
           </div>
         </div>
@@ -190,8 +188,8 @@ function DetailYumo() {
         </div>
       </div>
 
-      <div className="glass-panel p-10 text-center detail-item">
-        <p className="font-display text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
+      <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-center">
+        <p className="text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
           &ldquo;Specialized, focused, mathematical, structured.&rdquo;
         </p>
       </div>
@@ -215,17 +213,15 @@ function DetailDoki() {
   return (
     <div className="space-y-16">
       <div className="space-y-6">
-        <h3 className="font-display text-2xl font-medium text-text-primary text-center detail-item">Capabilities</h3>
+        <h3 className="text-2xl font-medium text-text-primary text-center">Capabilities</h3>
         {capabilities.map((c) => {
           const Icon = c.icon;
           return (
-            <div key={c.title} className="glass-panel p-8 text-left detail-item group">
+            <div key={c.title} className="p-8 rounded-xl bg-surface-1 border border-border-default text-left group">
               <div className="flex items-start gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-accent-soft flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110">
-                  <Icon className="w-6 h-6 text-accent" />
-                </div>
+                <Icon className="w-7 h-7 text-accent shrink-0 mt-0.5" />
                 <div className="flex-1">
-                  <h4 className="font-display text-lg font-medium text-text-primary mb-2">{c.title}</h4>
+                  <h4 className="text-lg font-medium text-text-primary mb-2">{c.title}</h4>
                   <p className="text-sm text-text-tertiary leading-relaxed mb-3">{c.desc}</p>
                   <p className="text-sm text-text-secondary leading-relaxed">{c.detail}</p>
                 </div>
@@ -236,16 +232,14 @@ function DetailDoki() {
       </div>
 
       <div className="space-y-8">
-        <h3 className="font-display text-2xl font-medium text-text-primary text-center detail-item">Why Doki Matters</h3>
+        <h3 className="text-2xl font-medium text-text-primary text-center">Why Doki Matters</h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {significance.map((s) => {
             const Icon = s.icon;
             return (
-              <div key={s.label} className="glass-panel p-6 text-center detail-item">
-                <div className="w-10 h-10 rounded-xl bg-surface-3 flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-5 h-5 text-text-tertiary" />
-                </div>
-                <h4 className="font-display text-sm font-medium text-text-primary mb-2">{s.label}</h4>
+              <div key={s.label} className="p-6 rounded-xl bg-surface-1 border border-border-default text-center">
+                <Icon className="w-6 h-6 text-text-tertiary mx-auto mb-4" />
+                <h4 className="text-sm font-medium text-text-primary mb-2">{s.label}</h4>
                 <p className="text-xs text-text-tertiary leading-relaxed">{s.desc}</p>
               </div>
             );
@@ -253,8 +247,8 @@ function DetailDoki() {
         </div>
       </div>
 
-      <div className="glass-panel p-10 text-center detail-item">
-        <p className="font-display text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
+      <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-center">
+        <p className="text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
           &ldquo;Doki is important because it represents the move from model research toward platform infrastructure. This is not only about AI anymore. It is about running systems.&rdquo;
         </p>
       </div>
@@ -277,13 +271,11 @@ function DetailASL() {
 
   return (
     <div className="space-y-16">
-      <div className="glass-panel p-10 text-left detail-item">
+      <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-left">
         <div className="flex items-start gap-4 mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-surface-3 flex items-center justify-center shrink-0">
-            <Server className="w-6 h-6 text-text-tertiary" />
-          </div>
+          <Server className="w-7 h-7 text-text-tertiary shrink-0 mt-0.5" />
           <div>
-            <h3 className="font-display text-xl font-medium text-text-primary">How it works</h3>
+            <h3 className="text-xl font-medium text-text-primary">How it works</h3>
             <p className="text-sm text-text-quaternary mt-1">Invisible to Android, real to Linux</p>
           </div>
         </div>
@@ -295,17 +287,15 @@ function DetailASL() {
       </div>
 
       <div className="space-y-6">
-        <h3 className="font-display text-2xl font-medium text-text-primary text-center detail-item">Technical Direction</h3>
+        <h3 className="text-2xl font-medium text-text-primary text-center">Technical Direction</h3>
         {techStack.map((t) => {
           const Icon = t.icon;
           return (
-            <div key={t.label} className="glass-panel p-8 text-left detail-item group">
+            <div key={t.label} className="p-8 rounded-xl bg-surface-1 border border-border-default text-left group">
               <div className="flex items-start gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-surface-3 flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110">
-                  <Icon className="w-6 h-6 text-text-tertiary" />
-                </div>
+                <Icon className="w-7 h-7 text-text-tertiary shrink-0 mt-0.5" />
                 <div className="flex-1">
-                  <h4 className="font-display text-lg font-medium text-text-primary mb-2">{t.label}</h4>
+                  <h4 className="text-lg font-medium text-text-primary mb-2">{t.label}</h4>
                   <p className="text-sm text-text-tertiary leading-relaxed mb-3">{t.desc}</p>
                   <p className="text-sm text-text-secondary leading-relaxed">{t.detail}</p>
                 </div>
@@ -316,16 +306,14 @@ function DetailASL() {
       </div>
 
       <div className="space-y-8">
-        <h3 className="font-display text-2xl font-medium text-text-primary text-center detail-item">Design Principles</h3>
+        <h3 className="text-2xl font-medium text-text-primary text-center">Design Principles</h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
           {designPrinciples.map((p) => {
             const Icon = p.icon;
             return (
-              <div key={p.label} className="glass-panel p-6 text-center detail-item">
-                <div className="w-10 h-10 rounded-xl bg-surface-3 flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-5 h-5 text-text-tertiary" />
-                </div>
-                <h4 className="font-display text-sm font-medium text-text-primary mb-2">{p.label}</h4>
+              <div key={p.label} className="p-6 rounded-xl bg-surface-1 border border-border-default text-center">
+                <Icon className="w-6 h-6 text-text-tertiary mx-auto mb-4" />
+                <h4 className="text-sm font-medium text-text-primary mb-2">{p.label}</h4>
                 <p className="text-xs text-text-tertiary leading-relaxed">{p.desc}</p>
               </div>
             );
@@ -333,12 +321,10 @@ function DetailASL() {
         </div>
       </div>
 
-      <div className="glass-panel p-10 text-center detail-item">
-        <div className="flex flex-wrap gap-2 justify-center mb-6">
-          <span className="badge badge-research">kernel-first</span>
-          <span className="badge badge-research">not distribution-first</span>
-          <span className="badge badge-warning">planned</span>
-        </div>
+      <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-center">
+        <p className="mb-6 font-mono text-xs uppercase tracking-[0.16em] text-text-quaternary">
+          kernel-first · not distribution-first · planned
+        </p>
         <p className="text-sm text-text-tertiary leading-relaxed mb-3">OpceanAI will not build a distribution. Only the kernel. The rest is intended for the community.</p>
         <p className="text-sm text-text-quaternary italic">ASL development begins once Doki v1 is complete.</p>
       </div>
@@ -366,38 +352,34 @@ function DetailNHE() {
   return (
     <div className="space-y-16">
       <div className="space-y-8">
-        <h3 className="font-display text-2xl font-medium text-text-primary text-center detail-item">The Problem with Existing Benchmarks</h3>
-        <p className="text-text-tertiary text-base leading-relaxed max-w-lg mx-auto text-center detail-item">Every existing benchmark measures nearly the same dimension:</p>
+        <h3 className="text-2xl font-medium text-text-primary text-center">The Problem with Existing Benchmarks</h3>
+        <p className="text-text-tertiary text-base leading-relaxed max-w-lg mx-auto text-center">Every existing benchmark measures nearly the same dimension:</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {existingBenchmarks.map((b) => (
-            <div key={b.name} className="glass-panel p-6 text-left detail-item">
+            <div key={b.name} className="p-6 rounded-xl bg-surface-1 border border-border-default text-left">
               <div className="flex items-center gap-3 mb-2">
-                <div className="w-8 h-8 rounded-lg bg-surface-3 flex items-center justify-center">
-                  <Search className="w-4 h-4 text-text-quaternary" />
-                </div>
-                <h4 className="font-display text-sm font-medium text-text-tertiary">{b.name}</h4>
+                <Search className="w-4 h-4 text-text-quaternary" />
+                <h4 className="text-sm font-medium text-text-tertiary">{b.name}</h4>
               </div>
               <p className="text-xs text-text-quaternary">{b.focus}</p>
             </div>
           ))}
         </div>
-        <div className="glass-panel p-8 text-center detail-item">
+        <div className="p-8 rounded-xl bg-surface-1 border border-border-default text-center">
           <p className="text-sm text-text-secondary leading-relaxed">They all measure: <strong className="text-text-primary">what a model knows</strong>, <strong className="text-text-primary"> how much human knowledge it can reproduce</strong>, and <strong className="text-text-primary">how accurately it can reason</strong>.</p>
         </div>
       </div>
 
       <div className="space-y-8">
-        <h3 className="font-display text-2xl font-medium text-text-primary text-center detail-item">What NHE Measures</h3>
-        <p className="text-text-tertiary text-base leading-relaxed max-w-lg mx-auto text-center detail-item">NHE measures the presence of six cognitive patterns structurally embedded within human language itself. These are patterns that systems trained on human text cannot fully escape regardless of scale, capability, or intelligence level.</p>
+        <h3 className="text-2xl font-medium text-text-primary text-center">What NHE Measures</h3>
+        <p className="text-text-tertiary text-base leading-relaxed max-w-lg mx-auto text-center">NHE measures the presence of six cognitive patterns structurally embedded within human language itself. These are patterns that systems trained on human text cannot fully escape regardless of scale, capability, or intelligence level.</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {cognitivePatterns.map((p, i) => {
             const Icon = p.icon;
             return (
-              <div key={i} className="glass-panel p-6 text-left detail-item">
-                <div className="w-10 h-10 rounded-xl bg-info-soft flex items-center justify-center mb-4">
-                  <Icon className="w-5 h-5 text-info" />
-                </div>
-                <h4 className="font-display text-sm font-medium text-text-primary mb-2">{p.label}</h4>
+              <div key={i} className="p-6 rounded-xl bg-surface-1 border border-border-default text-left">
+                <Icon className="w-6 h-6 text-accent mb-4" />
+                <h4 className="text-sm font-medium text-text-primary mb-2">{p.label}</h4>
                 <p className="text-xs text-text-tertiary leading-relaxed">{p.desc}</p>
               </div>
             );
@@ -405,13 +387,13 @@ function DetailNHE() {
         </div>
       </div>
 
-      <div className="glass-panel p-10 text-left detail-item">
+      <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-left">
         <div className="flex items-start gap-4 mb-6">
-          <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0">
+          <div className="w-12 h-12 rounded-xl overflow-hidden shrink-0">
             <img src="/imprint/nhe.webp" alt="Imprint" className="w-full h-full object-cover" />
           </div>
           <div>
-            <h3 className="font-display text-xl font-medium text-text-primary">The Imprint Theory</h3>
+            <h3 className="text-xl font-medium text-text-primary">The Imprint Theory</h3>
             <p className="text-sm text-text-quaternary mt-1">NHE as empirical implementation</p>
           </div>
         </div>
@@ -422,8 +404,8 @@ function DetailNHE() {
         </div>
       </div>
 
-      <div className="glass-panel p-10 text-center detail-item">
-        <p className="font-display text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
+      <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-center">
+        <p className="text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
           &ldquo;NHE asks a fundamentally different question: Not how much the model knows. But how human it still thinks.&rdquo;
         </p>
       </div>
@@ -445,11 +427,9 @@ function DetailTsuki() {
         {trainingData.map((d) => {
           const Icon = d.icon;
           return (
-            <div key={d.label} className="glass-panel p-6 text-center detail-item">
-              <div className="w-10 h-10 rounded-xl bg-accent-soft flex items-center justify-center mx-auto mb-3">
-                <Icon className="w-5 h-5 text-accent" />
-              </div>
-              <p className="font-display text-2xl font-medium text-accent mb-1">{d.value}</p>
+            <div key={d.label} className="p-6 rounded-xl bg-surface-1 border border-border-default text-center">
+              <Icon className="w-6 h-6 text-accent mx-auto mb-3" />
+              <p className="text-2xl font-medium text-accent mb-1">{d.value}</p>
               <p className="text-xs font-medium text-text-primary mb-1">{d.label}</p>
               <p className="text-xs text-text-quaternary">{d.desc}</p>
             </div>
@@ -457,13 +437,11 @@ function DetailTsuki() {
         })}
       </div>
 
-      <div className="glass-panel p-10 text-left detail-item">
+      <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-left">
         <div className="flex items-start gap-4 mb-6">
-          <div className="w-12 h-12 rounded-2xl bg-accent-soft flex items-center justify-center shrink-0">
-            <Minimize2 className="w-6 h-6 text-accent" />
-          </div>
+          <Minimize2 className="w-7 h-7 text-accent shrink-0 mt-0.5" />
           <div>
-            <h3 className="font-display text-xl font-medium text-text-primary">Training Details</h3>
+            <h3 className="text-xl font-medium text-text-primary">Training Details</h3>
             <p className="text-sm text-text-quaternary mt-1">Precision over noise</p>
           </div>
         </div>
@@ -475,31 +453,27 @@ function DetailTsuki() {
       </div>
 
       <div className="space-y-8">
-        <h3 className="font-display text-2xl font-medium text-text-primary text-center detail-item">The Philosophy Behind Tsuki</h3>
+        <h3 className="text-2xl font-medium text-text-primary text-center">The Philosophy Behind Tsuki</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="glass-panel p-8 text-left detail-item">
+          <div className="p-8 rounded-xl bg-surface-1 border border-border-default text-left">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-surface-3 flex items-center justify-center">
-                <Zap className="w-5 h-5 text-text-tertiary" />
-              </div>
-              <h4 className="font-display text-sm font-medium text-text-primary">Quality over Noise</h4>
+              <Zap className="w-5 h-5 text-text-tertiary" />
+              <h4 className="text-sm font-medium text-text-primary">Quality over Noise</h4>
             </div>
             <p className="text-sm text-text-tertiary leading-relaxed">Tsuki reflects the philosophy of OpceanAI: quality over noise, even without recognition. It does not need to be loud. It just needs to work.</p>
           </div>
-          <div className="glass-panel p-8 text-left detail-item">
+          <div className="p-8 rounded-xl bg-surface-1 border border-border-default text-left">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-surface-3 flex items-center justify-center">
-                <Target className="w-5 h-5 text-text-tertiary" />
-              </div>
-              <h4 className="font-display text-sm font-medium text-text-primary">Precision</h4>
+              <Target className="w-5 h-5 text-text-tertiary" />
+              <h4 className="text-sm font-medium text-text-primary">Precision</h4>
             </div>
             <p className="text-sm text-text-tertiary leading-relaxed">Its value is not in branding or marketing. Its value is in precision -- doing one thing extremely well, quietly, without fanfare.</p>
           </div>
         </div>
       </div>
 
-      <div className="glass-panel p-10 text-center detail-item">
-        <p className="font-display text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
+      <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-center">
+        <p className="text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
           &ldquo;Quality over noise, even without recognition.&rdquo;
         </p>
       </div>
@@ -519,16 +493,15 @@ function DetailOrigin() {
   return (
     <div className="space-y-16">
       <div className="space-y-8">
-        <h3 className="font-display text-2xl font-medium text-text-primary text-center detail-item">The First Creations</h3>
+        <h3 className="text-2xl font-medium text-text-primary text-center">The First Creations</h3>
 
-        {/* Sakura */}
-        <div className="glass-panel p-10 text-left detail-item group">
+        <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-left group">
           <div className="flex items-start gap-4 mb-6">
-            <div className="w-14 h-14 rounded-2xl overflow-hidden shrink-0">
+            <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0">
               <img src="/sakura/sakura.jpg" alt="Sakura" className="w-full h-full object-cover" />
             </div>
             <div>
-              <h4 className="font-display text-2xl font-medium text-text-primary">Sakura</h4>
+              <h4 className="text-2xl font-medium text-text-primary">Sakura</h4>
               <p className="text-sm text-text-quaternary mt-1">Bots New Era</p>
             </div>
           </div>
@@ -548,14 +521,13 @@ function DetailOrigin() {
           </div>
         </div>
 
-        {/* Nebula */}
-        <div className="glass-panel p-10 text-left detail-item group">
+        <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-left group">
           <div className="flex items-start gap-4 mb-6">
-            <div className="w-14 h-14 rounded-2xl overflow-hidden shrink-0 transition-transform duration-300 group-hover:scale-110">
+            <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0">
               <img src="/nebula/nebula-anime.jpg" alt="Nebula" className="w-full h-full object-cover" />
             </div>
             <div>
-              <h4 className="font-display text-2xl font-medium text-text-primary">Nebula</h4>
+              <h4 className="text-2xl font-medium text-text-primary">Nebula</h4>
               <p className="text-sm text-text-quaternary mt-1">Bots New Era</p>
             </div>
           </div>
@@ -577,17 +549,15 @@ function DetailOrigin() {
       </div>
 
       <div className="space-y-8">
-        <h3 className="font-display text-2xl font-medium text-text-primary text-center detail-item">The DNA of This Era</h3>
-        <p className="text-text-tertiary text-base leading-relaxed max-w-lg mx-auto text-center detail-item">This phase matters because it established the DNA of the organization.</p>
+        <h3 className="text-2xl font-medium text-text-primary text-center">The DNA of This Era</h3>
+        <p className="text-text-tertiary text-base leading-relaxed max-w-lg mx-auto text-center">This phase matters because it established the DNA of the organization.</p>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {dna.map((d) => {
             const Icon = d.icon;
             return (
-              <div key={d.label} className="glass-panel p-6 text-left detail-item">
-                <div className="w-10 h-10 rounded-xl bg-accent-soft flex items-center justify-center mb-4">
-                  <Icon className="w-5 h-5 text-accent" />
-                </div>
-                <h4 className="font-display text-sm font-medium text-text-primary mb-2">{d.label}</h4>
+              <div key={d.label} className="p-6 rounded-xl bg-surface-1 border border-border-default text-left">
+                <Icon className="w-6 h-6 text-accent mb-4" />
+                <h4 className="text-sm font-medium text-text-primary mb-2">{d.label}</h4>
                 <p className="text-xs text-text-tertiary leading-relaxed">{d.desc}</p>
               </div>
             );
@@ -595,8 +565,8 @@ function DetailOrigin() {
         </div>
       </div>
 
-      <div className="glass-panel p-10 text-center detail-item">
-        <p className="font-display text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
+      <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-center">
+        <p className="text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
           &ldquo;Sakura and Nebula were not just the first projects. They were the first signs of a system becoming an organization.&rdquo;
         </p>
       </div>
@@ -606,9 +576,6 @@ function DetailOrigin() {
 
 export default function DetailView() {
   const [activeDetail, setActiveDetail] = useState<DetailContent | null>(null);
-  const [visible, setVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-  const itemsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleHashChange = () => {
@@ -616,17 +583,6 @@ export default function DetailView() {
       const detail = detailContents.find((d) => d.id === hash);
       if (detail) {
         setActiveDetail(detail);
-        setVisible(true);
-        setTimeout(() => {
-          if (itemsRef.current) {
-            const items = itemsRef.current.querySelectorAll(".detail-item");
-            animate(items, {
-              opacity: [0, 1], translateY: ["20px", "0px"],
-              duration: 600, delay: stagger(80, { from: "first" }), ease: "out(3)",
-              autoplay: true,
-            });
-          }
-        }, 100);
       }
     };
 
@@ -636,61 +592,49 @@ export default function DetailView() {
   }, []);
 
   const handleClose = useCallback(() => {
-    setVisible(false);
-    setTimeout(() => {
-      setActiveDetail(null);
-      window.history.pushState(null, "", window.location.pathname);
-    }, 300);
+    setActiveDetail(null);
+    window.history.pushState(null, "", window.location.pathname);
   }, []);
 
   if (!activeDetail) return null;
 
   return (
-    <section
-      id={activeDetail.id}
-      ref={sectionRef}
-      className={`relative py-32 px-4 min-h-screen transition-all duration-300 ${visible ? "opacity-100" : "opacity-0"}`}
-    >
+    <section id={activeDetail.id} className="relative py-32 px-4 min-h-screen">
       <div className="max-w-4xl mx-auto">
-        <div ref={itemsRef}>
-          {/* Close button */}
-          <div className="flex items-center justify-between mb-12 detail-item">
-            <button
-              onClick={handleClose}
-              className="flex items-center gap-2 text-sm text-text-tertiary hover:text-text-primary transition-colors"
-            >
-              <X className="w-4 h-4" />
-              <span>Close</span>
-            </button>
-            {activeDetail.externalLinks && (
-              <div className="flex items-center gap-2">
-                {activeDetail.externalLinks.map((link) => (
-                  <a
-                    key={link.url}
-                    href={link.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm text-accent hover:text-accent-hover transition-colors"
-                  >
-                    <ExternalLink className="w-3 h-3" />
-                    <span>{link.label}</span>
-                  </a>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Header */}
-          <div className="text-center space-y-6 mb-16">
-            <span className={`inline-block text-xs font-mono uppercase tracking-widest ${activeDetail.labelColor} detail-item`}>{activeDetail.label}</span>
-            <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-light text-text-primary tracking-tight leading-tight detail-item">{activeDetail.title}</h2>
-            <p className="text-text-primary text-xl font-medium max-w-lg mx-auto detail-item">{activeDetail.subtitle}</p>
-            <p className="text-text-tertiary text-base leading-relaxed max-w-xl mx-auto detail-item">{activeDetail.description}</p>
-          </div>
-
-          {/* Content */}
-          {activeDetail.render()}
+        <div className="flex items-center justify-between mb-12">
+          <button
+            onClick={handleClose}
+            className="flex items-center gap-2 text-sm text-text-tertiary hover:text-text-primary transition-colors"
+          >
+            <X className="w-4 h-4" />
+            <span>Close</span>
+          </button>
+          {activeDetail.externalLinks && (
+            <div className="flex items-center gap-2">
+              {activeDetail.externalLinks.map((link) => (
+                <a
+                  key={link.url}
+                  href={link.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-sm text-accent hover:text-accent-hover transition-colors"
+                >
+                  <ExternalLink className="w-3 h-3" />
+                  <span>{link.label}</span>
+                </a>
+              ))}
+            </div>
+          )}
         </div>
+
+        <div className="text-center space-y-6 mb-16">
+          <span className={`inline-block text-xs uppercase tracking-wider ${activeDetail.labelColor}`}>{activeDetail.label}</span>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-semibold text-text-primary tracking-tight leading-tight">{activeDetail.title}</h2>
+          <p className="text-text-primary text-xl font-medium max-w-lg mx-auto">{activeDetail.subtitle}</p>
+          <p className="text-text-tertiary text-base leading-relaxed max-w-xl mx-auto">{activeDetail.description}</p>
+        </div>
+
+        {activeDetail.render()}
       </div>
     </section>
   );

@@ -1,380 +1,45 @@
-"use client";
-
-import { useState, useEffect, useRef, useCallback } from "react";
-import { Search, ArrowRight, X, Sparkles, Zap, ExternalLink } from "lucide-react";
-import { useToast } from "@/components/ui/Toast";
-import { search, SearchResult, EasterEgg } from "@/lib/search";
-import dynamic from "next/dynamic";
-
-const AsciiHero = dynamic(() => import("@/components/three/AsciiHero"), {
-  ssr: false,
-  loading: () => null,
-});
-
-const categoryIcons: Record<string, React.ReactNode> = {
-  model: <Sparkles className="w-4 h-4" />,
-  project: <Zap className="w-4 h-4" />,
-  research: <Search className="w-4 h-4" />,
-  era: <Search className="w-4 h-4" />,
-  concept: <Search className="w-4 h-4" />,
-};
-
-const subtitleLines = [
-  "Bots became models.",
-  "Models became systems.",
-  "Systems became infrastructure.",
-];
+import OceanInstrument from "@/components/hero/OceanInstrument";
+import ProximityHeadline from "@/components/hero/ProximityHeadline";
+import SealCta from "@/components/ui/SealCta";
 
 export default function Hero() {
-  const [query, setQuery] = useState("");
-  const [focused, setFocused] = useState(false);
-  const [mounted, setMounted] = useState(false);
-  const [showDropdown, setShowDropdown] = useState(false);
-  const [results, setResults] = useState<SearchResult[]>([]);
-  const [easterEgg, setEasterEgg] = useState<EasterEgg | null>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [typedLines, setTypedLines] = useState<string[]>([]);
-  const [currentLine, setCurrentLine] = useState(0);
-  const [currentChar, setCurrentChar] = useState(0);
-  const [cursorVisible, setCursorVisible] = useState(true);
-  const { toast } = useToast();
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    const blink = setInterval(() => setCursorVisible((v) => !v), 530);
-    return () => clearInterval(blink);
-  }, []);
-
-  useEffect(() => {
-    if (currentLine >= subtitleLines.length) return;
-
-    const line = subtitleLines[currentLine];
-    if (currentChar < line.length) {
-      const timeout = setTimeout(() => {
-        setCurrentChar((c) => c + 1);
-      }, 40 + Math.random() * 30);
-      return () => clearTimeout(timeout);
-    } else {
-      const timeout = setTimeout(() => {
-        setTypedLines((prev) => [...prev, line]);
-        setCurrentLine((l) => l + 1);
-        setCurrentChar(0);
-      }, 400);
-      return () => clearTimeout(timeout);
-    }
-  }, [currentChar, currentLine]);
-
-  useEffect(() => {
-    if (query.trim()) {
-      const { results: r, easterEgg: e } = search(query);
-      setResults(r);
-      setEasterEgg(e || null);
-      setShowDropdown(true);
-      setActiveIndex(0);
-
-      if (e && e.action === "redirect" && e.target) {
-        window.open(e.target, "_blank");
-        setQuery("");
-        setShowDropdown(false);
-        inputRef.current?.blur();
-      }
-    } else {
-      setResults([]);
-      setEasterEgg(null);
-      setShowDropdown(false);
-    }
-  }, [query]);
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setShowDropdown(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
-
-  const handleSelect = useCallback((item: SearchResult) => {
-    setShowDropdown(false);
-    setQuery("");
-    setFocused(false);
-    inputRef.current?.blur();
-
-    if (item.sectionId.startsWith("detail-")) {
-      window.location.hash = item.sectionId;
-      toast("info", `Navigating to ${item.title}`);
-    } else {
-      const el = document.getElementById(item.sectionId);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-        el.classList.add("search-highlight");
-        setTimeout(() => el.classList.remove("search-highlight"), 2500);
-        toast("info", `Navigating to ${item.title}`);
-      } else {
-        toast("info", `Section "${item.title}" -- coming soon`);
-      }
-    }
-  }, [toast]);
-
-  const handleEasterEgg = useCallback((egg: EasterEgg) => {
-    setShowDropdown(false);
-    setQuery("");
-    setFocused(false);
-    inputRef.current?.blur();
-
-    if (egg.action === "redirect" && egg.target) {
-      window.open(egg.target, "_blank");
-    } else if (egg.action === "alert" && egg.message) {
-      toast("info", egg.message);
-    } else if (egg.action === "section" && egg.target) {
-      const el = document.getElementById(egg.target);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth", block: "start" });
-        el.classList.add("search-highlight");
-        setTimeout(() => el.classList.remove("search-highlight"), 2500);
-      }
-    }
-  }, [toast]);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (easterEgg) {
-      handleEasterEgg(easterEgg);
-    } else if (results.length > 0) {
-      handleSelect(results[activeIndex] || results[0]);
-    } else if (query.trim()) {
-      toast("info", `No results for "${query}". Try: yuuki, doki, nhe, tsuki, origin`);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setActiveIndex((prev) => Math.min(prev + 1, results.length - 1));
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setActiveIndex((prev) => Math.max(prev - 1, 0));
-    } else if (e.key === "Enter") {
-      e.preventDefault();
-      if (easterEgg) {
-        handleEasterEgg(easterEgg);
-      } else if (results.length > 0) {
-        handleSelect(results[activeIndex] || results[0]);
-      }
-    } else if (e.key === "Escape") {
-      setShowDropdown(false);
-      inputRef.current?.blur();
-    }
-  };
-
   return (
-    <section id="hero" className="relative min-h-screen flex flex-col items-center justify-center px-4 py-20 overflow-hidden">
-      <AsciiHero />
+    <section
+      id="hero"
+      className="relative h-[100svh] min-h-[620px] w-full overflow-hidden"
+    >
+      {/* The instrument that reads the ocean — a live chart recorder owns
+          the first screen: one luminous trace over drifting bathymetric
+          contours. */}
+      <OceanInstrument className="absolute inset-0 -z-10 h-full w-full" />
 
-      {/* Hero Ambient Glow */}
-      <div className="hero-ambient-glow" />
+      {/* Publisher's column — one deliberate mark on the print's edge. */}
+      <span
+        className="vertical-column absolute right-5 top-1/2 hidden -translate-y-1/2 select-none font-display text-[12px] text-text-quaternary md:block"
+        aria-hidden="true"
+      >
+        藍摺絵 — OPCEANAI — EST. 2023
+      </span>
 
-      {/* Hero Star Field */}
-      <div className="hero-stars">
-        {Array.from({ length: 40 }).map((_, i) => (
-          <div
-            key={i}
-            className="hero-star"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              "--duration": `${2 + Math.random() * 4}s`,
-              "--delay": `${Math.random() * 3}s`,
-            } as React.CSSProperties}
+      {/* Headline in the empty sky (Ma), left of the rising wave. */}
+      {/* On small screens the empty sky is cropped away, so the copy sits
+          low, over the deep wave body; on md+ it lives in the sky (Ma). */}
+      <div className="mx-auto flex h-full w-full max-w-6xl flex-col justify-end px-6 pb-[12svh] md:justify-start md:pb-0 md:pt-[20svh] sm:px-10">
+        <ProximityHeadline className="max-w-[13ch] font-display text-[clamp(2.6rem,6.2vw,5.4rem)] font-medium leading-[1.06] tracking-[-0.01em] text-text-primary" />
+
+        <p className="mt-7 max-w-md text-lg leading-relaxed text-text-secondary">
+          Models, runtimes, and evaluation research — engineered to hold in
+          production.
+        </p>
+
+        <div className="mt-12">
+          <SealCta
+            href="mailto:contact@opceanai.com"
+            className="hero-ink-cursor"
+            size={44}
+            label="Get in touch"
           />
-        ))}
-      </div>
-
-      {/* Desktop Hero Particles */}
-      <div className="hero-particles hidden md:block">
-        {Array.from({ length: 30 }).map((_, i) => (
-          <div
-            key={i}
-            className="hero-particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              "--duration": `${8 + Math.random() * 12}s`,
-              "--delay": `${Math.random() * 5}s`,
-              "--dx": `${-30 + Math.random() * 60}px`,
-              "--dy": `${-40 + Math.random() * 80}px`,
-            } as React.CSSProperties}
-          />
-        ))}
-      </div>
-
-      {/* Desktop Light Rays */}
-      <div className="hero-light-rays hidden md:block" />
-
-      {/* Desktop Volumetric Fog */}
-      <div className="hero-volumetric-fog hidden md:block" />
-
-      {/* Desktop Film Grain */}
-      <div className="hero-film-grain hidden md:block" />
-
-      {/* Desktop Fog Bottom */}
-      <div className="hero-fog hidden md:block" />
-
-      <div className="max-w-4xl w-full text-center space-y-12 relative z-10">
-        <div className="space-y-8">
-          <h1 className="hero-headline font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-light text-text-primary tracking-tight reveal-word" style={{ "--word-delay": "200ms" } as React.CSSProperties}>
-            OpceanAI
-          </h1>
-
-          <div className="space-y-2 min-h-[7rem] sm:min-h-[8rem]">
-            {typedLines.map((line, i) => (
-              <p
-                key={i}
-                className="hero-subtitle font-display text-xl sm:text-2xl md:text-3xl text-text-tertiary font-light leading-snug"
-              >
-                {line}
-              </p>
-            ))}
-            {currentLine < subtitleLines.length && (
-              <p className="hero-subtitle font-display text-xl sm:text-2xl md:text-3xl text-text-tertiary font-light leading-snug typewriter-mobile">
-                {subtitleLines[currentLine].slice(0, currentChar)}
-                <span
-                  className="inline-block w-0.5 h-6 sm:h-8 bg-accent ml-0.5 align-middle cursor"
-                  style={{ opacity: cursorVisible ? 1 : 0, transition: "opacity 0.1s" }}
-                />
-              </p>
-            )}
-          </div>
-
-          <p className="text-base sm:text-lg text-text-quaternary max-w-lg mx-auto leading-relaxed reveal-word" style={{ "--word-delay": "1200ms" } as React.CSSProperties}>
-            Born on a Snapdragon 685 phone. Built through constraints, not resources.
-            Now an ecosystem of models, systems, and infrastructure.
-          </p>
-
-          <p className="text-sm text-text-quaternary max-w-md mx-auto leading-relaxed reveal-word" style={{ "--word-delay": "1400ms" } as React.CSSProperties}>
-            Not one project. A growing system of ideas that learned how to become real.
-          </p>
         </div>
-
-        <div className="max-w-xl mx-auto w-full relative reveal-word" style={{ "--word-delay": "1500ms" } as React.CSSProperties}>
-          <form onSubmit={handleSubmit}>
-            <div
-              className={`
-                glass-spotlight
-                relative flex items-center gap-3
-                rounded-[var(--radius-pill)]
-                transition-all duration-300
-                ${focused ? "scale-[1.01] rounded-b-none" : ""}
-              `}
-              style={{
-                padding: "6px 6px 6px 20px",
-                background: focused ? "var(--glass-bg-hover)" : "var(--glass-bg)",
-                border: `1px solid ${focused ? "var(--glass-border-hover)" : "var(--glass-border)"}`,
-                boxShadow: focused
-                  ? "var(--shadow-lg), 0 0 0 2px var(--color-accent-glow)"
-                  : "var(--shadow-md)",
-                borderBottomLeftRadius: showDropdown ? "0" : undefined,
-                borderBottomRightRadius: showDropdown ? "0" : undefined,
-              }}
-            >
-              <Search className={`w-5 h-5 shrink-0 transition-colors duration-200 ${focused ? "text-accent" : "text-text-quaternary"}`} />
-              <input
-                ref={inputRef}
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onFocus={() => { setFocused(true); if (query.trim()) setShowDropdown(true); }}
-                onBlur={() => setFocused(false)}
-                onKeyDown={handleKeyDown}
-                placeholder="Search the ecosystem..."
-                className="flex-1 bg-transparent outline-none text-text-primary placeholder:text-text-quaternary text-base font-body"
-                aria-label="Search"
-                autoComplete="off"
-              />
-              {query && (
-                <button
-                  type="button"
-                  onClick={() => { setQuery(""); setShowDropdown(false); inputRef.current?.focus(); }}
-                  className="shrink-0 w-8 h-8 rounded-full hover:bg-white/10 flex items-center justify-center transition-colors haptic-tap"
-                  aria-label="Clear"
-                >
-                  <X className="w-3.5 h-3.5 text-text-quaternary" />
-                </button>
-              )}
-              <button type="submit" className="shrink-0 w-10 h-10 rounded-full bg-text-primary/10 hover:bg-text-primary/15 flex items-center justify-center transition-colors duration-200 haptic-tap" aria-label="Submit">
-                <ArrowRight className="w-4 h-4 text-text-primary" />
-              </button>
-            </div>
-          </form>
-
-          {showDropdown && !easterEgg && results.length > 0 && (
-            <div ref={dropdownRef} className="search-dropdown">
-              <div className="search-suggestions-header">Results</div>
-              {results.map((item, i) => (
-                <div key={item.id}>
-                  <div
-                    className={`search-dropdown-item ${i === activeIndex ? "active" : ""}`}
-                    onMouseDown={() => handleSelect(item)}
-                    onMouseEnter={() => setActiveIndex(i)}
-                  >
-                    <div className={`search-dropdown-icon ${item.category}`}>
-                      {categoryIcons[item.category] || <Search className="w-4 h-4" />}
-                    </div>
-                    <div className="search-dropdown-text">
-                      <p className="search-dropdown-title">{item.title}</p>
-                      <p className="search-dropdown-desc">{item.description}</p>
-                    </div>
-                    <span className="search-dropdown-category">{item.category}</span>
-                  </div>
-                  {item.externalLinks && item.externalLinks.length > 0 && (
-                    <div className="search-dropdown-links">
-                      {item.externalLinks.map((link) => (
-                        <a
-                          key={link.url}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="search-dropdown-link"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <ExternalLink className="w-3 h-3" />
-                          <span>{link.label}</span>
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          )}
-
-          {showDropdown && !easterEgg && results.length === 0 && (
-            <div ref={dropdownRef} className="search-dropdown">
-              <div className="search-empty">
-                <p>No results for &ldquo;{query}&rdquo;</p>
-                <p className="text-xs mt-1">Try: yuuki, doki, nhe, tsuki, origin, sakura</p>
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="flex flex-wrap items-center justify-center gap-3 pt-2 reveal-word" style={{ "--word-delay": "1800ms" } as React.CSSProperties}>
-          <a href="#origin" className="cta-pill hero-cta-animated hero-cta-magnetic">Explore the story</a>
-          <a href="#ecosystem" className="cta-pill cta-pill-secondary hero-cta-magnetic">View the ecosystem</a>
-        </div>
-      </div>
-
-      {/* Scroll Hint Chevron */}
-      <div className="scroll-hint">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M6 9l6 6 6-6" />
-        </svg>
       </div>
     </section>
   );

@@ -1,39 +1,36 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Inter, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
+import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import ScrollProgress from "@/components/ui/ScrollProgress";
-import WaterRipple from "@/components/ui/WaterRipple";
 import { ToastProvider } from "@/components/ui/Toast";
 import SpotlightSearch from "@/components/ui/SpotlightSearch";
-import Preloader from "@/components/preloader/Preloader";
-import Scanlines from "@/components/effects/Scanlines";
 import BackToTop from "@/components/ui/BackToTop";
-import DesktopEffects from "@/components/layout/DesktopEffects";
 
-const cormorant = Cormorant_Garamond({
-  subsets: ["latin"],
+const sentient = localFont({
+  src: [
+    { path: "../../public/fonts/sentient/Sentient-Variable.woff2", style: "normal" },
+    { path: "../../public/fonts/sentient/Sentient-VariableItalic.woff2", style: "italic" },
+  ],
   variable: "--font-display",
-  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
 });
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-body",
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const jetbrains = JetBrains_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-  weight: ["400", "500"],
+const switzer = localFont({
+  src: [
+    { path: "../../public/fonts/switzer/Switzer-Variable.woff2", style: "normal" },
+    { path: "../../public/fonts/switzer/Switzer-VariableItalic.woff2", style: "italic" },
+  ],
+  variable: "--font-sans",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "OpceanAI — Intelligent Systems That Feel Natural",
-  description: "A technology organization focused on AI models, infrastructure, and systems. From bots on a Snapdragon 685 phone to an ecosystem of models, systems, and infrastructure.",
+  title: "OpceanAI — Intelligent systems, built like instruments",
+  description: "OpceanAI builds AI models, container infrastructure, and evaluation research — engineered under real constraints.",
   keywords: ["OpceanAI", "AI", "machine learning", "YuuKi", "Doki", "Android", "Docker", "infrastructure", "research", "NHE", "Tsuki"],
-  authors: [{ name: "awa-omg" }],
-  creator: "awa-omg",
+  authors: [{ name: "OpceanAI" }],
+  creator: "OpceanAI",
   publisher: "OpceanAI",
   robots: "index, follow",
   openGraph: {
@@ -41,8 +38,8 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://opceanai.com",
     siteName: "OpceanAI",
-    title: "OpceanAI — A growing system of ideas that learned how to become real",
-    description: "From bots on a Snapdragon 685 phone to an ecosystem of AI models, systems, and infrastructure. Built through constraints, not resources.",
+    title: "OpceanAI — Intelligent Systems That Feel Natural",
+    description: "AI models, infrastructure, and systems — container runtimes, a growing model catalog, and open research.",
     images: [
       {
         url: "/favicon/logo.jpg",
@@ -54,8 +51,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "OpceanAI — A growing system of ideas",
-    description: "From bots on a Snapdragon 685 phone to an ecosystem of AI models, systems, and infrastructure.",
+    title: "OpceanAI — Intelligent Systems That Feel Natural",
+    description: "AI models, infrastructure, and systems — container runtimes, a growing model catalog, and open research.",
     images: ["/favicon/logo.jpg"],
     creator: "@opceanai",
   },
@@ -74,7 +71,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorant.variable} ${inter.variable} ${jetbrains.variable} dark`}
+      className={`${sentient.variable} ${switzer.variable} ${GeistMono.variable} dark`}
       suppressHydrationWarning
     >
       <head>
@@ -88,10 +85,6 @@ export default function RootLayout({
               url: "https://opceanai.com",
               description: "A technology organization focused on AI models, infrastructure, and systems.",
               foundingDate: "2023-04-23",
-              founder: {
-                "@type": "Person",
-                name: "awa-omg",
-              },
               sameAs: [
                 "https://github.com/OpceanAI",
                 "https://huggingface.co/OpceanAI",
@@ -103,35 +96,8 @@ export default function RootLayout({
       <body className="antialiased">
         <a href="#main-content" className="skip-link">Skip to content</a>
 
-        {/* SVG Refraction Filter for Liquid Glass */}
-        <svg style={{ display: "none" }} xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <filter id="lg-dist" x="0%" y="0%" width="100%" height="100%">
-              <feTurbulence
-                type="fractalNoise"
-                baseFrequency="0.008 0.008"
-                numOctaves="2"
-                seed="92"
-                result="noise"
-              />
-              <feGaussianBlur in="noise" stdDeviation="2" result="blurred" />
-              <feDisplacementMap
-                in="SourceGraphic"
-                in2="blurred"
-                scale="8"
-                xChannelSelector="R"
-                yChannelSelector="G"
-              />
-            </filter>
-          </defs>
-        </svg>
-
-        <Preloader />
-        <Scanlines />
-        <DesktopEffects />
         <ToastProvider>
           <ScrollProgress />
-          <WaterRipple />
           <SpotlightSearch />
           <main id="main-content">{children}</main>
           <BackToTop />

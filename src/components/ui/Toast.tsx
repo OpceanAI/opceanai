@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useCallback, ReactNode } from "react";
-import { CheckCircle, AlertCircle, AlertTriangle, Info, X } from "lucide-react";
+import { CheckCircle, AlertCircle, AlertTriangle, Info, X } from "@/components/icons/Icons";
 
 type ToastType = "success" | "error" | "warning" | "info";
 
@@ -49,7 +49,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
           const Icon = icons[t.type];
           return (
             <div key={t.id} className={`toast toast-${t.type}`}>
-              <div className="toast-icon"><Icon className="w-4 h-4" /></div>
+              <Icon className="toast-icon" />
               <span className="toast-message">{t.message}</span>
               <button onClick={() => remove(t.id)} className="text-text-quaternary hover:text-text-primary transition-colors">
                 <X className="w-4 h-4" />

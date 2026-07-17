@@ -1,86 +1,71 @@
-"use client";
+import TerminalSession, { type SessionLine } from "@/components/doki/TerminalSession";
+import AsciiWave from "@/components/doki/AsciiWave";
 
-import { useEffect, useRef } from "react";
-import { animate, stagger, onScroll } from "animejs";
-import { Container, Shield, Smartphone } from "lucide-react";
-
-const capabilities = [
-  {
-    icon: Container,
-    title: "OCI Compatible",
-    desc: "Full compatibility with OCI container images. Run standard Docker containers on Android.",
-  },
-  {
-    icon: Shield,
-    title: "4 Isolation Layers",
-    desc: "Multiple security layers depending on the environment. Adaptable isolation from sandboxed to full system-level.",
-  },
-  {
-    icon: Smartphone,
-    title: "Android Native",
-    desc: "Bringing Docker containers directly to Android devices. No cloud dependency, no remote server.",
-  },
+/**
+ * Doki — the product shown as a real, populated artifact: a console that
+ * replays a plausible session (typed live on first view), clipped at its
+ * bottom edge (content padded well clear of the cut) and floated with a
+ * layered indigo shadow. Below it, the SSH TUI's procedural ASCII wave —
+ * the same DNA rendered in half-block glyphs on a canvas.
+ */
+const session: SessionLine[] = [
+  { kind: "cmd", text: "doki pull alpine:3.20" },
+  { kind: "out", text: "pulling manifest sha256:beefdbd8 … done" },
+  { kind: "out", text: "extracting 3 layers … done" },
+  { kind: "cmd", text: "doki run -d --name sync-agent alpine:3.20" },
+  { kind: "out", text: "9f3c1ab2" },
+  { kind: "cmd", text: "doki ps" },
+  { kind: "dim", text: "CONTAINER  IMAGE         STATUS   ISOLATION" },
+  { kind: "out", text: "9f3c1ab2   alpine:3.20   Up 12s   L2 · proot" },
+  { kind: "out", text: "41d7e09c   nginx:1.27    Up 3h    L3 · ns" },
+  { kind: "out", text: "c208aa41   redis:7.4     Up 26m   L2 · proot" },
+  { kind: "cmd", text: "doki stats sync-agent" },
+  { kind: "out", text: "CPU 2.1%   MEM 18.4 MiB   NET 0.6 KiB/s" },
 ];
 
 export default function Doki() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const itemsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!sectionRef.current || !itemsRef.current) return;
-    const items = itemsRef.current.querySelectorAll(".doki-item");
-    animate(items, {
-      translateY: ["20px", "0px"],
-      duration: 700, delay: stagger(100, { from: "first" }), ease: "out(3)",
-      autoplay: onScroll({ container: sectionRef.current, enter: "80%", leave: "100%" }),
-    });
-  }, []);
-
   return (
-    <section id="system" ref={sectionRef} className="relative py-32 px-4">
-      <div className="max-w-4xl mx-auto text-center">
-        <div ref={itemsRef} className="space-y-12">
-          <span className="inline-block text-xs font-mono uppercase tracking-widest text-accent doki-item">Current Product</span>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-text-primary tracking-tight leading-tight doki-item">Doki</h2>
-
-          <p className="text-text-primary text-xl font-medium leading-relaxed max-w-lg mx-auto doki-item">
-            Bringing Docker containers to Android.
-          </p>
-
-          <p className="text-text-tertiary text-lg leading-relaxed max-w-xl mx-auto doki-item">
-            The most recent project, launched in <strong className="text-text-primary font-medium">May 2026</strong>.
-            Doki is a system focused on bringing Docker containers to Android.
-          </p>
-
-          <p className="text-text-secondary text-base leading-relaxed max-w-lg mx-auto doki-item">
-            It is compatible with OCI images and supports four layers of isolation depending on the environment.
-          </p>
-
-          <div className="divider max-w-xs mx-auto doki-item" />
-
-          {/* 3 highlighted capabilities */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
-            {capabilities.map((c) => (
-              <div key={c.title} className="glass-panel glass-spotlight glass-shimmer p-8 doki-item haptic-tap">
-                <div className="w-12 h-12 rounded-2xl bg-accent-soft flex items-center justify-center mb-5">
-                  <c.icon className="w-6 h-6 text-accent" />
-                </div>
-                <h3 className="font-display text-base font-medium text-text-primary mb-2">{c.title}</h3>
-                <p className="text-sm text-text-tertiary leading-relaxed">{c.desc}</p>
-              </div>
-            ))}
+    <section id="system" className="relative w-full px-6 py-36 sm:px-10">
+      <div className="mx-auto grid max-w-6xl items-center gap-16 lg:grid-cols-[1fr_1.15fr]">
+        {/* The artifact leads. */}
+        <div className="relative lg:order-2">
+          <div className="relative h-[380px] overflow-hidden rounded-[10px]">
+            <div className="terminal absolute inset-x-0 top-0 h-[430px] overflow-hidden px-4 pb-24 pt-4 text-[11px] sm:px-6 sm:text-[13px]">
+              <p className="pb-3 text-xs tracking-[0.12em] text-[var(--terminal-dim)]">
+                doki · termux — arm64
+              </p>
+              <TerminalSession lines={session} />
+            </div>
           </div>
 
-          <div className="divider max-w-xs mx-auto doki-item" />
+          {/* The wave strip — ssh.opceanai.com's half-block sea, ported. */}
+          <div className="terminal-wave mt-4 overflow-hidden rounded-[8px]">
+            <AsciiWave className="block w-full" />
+          </div>
+        </div>
 
-          <div className="space-y-4 doki-item">
-            <p className="text-text-primary text-lg font-medium leading-relaxed max-w-lg mx-auto">
-              Doki is important because it represents the move from model research toward platform infrastructure.
-            </p>
-            <p className="text-text-tertiary text-base leading-relaxed max-w-md mx-auto">
-              This is not only about AI anymore.
-              It is about running systems.
-            </p>
+        <div className="lg:order-1">
+          <h2 className="font-display text-4xl font-medium tracking-tight text-text-primary sm:text-5xl">
+            Doki
+          </h2>
+          <p className="mt-5 text-xl font-medium leading-snug text-text-primary">
+            OCI containers, natively on Android.
+          </p>
+          <p className="mt-5 max-w-md text-base leading-relaxed text-text-secondary">
+            Standard Docker images run unmodified on-device — no cloud, no
+            remote daemon. Four isolation layers, from sandboxed to
+            system-level, selected per environment.
+          </p>
+          <div className="mt-9">
+            <a
+              href="https://doki.opceanai.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="arrow-link"
+            >
+              Read the documentation
+              <span className="arrow" aria-hidden="true">→</span>
+            </a>
           </div>
         </div>
       </div>

@@ -1,194 +1,313 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { animate, stagger, onScroll } from "animejs";
-import { Calculator, ArrowRight } from "lucide-react";
-import SpotlightCard from "@/components/glass/SpotlightCard";
-import ScrollReveal from "@/components/ui/ScrollReveal";
+import { useCallback, useRef, useState } from "react";
+import { animate } from "animejs";
 
-const yuuKiLine = [
-  { version: "v0.1", label: "First prototype", desc: "The first prototype of the OpceanAI Lab era. Where it all began." },
-  { version: "NxG", label: "Next generation", desc: "The continuing development of the original AI line." },
-  { version: "RxG", label: "Refined generation", desc: "The current state of the YuuKi lineage." },
-];
-
-const ecosystemModels = [
+/**
+ * The model ledger — the catalog as a precise enterprise table. Strict grid,
+ * mono reserved for data, tonal sweep on row hover, rounded 1px rules.
+ * Rows expand in place: a physically-honest height animation (measured
+ * content height, spring-flavored easing) with the detail fields staggering
+ * in on transform only. This is the only section that opens with a giant
+ * number, cropped off the left edge; content is padded clear of the cut.
+ */
+const rows = [
+  {
+    name: "YuuKi RxG",
+    role: "Flagship language model",
+    data: "v0.1 → NxG → RxG",
+    status: "Active",
+    href: "#detail-yuuki",
+    summary:
+      "The central intellectual line of OpceanAI — one lineage carried from the first v0.1 prototype through NxG to the current RxG generation.",
+    fields: [
+      { label: "Lineage", value: "v0.1 → NxG → RxG" },
+      { label: "First prototype", value: "2025" },
+      { label: "Current generation", value: "RxG · 2026" },
+    ],
+  },
   {
     name: "Yumo",
-    tagline: "Specialized mathematics",
-    description: "The Yumo models emerged as a specialized branch of the YuuKi ecosystem. Based on YuuKi, but specialized in mathematics. Demonstrates that OpceanAI creates targeted, domain-oriented models — specialized, focused, mathematical, structured.",
-    image: "/yuuki/yuuki.jpg",
-    badge: "badge-active",
-  },
-  {
-    name: "OwO",
-    tagline: "OpceanAI with Omni-Reasoning",
-    description: "Short, memorable, and identity-driven. Shows that OpceanAI uses naming not only as branding, but as architectural identity.",
-    image: "/owo/OwO.webp",
-    badge: "badge-research",
-  },
-  {
-    name: "OvO",
-    tagline: "OpceanAI v0",
-    description: "Origin and versioning as architectural identity. Paired with OwO — one for reasoning, one for origin/versioning.",
-    image: "/ovo/OvO.webp",
-    badge: "badge-research",
-  },
-  {
-    name: "Yaki",
-    tagline: "Multimodal",
-    description: "Based on YuuKi, enhanced with multimodal abilities. Capabilities injected via LLaVA. A non-native VL model — different from YuuKi VL models. Shows that OpceanAI is not limited to one modality or one architecture style.",
-    image: "/yaki/Yaki.webp",
-    badge: "badge-experimental",
-  },
-  {
-    name: "Imprint",
-    tagline: "Multimodal research",
-    description: "The Imprint line expands the ecosystem into multimodal territory alongside Yaki. Exploring multiple paths toward intelligence.",
-    image: "/imprint/nhe.webp",
-    badge: "badge-research",
+    role: "Applied mathematics",
+    data: "YuuKi base",
+    status: "Active",
+    href: "#detail-yumo",
+    summary:
+      "A specialized branch of the YuuKi ecosystem — the same base model, retargeted entirely at mathematics.",
+    fields: [
+      { label: "Base model", value: "YuuKi" },
+      { label: "Domain", value: "Applied mathematics" },
+      { label: "Approach", value: "Targeted, domain-oriented" },
+    ],
   },
   {
     name: "Tsuki",
-    tagline: "Token compression",
-    description: "A token compression model created as a quiet contribution to the ecosystem. Trained on 4,160 bilingual examples (Spanish and English), six different task types. Result: average 57.6% token reduction. Its value is precision, not loud branding.",
-    image: "/tsuki/tsuki.webp",
-    badge: "badge-active",
+    role: "Token compression",
+    data: "4,160 ex · −57.6% tokens",
+    status: "Active",
+    href: "#detail-tsuki",
+    summary:
+      "A bilingual token compression model trained on 4,160 curated examples across six task types, averaging 57.6% token reduction.",
+    fields: [
+      { label: "Examples", value: "4,160 bilingual" },
+      { label: "Task types", value: "6" },
+      { label: "Reduction", value: "57.6% avg" },
+    ],
   },
-];
+  {
+    name: "Yaki",
+    role: "Multimodal",
+    data: "LLaVA vision adapter",
+    status: "Experimental",
+    summary:
+      "A multimodal experiment pairing the YuuKi line with a LLaVA vision adapter — sight grafted onto the lineage.",
+    fields: [
+      { label: "Adapter", value: "LLaVA vision" },
+      { label: "Base", value: "YuuKi line" },
+      { label: "Stage", value: "Experimental" },
+    ],
+  },
+  {
+    name: "OwO",
+    role: "Omni-reasoning",
+    data: "broad task coverage",
+    status: "Research",
+    summary:
+      "An omni-reasoning research model aimed at broad task coverage rather than single-domain depth.",
+    fields: [
+      { label: "Focus", value: "Broad task coverage" },
+      { label: "Paired with", value: "OvO" },
+      { label: "Stage", value: "Research" },
+    ],
+  },
+  {
+    name: "OvO",
+    role: "Origin & versioning",
+    data: "paired with OwO",
+    status: "Research",
+    summary:
+      "Origin-and-versioning research paired with OwO — tracking how a model lineage evolves between generations.",
+    fields: [
+      { label: "Focus", value: "Origin & versioning" },
+      { label: "Paired with", value: "OwO" },
+      { label: "Stage", value: "Research" },
+    ],
+  },
+  {
+    name: "Imprint",
+    role: "Multimodal research",
+    data: "imprint-theory probe",
+    status: "Research",
+    summary:
+      "A multimodal probe for the Imprint Theory — tracing the residue of human cognitive structure inside artificial systems.",
+    fields: [
+      { label: "Probe", value: "Imprint theory" },
+      { label: "Related", value: "NHE benchmark" },
+      { label: "Stage", value: "Research" },
+    ],
+  },
+] as const;
 
-export default function Ecosystem() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const itemsRef = useRef<HTMLDivElement>(null);
+type Row = (typeof rows)[number];
 
-  useEffect(() => {
-    if (!sectionRef.current || !itemsRef.current) return;
-    const items = itemsRef.current.querySelectorAll(".eco-item");
-    animate(items, {
-      translateY: ["20px", "0px"],
-      duration: 600, delay: stagger(80, { from: "center" }), ease: "out(3)",
-      autoplay: onScroll({ container: sectionRef.current, enter: "80%", leave: "100%" }),
-    });
-  }, []);
+function Chevron({ open }: { open: boolean }) {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="ml-2.5 inline-block shrink-0 self-center text-text-quaternary transition-transform duration-300"
+      style={{
+        transform: open ? "rotate(180deg)" : "rotate(0deg)",
+        transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+      }}
+    >
+      <path d="M6 9.5l6 6 6-6" />
+    </svg>
+  );
+}
+
+function LedgerRow({ row }: { row: Row }) {
+  const [open, setOpen] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const panelId = `ledger-panel-${row.name.toLowerCase().replace(/\s+/g, "-")}`;
+
+  const toggle = useCallback(() => {
+    const panel = panelRef.current;
+    const inner = innerRef.current;
+    if (!panel || !inner) return;
+
+    const next = !open;
+    setOpen(next);
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) {
+      panel.style.height = next ? "auto" : "0px";
+      return;
+    }
+
+    const contentHeight = inner.offsetHeight;
+    if (next) {
+      panel.style.height = "0px";
+      animate(panel, {
+        height: `${contentHeight}px`,
+        duration: 560,
+        ease: "outElastic(1, 0.9)",
+        onComplete: () => {
+          panel.style.height = "auto";
+        },
+      });
+      const parts = inner.querySelectorAll<HTMLElement>("[data-ledger-detail]");
+      parts.forEach((el, i) => {
+        animate(el, {
+          translateY: ["10px", "0px"],
+          duration: 420,
+          delay: 90 + i * 30,
+          ease: "outQuart",
+        });
+      });
+    } else {
+      panel.style.height = `${panel.offsetHeight}px`;
+      animate(panel, {
+        height: "0px",
+        duration: 340,
+        ease: "outQuart",
+      });
+    }
+  }, [open]);
 
   return (
-    <section id="ecosystem" ref={sectionRef} className="relative py-32 px-4">
-      <div className="max-w-6xl mx-auto">
-        <div ref={itemsRef} className="space-y-32">
-          {/* YuuKi Line */}
-          <div className="text-center">
-            <span className="inline-block text-xs font-mono uppercase tracking-widest text-accent eco-item">The YuuKi Line</span>
-            <h2 className="section-heading eco-item">From YuuKi v0.1 to YuuKi RxG</h2>
-            <p className="section-subtitle eco-item">
-              YuuKi is the central intellectual line of OpceanAI.
-              It is not just a model name. It is a lineage.
-            </p>
+    <div>
+      <button
+        type="button"
+        onClick={toggle}
+        aria-expanded={open}
+        aria-controls={panelId}
+        className="ledger-row block w-full cursor-pointer text-left"
+      >
+        <div className="grid grid-cols-[1fr_auto] items-baseline gap-x-6 gap-y-1 px-4 py-5 sm:grid-cols-[1.1fr_1.5fr_1.3fr_0.6fr] sm:px-6">
+          <span className="inline-flex items-baseline font-display text-lg font-medium tracking-tight text-text-primary">
+            {row.name}
+            <Chevron open={open} />
+          </span>
+          <span className="order-3 col-span-2 text-sm text-text-secondary sm:order-none sm:col-span-1">
+            {row.role}
+          </span>
+          <span className="order-4 col-span-2 sm:order-none sm:col-span-1">
+            <span className="inline-block border-b border-border-subtle pb-0.5 font-mono text-[13px] tracking-tight text-text-tertiary tabular-nums">
+              {row.data}
+            </span>
+          </span>
+          <span
+            className={`text-right text-sm ${
+              row.status === "Active" ? "text-accent" : "text-text-quaternary"
+            }`}
+          >
+            {row.status}
+          </span>
+        </div>
+      </button>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-12">
-              {yuuKiLine.map((v, i) => (
-                <SpotlightCard key={v.version}>
-                  <div className="glass-panel glass-spotlight glass-shimmer p-8 text-left eco-item group haptic-tap hover-lift hover-border">
-                    <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-xl overflow-hidden hover-image-zoom">
-                        <img src="/yuuki/yuuki.jpg" alt={v.version} className="w-full h-full object-cover" />
-                      </div>
-                      <div>
-                        <p className="font-display text-lg font-medium text-text-primary">{v.version}</p>
-                        <p className="text-xs text-text-quaternary">{v.label}</p>
-                      </div>
-                    </div>
-                    <p className="text-sm text-text-tertiary leading-relaxed">{v.desc}</p>
-                    {i < yuuKiLine.length - 1 && (
-                      <div className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 z-10">
-                        <ArrowRight className="w-4 h-4 text-text-quaternary" />
-                      </div>
-                    )}
+      {/* Inline detail panel — height is measured, never guessed. */}
+      <div
+        id={panelId}
+        ref={panelRef}
+        style={{ height: 0, overflow: "hidden" }}
+        aria-hidden={!open}
+      >
+        <div ref={innerRef} className="px-4 pb-7 pt-1 sm:px-6">
+          <div className="grid gap-x-6 gap-y-5 sm:grid-cols-[1.1fr_2.8fr_0.6fr]">
+            <span className="hidden sm:block" aria-hidden="true" />
+            <div>
+              <p
+                data-ledger-detail
+                className="max-w-xl text-sm leading-relaxed text-text-secondary"
+              >
+                {row.summary}
+              </p>
+              <dl className="mt-5 flex flex-wrap gap-x-10 gap-y-3">
+                {row.fields.map((f) => (
+                  <div key={f.label} data-ledger-detail>
+                    <dt className="text-xs text-text-quaternary">{f.label}</dt>
+                    <dd className="mt-1 font-mono text-[13px] tracking-tight text-text-tertiary tabular-nums">
+                      {f.value}
+                    </dd>
                   </div>
-                </SpotlightCard>
-              ))}
+                ))}
+              </dl>
+              {"href" in row && row.href && (
+                <p data-ledger-detail className="mt-6">
+                  <a
+                    href={row.href}
+                    className="arrow-link !text-sm"
+                    tabIndex={open ? 0 : -1}
+                  >
+                    Full detail
+                    <span className="arrow" aria-hidden="true">
+                      →
+                    </span>
+                  </a>
+                </p>
+              )}
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-          {/* Other models */}
-          <div className="text-center">
-            <span className="inline-block text-xs font-mono uppercase tracking-widest text-text-quaternary eco-item">The Full Ecosystem</span>
-            <h2 className="section-heading eco-item">Beyond YuuKi</h2>
-            <p className="section-subtitle eco-item">
-              OpceanAI does not only create general-purpose systems.
-              It creates targeted, domain-oriented models and explores multiple paths toward intelligence.
-            </p>
+export default function Ecosystem() {
+  return (
+    <section id="ecosystem" className="relative w-full overflow-hidden px-6 py-36 sm:px-10">
+      {/* Section number, cropped off the left edge on purpose. Drifts slowly
+          on its own scroll timeline (transform only, CSS-gated). */}
+      <span
+        className="numeral-drift pointer-events-none absolute -left-10 top-10 select-none font-display text-[11rem] font-medium leading-none text-surface-2 sm:-left-16 sm:text-[17rem]"
+        aria-hidden="true"
+      >
+        01
+      </span>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-12">
-              {ecosystemModels.map((model) => (
-                <SpotlightCard key={model.name}>
-                  <div className="glass-panel glass-spotlight glass-shimmer group cursor-pointer eco-item haptic-tap hover-lift hover-border">
-                    <div className="p-6 space-y-4">
-                      <div className="flex items-start justify-between">
-                        <div className="w-10 h-10 rounded-xl overflow-hidden transition-transform duration-300 group-hover:scale-110 hover-image-zoom">
-                          <img src={model.image} alt={model.name} className="w-full h-full object-cover" />
-                        </div>
-                        <span className={`badge ${model.badge}`}>
-                          <span className="status-dot" />
-                          {model.tagline}
-                        </span>
-                      </div>
-                      <div>
-                        <h3 className="font-display text-lg font-medium text-text-primary group-hover:text-accent transition-colors duration-200">
-                          {model.name}
-                        </h3>
-                        <p className="text-sm text-text-tertiary mt-1.5 leading-relaxed">{model.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                </SpotlightCard>
-              ))}
-            </div>
+      <div className="relative mx-auto max-w-6xl">
+        <div className="max-w-xl pt-28 sm:pt-0 sm:pl-32 lg:pl-44">
+          <h2 className="font-display text-3xl font-medium tracking-tight text-text-primary sm:text-4xl">
+            The model ledger
+          </h2>
+          <p className="mt-4 text-base leading-relaxed text-text-secondary">
+            One lineage and its branches, maintained as a working catalog.
+          </p>
+        </div>
+
+        <div className="mt-16">
+          {/* Column heads — desktop only, aligned to the row grid. */}
+          <div className="hidden grid-cols-[1.1fr_1.5fr_1.3fr_0.6fr] gap-x-6 border-b border-border-subtle px-6 pb-3 sm:grid">
+            {["Model", "Role", "Data", "Status"].map((h, i) => (
+              <span
+                key={h}
+                className={`font-mono text-[11px] font-medium uppercase tracking-[0.08em] text-text-tertiary ${
+                  i === 3 ? "text-right" : ""
+                }`}
+              >
+                {h}
+              </span>
+            ))}
           </div>
 
-          {/* Tsuki highlight */}
-          <ScrollReveal animation="scale">
-            <div className="text-center">
-              <SpotlightCard intensity={1.5}>
-                <div className="glass-panel glass-spotlight glass-shimmer glass-edge-glow p-10 mx-auto max-w-2xl text-left eco-item haptic-tap hover-lift">
-              <div className="flex items-start gap-4 mb-6">
-                <div className="w-12 h-12 rounded-2xl overflow-hidden shrink-0">
-                  <img src="/tsuki/tsuki.webp" alt="Tsuki" className="w-full h-full object-cover" />
-                </div>
-                <div>
-                  <h3 className="font-display text-xl font-medium text-text-primary">Tsuki — Token Compression</h3>
-                  <p className="text-sm text-text-quaternary mt-1">A quiet contribution to the ecosystem</p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-3 gap-6 mb-6">
-                <div className="text-center">
-                  <p className="font-display text-2xl font-medium text-accent">4,160</p>
-                  <p className="text-xs text-text-quaternary mt-1">Bilingual examples</p>
-                </div>
-                <div className="text-center">
-                  <p className="font-display text-2xl font-medium text-accent">6</p>
-                  <p className="text-xs text-text-quaternary mt-1">Task types</p>
-                </div>
-                <div className="text-center">
-                  <p className="font-display text-2xl font-medium text-accent">57.6%</p>
-                  <p className="text-xs text-text-quaternary mt-1">Token reduction</p>
-                </div>
-              </div>
-
-              <p className="text-sm text-text-tertiary leading-relaxed mb-3">
-                Tsuki was trained on Spanish and English examples across six different task types.
-                The result was an average 57.6% token reduction.
-              </p>
-
-              <div className="divider" />
-
-              <p className="text-sm text-text-secondary italic leading-relaxed">
-                &ldquo;Quality over noise, even without recognition.&rdquo;
-              </p>
-                </div>
-              </SpotlightCard>
+          <div className="ledger-rule" />
+          {rows.map((row) => (
+            <div key={row.name}>
+              <LedgerRow row={row} />
+              <div className="ledger-rule" />
             </div>
-          </ScrollReveal>
+          ))}
         </div>
       </div>
     </section>

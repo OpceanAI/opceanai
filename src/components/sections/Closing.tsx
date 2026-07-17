@@ -1,55 +1,59 @@
-"use client";
+import SealCta from "@/components/ui/SealCta";
 
-import { useEffect, useRef } from "react";
-import { animate, stagger, onScroll } from "animejs";
-
+/**
+ * Closing band — the only patterned band on the page: seigaiha under one
+ * line and the seal. The print's narrative returns at the end: a low
+ * foreground wave sliver rises behind the band on its own view() timeline
+ * (transform only; static and fully visible without support).
+ */
 export default function Closing() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const itemsRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!sectionRef.current || !itemsRef.current) return;
-    const items = itemsRef.current.querySelectorAll(".closing-item");
-    animate(items, {
-      translateY: ["20px", "0px"],
-      duration: 800, delay: stagger(100, { from: "first" }), ease: "out(3)",
-      autoplay: onScroll({ container: sectionRef.current, enter: "80%", leave: "100%" }),
-    });
-  }, []);
-
   return (
-    <section ref={sectionRef} className="relative py-32 px-4">
-      <div className="max-w-3xl mx-auto text-center">
-        <div ref={itemsRef} className="space-y-12">
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-light text-text-primary tracking-tight leading-tight closing-item">
-            OpceanAI is a technology organization that grew from experimentation into a real ecosystem.
-          </h2>
+    <section className="seigaiha-bg relative w-full overflow-hidden px-6 py-36 sm:px-10">
+      {/* Wave reprise — behind the content, above the seigaiha pattern. */}
+      <div
+        aria-hidden="true"
+        className="closing-wave-rise pointer-events-none"
+        style={{ position: "absolute", left: 0, right: 0, bottom: 0, zIndex: 0 }}
+      >
+        <svg
+          viewBox="0 0 1440 150"
+          preserveAspectRatio="none"
+          className="block h-[90px] w-full sm:h-[120px]"
+        >
+          <path
+            d="M -10 150 L -10 96
+               C 140 68, 300 88, 470 78
+               C 650 66, 800 86, 980 76
+               C 1150 67, 1300 84, 1450 76
+               L 1450 150 Z"
+            fill="var(--wave-4)"
+            stroke="var(--wave-ink)"
+            strokeWidth="3"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M -10 150 L -10 122
+               C 190 104, 360 120, 560 112
+               C 760 104, 920 120, 1120 112
+               C 1280 106, 1380 116, 1450 112
+               L 1450 150 Z"
+            fill="var(--wave-5)"
+            stroke="var(--wave-ink)"
+            strokeWidth="2.5"
+            strokeLinejoin="round"
+          />
+          <path d="M 320 88 c 12 -10, 30 -10, 40 2" fill="none" stroke="var(--wave-ink)" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+          <path d="M 940 84 c 12 -10, 30 -10, 40 2" fill="none" stroke="var(--wave-ink)" strokeWidth="2" strokeLinecap="round" opacity="0.6" />
+        </svg>
+      </div>
 
-          <div className="divider max-w-xs mx-auto closing-item" />
+      <div className="mx-auto flex max-w-3xl flex-col items-center gap-10 text-center">
+        <h2 className="font-display text-3xl font-medium leading-snug tracking-tight text-text-primary sm:text-4xl">
+          Evaluating the models, running Doki, or talking research — reach out
+          directly.
+        </h2>
 
-          <div className="space-y-6 closing-item">
-            <p className="text-text-tertiary text-base leading-relaxed">It is a story of:</p>
-            <div className="space-y-4">
-              <p className="text-text-secondary text-xl font-display font-medium">Bots becoming models.</p>
-              <p className="text-text-secondary text-xl font-display font-medium">Models becoming systems.</p>
-              <p className="text-text-secondary text-xl font-display font-medium">Systems becoming infrastructure.</p>
-              <p className="text-text-secondary text-xl font-display font-medium">Infrastructure becoming a research identity.</p>
-            </div>
-          </div>
-
-          <div className="divider max-w-xs mx-auto closing-item" />
-
-          <p className="text-text-tertiary text-base leading-relaxed max-w-lg mx-auto closing-item">
-            And that story should be told with the same level of care and precision that the work itself demands.
-          </p>
-
-          <div className="glass-panel glass-shimmer glass-edge-glow p-10 mx-auto max-w-2xl closing-item haptic-tap">
-            <p className="font-display text-xl sm:text-2xl text-text-primary/90 italic leading-relaxed">
-              &ldquo;OpceanAI is not one project.
-              It is a growing system of ideas that learned how to become real.&rdquo;
-            </p>
-          </div>
-        </div>
+        <SealCta href="mailto:contact@opceanai.com" size={48} label="Contact us" />
       </div>
     </section>
   );

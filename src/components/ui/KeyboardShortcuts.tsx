@@ -89,7 +89,10 @@ export default function KeyboardShortcutsModal({
       className="fixed inset-0 z-[9999] flex items-center justify-center"
       onClick={onClose}
     >
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+      <div
+        className="absolute inset-0 backdrop-blur-sm"
+        style={{ background: "var(--spotlight-bg)" }}
+      />
       <div
         className="relative glass-panel p-8 max-w-md w-full mx-4"
         onClick={(e) => e.stopPropagation()}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp } from "@/components/icons/Icons";
 
 export default function BackToTop() {
   const [visible, setVisible] = useState(false);
