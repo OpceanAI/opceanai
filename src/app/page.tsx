@@ -2,6 +2,8 @@ import Navigation from "@/components/sections/Navigation";
 import Hero from "@/components/sections/Hero";
 import Capabilities from "@/components/sections/Capabilities";
 import Ecosystem from "@/components/sections/Ecosystem";
+import Moud from "@/components/sections/Moud";
+import Latest from "@/components/sections/Latest";
 import Doki from "@/components/sections/Doki";
 import ASL from "@/components/sections/ASL";
 import Research from "@/components/sections/Research";
@@ -16,9 +18,11 @@ export default function Home() {
       <Hero />
       <Capabilities />
       <Ecosystem />
+      <Moud />
       <Doki />
       <ASL />
       <Research />
+      <Latest />
       <Closing />
       <Footer />
       <DetailView />

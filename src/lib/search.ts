@@ -17,6 +17,45 @@ export interface EasterEgg {
 
 export const searchIndex: SearchResult[] = [
   {
+    id: "pasita",
+    title: "PASITA",
+    description: "88M text-to-Markdown model, trained from scratch. GFM validity 0.956.",
+    sectionId: "ecosystem",
+    category: "model",
+    keywords: ["pasita", "markdown", "text to markdown", "from scratch", "88m", "tiny llm", "ocr", "rag", "spanish", "gfm"],
+    externalLinks: [{ label: "Hugging Face", url: "https://huggingface.co/OpceanAI/PASITA" }],
+  },
+  {
+    id: "moud",
+    title: "Moud",
+    description: "Public Beta platform: 289 models, APIs, agents, compute, deployments, developer tools.",
+    sectionId: "moud",
+    category: "project",
+    keywords: ["moud", "mound", "platform", "beta", "289", "models", "api", "byok", "agents", "compute", "deployments", "dns", "zdr"],
+    externalLinks: [{ label: "Moud", url: "https://mound.opceanai.com/" }],
+  },
+  {
+    id: "startups",
+    title: "OpceanAI for startups",
+    description: "Support program: domains, compute, storage, and engineers for open source and early teams.",
+    sectionId: "latest",
+    category: "concept",
+    keywords: ["startups", "program", "support", "domains", "compute", "engineering", "open source", "apply"],
+    externalLinks: [{ label: "Apply", url: "https://startups.opceanai.com" }],
+  },
+  {
+    id: "tinfield",
+    title: "Tinfield 1 · Badtheorylabs",
+    description: "First startup supported by OpceanAI with compute capacity. API live at rntm.sh.",
+    sectionId: "latest",
+    category: "project",
+    keywords: ["tinfield", "badtheorylabs", "rntm", "startup", "compute", "support", "runtime"],
+    externalLinks: [
+      { label: "rntm.sh", url: "https://rntm.sh" },
+      { label: "Badtheorylabs", url: "https://x.com/Badtheorylabs" },
+    ],
+  },
+  {
     id: "yuuki",
     title: "YuuKi",
     description: "The central intellectual line of OpceanAI. From v0.1 to NxG to RxG.",

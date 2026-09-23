@@ -105,6 +105,35 @@ const detailContents: DetailContent[] = [
       <DetailOrigin />
     ),
   },
+  {
+    id: "detail-pasita",
+    title: "PASITA",
+    label: "Model · From scratch",
+    labelColor: "text-accent",
+    subtitle: "Plain text to Markdown, faithfully.",
+    description: "A decoder-only language model trained 100% from scratch, with no base model, specialized in a single task: converting plain text into valid Markdown while preserving information. Compiler behavior, not chatbot behavior.",
+    externalLinks: [
+      { label: "Model card", url: "https://huggingface.co/OpceanAI/PASITA" },
+      { label: "Space", url: "https://huggingface.co/spaces/OpceanAI/PASITA" },
+    ],
+    render: () => (
+      <DetailPasita />
+    ),
+  },
+  {
+    id: "detail-moud",
+    title: "Moud",
+    label: "Public Beta",
+    labelColor: "text-accent",
+    subtitle: "Models, APIs, agents, compute, and developer tools in one place.",
+    description: "After a few days of development, testing, breaking things, fixing them, and probably breaking them again, Moud is finally entering Public Beta. What started as a fairly simple idea grew into something much bigger, much faster than expected.",
+    externalLinks: [
+      { label: "Moud", url: "https://mound.opceanai.com/" },
+    ],
+    render: () => (
+      <DetailMoud />
+    ),
+  },
 ];
 
 function DetailYuuki() {
@@ -568,6 +597,284 @@ function DetailOrigin() {
       <div className="p-10 rounded-xl bg-surface-1 border border-border-default text-center">
         <p className="text-xl text-text-primary italic leading-relaxed max-w-lg mx-auto">
           &ldquo;Sakura and Nebula were not just the first projects. They were the first signs of a system becoming an organization.&rdquo;
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function DetailPasita() {
+  const architecture = [
+    { label: "Class", value: "LlamaForCausalLM · dense, no MoE" },
+    { label: "Parameters", value: "88,099,584 · bfloat16" },
+    { label: "Layers / hidden / FFN", value: "12 / 768 / 2048 (SwiGLU)" },
+    { label: "Attention", value: "GQA 12Q / 4KV · head_dim 64" },
+    { label: "Positions", value: "RoPE theta 100000 · ctx 2048" },
+    { label: "Embeddings", value: "tied · saves ~12.6M params" },
+    { label: "File", value: "model.safetensors · 176 MB" },
+    { label: "Tokenizer", value: "custom 16k byte-level BPE" },
+    { label: "Special tokens", value: "<pad> <s> </s> <unk> <think> </think>" },
+  ];
+  const training = [
+    { stage: "SFT", detail: "58M tokens x 2 epochs · final loss 0.09 · token accuracy 98.4%" },
+    { stage: "DPO", detail: "beta 0.1 · preference margin 4.2" },
+    { stage: "GRPO", detail: "550 + 150 steps · G=4 · verifiable rewards (format, numeric fidelity, anti-overformatting)" },
+    { stage: "Data", detail: "80M human markdown-derived tokens (ES/EN Wikipedia, StackExchange, WikiHow)" },
+  ];
+  const benchmark = [
+    { metric: "GFM validity", value: "0.956" },
+    { metric: "Faithfulness", value: "0.927" },
+    { metric: "Semantic faithfulness", value: "0.888" },
+    { metric: "Table fidelity", value: "1.000" },
+    { metric: "code / ocr / docs / math", value: "0.93 – 1.00" },
+    { metric: "strict control instructions", value: "0.19 · known limitation" },
+  ];
+
+  return (
+    <div className="space-y-16">
+      <div className="rounded-xl border border-border-default bg-surface-1 p-10 text-left">
+        <div className="mb-6 flex items-start gap-4">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-surface-2 text-accent">
+            <FileCode className="h-5 w-5" />
+          </div>
+          <div>
+            <h3 className="text-xl font-medium text-text-primary">PASITA v1</h3>
+            <p className="mt-1 text-sm text-text-quaternary">
+              88M parameters · trained from scratch · Apache 2.0
+            </p>
+          </div>
+        </div>
+        <p className="max-w-2xl text-sm leading-relaxed text-text-tertiary">
+          PASITA adds structure, it does not invent content. Valid regime:
+          medium and long documents such as OCR output, pasted HTML, meeting
+          notes, and tutorials. Fragile on one to three line inputs.
+        </p>
+      </div>
+
+      <div className="rounded-xl border border-border-default bg-surface-1 p-10 text-left">
+        <div className="mb-6 flex items-center gap-3">
+          <Database className="h-4 w-4 text-text-tertiary" />
+          <h3 className="text-lg font-medium text-text-primary">Architecture</h3>
+        </div>
+        <dl className="space-y-0">
+          {architecture.map((row) => (
+            <div
+              key={row.label}
+              className="flex flex-col gap-1 border-b border-border-subtle py-3 sm:flex-row sm:items-baseline sm:justify-between"
+            >
+              <dt className="text-sm text-text-quaternary">{row.label}</dt>
+              <dd className="font-mono text-[13px] tracking-tight text-text-tertiary tabular-nums">
+                {row.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <div className="rounded-xl border border-border-default bg-surface-1 p-10 text-left">
+        <div className="mb-6 flex items-center gap-3">
+          <GitBranch className="h-4 w-4 text-text-tertiary" />
+          <h3 className="text-lg font-medium text-text-primary">Training</h3>
+        </div>
+        <ol className="space-y-5">
+          {training.map((step, index) => (
+            <li key={step.stage} className="flex gap-5">
+              <span className="font-mono text-[13px] text-text-quaternary tabular-nums">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+              <div>
+                <p className="text-sm font-medium text-text-primary">{step.stage}</p>
+                <p className="mt-1 max-w-xl text-sm leading-relaxed text-text-tertiary">
+                  {step.detail}
+                </p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+
+      <div className="rounded-xl border border-border-default bg-surface-1 p-10 text-left">
+        <div className="mb-6 flex items-center gap-3">
+          <BarChart3 className="h-4 w-4 text-text-tertiary" />
+          <h3 className="text-lg font-medium text-text-primary">
+            Benchmark · held-out n=1000, greedy
+          </h3>
+        </div>
+        <dl className="grid gap-x-10 gap-y-0 sm:grid-cols-2">
+          {benchmark.map((row) => (
+            <div
+              key={row.metric}
+              className="flex items-baseline justify-between gap-4 border-b border-border-subtle py-3"
+            >
+              <dt className="text-sm text-text-quaternary">{row.metric}</dt>
+              <dd className="font-mono text-[13px] tracking-tight text-text-tertiary tabular-nums">
+                {row.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+
+      <div className="rounded-xl border border-border-default bg-surface-1 p-10 text-left">
+        <div className="mb-6 flex items-center gap-3">
+          <Code className="h-4 w-4 text-text-tertiary" />
+          <h3 className="text-lg font-medium text-text-primary">Usage</h3>
+        </div>
+        <pre className="overflow-x-auto rounded-lg bg-[var(--terminal-bg)] p-5 font-mono text-[12px] leading-relaxed text-[var(--terminal-text)]">
+{`from transformers import AutoModelForCausalLM, AutoTokenizer
+
+tok = AutoTokenizer.from_pretrained("OpceanAI/PASITA")
+model = AutoModelForCausalLM.from_pretrained("OpceanAI/PASITA", dtype="auto")
+
+prompt = "CONVIERTE A MARKDOWN:\\n" + text + "\\n\\n### Markdown:\\n"
+ids = tok(prompt, return_tensors="pt", truncation=True, max_length=1024)
+out = model.generate(**ids, max_new_tokens=512, do_sample=False)
+print(tok.decode(out[0][ids.input_ids.shape[1]:], skip_special_tokens=True))`}
+        </pre>
+      </div>
+
+      <div className="rounded-xl border border-border-default bg-surface-1 p-10 text-left">
+        <div className="mb-6 flex items-center gap-3">
+          <AlertCircle className="h-4 w-4 text-text-tertiary" />
+          <h3 className="text-lg font-medium text-text-primary">Limitations</h3>
+        </div>
+        <p className="max-w-2xl text-sm leading-relaxed text-text-tertiary">
+          May truncate digits, drop secondary data, emit echo H1s, or continue
+          past completion. Recommended: adaptive max_new_tokens, beam search,
+          and a fidelity rerank.
+        </p>
+      </div>
+
+      <div className="rounded-xl border border-border-default bg-surface-1 p-10 text-center">
+        <p className="mx-auto max-w-lg text-xl italic leading-relaxed text-text-primary">
+          &ldquo;Compiler behavior, not chatbot behavior.&rdquo;
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function DetailMoud() {
+  const capabilities = [
+    "API access",
+    "BYOK",
+    "Agents",
+    "Compute",
+    "Virtual machines",
+    "Deployments",
+    "Managed DNS",
+    "Moud subdomains",
+    "Channels and integrations",
+    "Developer tools",
+  ];
+
+  return (
+    <div className="space-y-16">
+      <div className="rounded-xl border border-border-default bg-surface-1 p-10 text-left">
+        <div className="mb-6 flex items-start gap-4">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-surface-2 text-accent">
+            <Layers className="h-5 w-5" />
+          </div>
+          <div>
+            <h3 className="text-xl font-medium text-text-primary">Moud</h3>
+            <p className="mt-1 text-sm text-text-quaternary">
+              Public Beta · built by OpceanAI
+            </p>
+          </div>
+        </div>
+        <div className="space-y-4 text-sm leading-relaxed text-text-tertiary">
+          <p>
+            Moud is an AI and developer infrastructure platform bringing models,
+            APIs, agents, compute, deployments, and developer tools together in
+            one place.
+          </p>
+          <p>
+            The catalog currently gives access to 289 models through a single
+            platform: language and reasoning models along with other AI
+            capabilities provided through different providers. A selection is
+            hosted directly on Moud infrastructure. The catalog keeps changing
+            as models, providers, and availability change.
+          </p>
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-border-default bg-surface-1 p-10 text-left">
+        <div className="mb-6 flex items-center gap-3">
+          <Server className="h-4 w-4 text-text-tertiary" />
+          <h3 className="text-lg font-medium text-text-primary">
+            More than a model playground
+          </h3>
+        </div>
+        <ul className="grid grid-cols-1 gap-x-10 sm:grid-cols-2">
+          {capabilities.map((capability) => (
+            <li
+              key={capability}
+              className="border-b border-border-subtle py-3 font-mono text-[13px] tracking-tight text-text-tertiary"
+            >
+              {capability}
+            </li>
+          ))}
+        </ul>
+        <p className="mt-6 max-w-xl text-sm leading-relaxed text-text-tertiary">
+          You can also register a device and sign in without copying and pasting
+          an API key every time.
+        </p>
+      </div>
+
+      <div className="grid gap-6 sm:grid-cols-2">
+        <div className="rounded-xl border border-border-default bg-surface-1 p-10 text-left">
+          <div className="mb-5 flex items-center gap-3">
+            <Shield className="h-4 w-4 text-text-tertiary" />
+            <h3 className="text-lg font-medium text-text-primary">Privacy</h3>
+          </div>
+          <p className="text-sm leading-relaxed text-text-tertiary">
+            Moud is built with privacy and data minimization in mind. Selected
+            services hosted directly by Moud operate with Zero Data Retention
+            (ZDR). Third-party models remain subject to the privacy, retention,
+            and data-processing policies of their respective providers.
+          </p>
+        </div>
+        <div className="rounded-xl border border-border-default bg-surface-1 p-10 text-left">
+          <div className="mb-5 flex items-center gap-3">
+            <ExternalLink className="h-4 w-4 text-text-tertiary" />
+            <h3 className="text-lg font-medium text-text-primary">
+              Infrastructure
+            </h3>
+          </div>
+          <p className="text-sm leading-relaxed text-text-tertiary">
+            Operations run across Mexico, Canada, and the United States, with
+            Moud&rsquo;s primary operations based in Mexico.
+          </p>
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-border-default bg-surface-1 p-10 text-left">
+        <h3 className="text-lg font-medium text-text-primary">
+          So, how is this funded?
+        </h3>
+        <div className="mt-4 space-y-4 text-sm leading-relaxed text-text-tertiary">
+          <p>
+            A mix of our own infrastructure, provider capacity, shared
+            resources, and usage limits keeps a significant part of the platform
+            available for free.
+          </p>
+          <p>
+            All of this happened in a matter of days, so this beta should be
+            interesting. There will be bugs. Models may disappear. Providers
+            will probably have problems at some point. Things will change, and
+            we will probably break something ourselves every now and then.
+          </p>
+          <p>
+            That is exactly why the beta is open: we want people to use Moud,
+            find the rough edges, tell us what is missing, and help us figure
+            out what to build next.
+          </p>
+        </div>
+      </div>
+
+      <div className="rounded-xl border border-border-default bg-surface-1 p-10 text-center">
+        <p className="mx-auto max-w-lg text-xl italic leading-relaxed text-text-primary">
+          &ldquo;One person&rsquo;s money is another person&rsquo;s tokens.&rdquo;
         </p>
       </div>
     </div>

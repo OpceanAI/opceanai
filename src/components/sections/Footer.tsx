@@ -9,6 +9,8 @@ const columns = [
   {
     heading: "Projects",
     items: [
+      { label: "Moud", href: "https://mound.opceanai.com/" },
+      { label: "OpceanAI for startups", href: "https://startups.opceanai.com" },
       { label: "YuuKi v0.1", href: "https://yuuki-web.vercel.app/" },
       { label: "YuuKi RxG", href: "https://yuuki.opceanai.com/" },
       { label: "Doki", href: "https://doki.opceanai.com" },
@@ -18,6 +20,7 @@ const columns = [
     heading: "Research",
     items: [
       { label: "NHE", href: "https://huggingface.co/Not-Humanity-Exam" },
+      { label: "PASITA", href: "https://huggingface.co/OpceanAI/PASITA" },
       { label: "Tsuki", href: "https://huggingface.co/tsuki-team" },
       { label: "YuuKi RxG weights", href: "https://huggingface.co/OpceanAI/Yuuki-RxG" },
     ],

@@ -36,6 +36,16 @@ function BalanceIcon() {
   );
 }
 
+function ServerIcon() {
+  return (
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <rect x="3.5" y="4" width="17" height="6.5" rx="1.5" />
+      <rect x="3.5" y="13.5" width="17" height="6.5" rx="1.5" />
+      <path d="M7 7.25h.01M7 16.75h.01" />
+    </svg>
+  );
+}
+
 const facts: Array<{
   icon: () => React.ReactNode;
   pre?: string;
@@ -57,6 +67,13 @@ const facts: Array<{
     rest: " isolation layers",
     line: "Doki runs OCI containers natively on Android.",
     placement: "md:col-start-6 md:col-span-3 md:mt-20",
+  },
+  {
+    icon: ServerIcon,
+    num: "289",
+    rest: " models",
+    line: "Moud, our platform, in Public Beta. One catalog across providers.",
+    placement: "md:col-start-6 md:col-span-3 md:mt-40",
   },
   {
     icon: BalanceIcon,

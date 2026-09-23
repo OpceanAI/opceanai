@@ -55,6 +55,20 @@ const rows = [
     ],
   },
   {
+    name: "PASITA",
+    role: "Plain text to Markdown",
+    data: "88M · from scratch",
+    status: "Active",
+    href: "#detail-pasita",
+    summary:
+      "A decoder-only language model trained entirely from scratch for one task: converting plain text into valid Markdown while preserving information. Compiler behaviour, not chatbot behaviour.",
+    fields: [
+      { label: "Parameters", value: "88M · bfloat16" },
+      { label: "Training", value: "SFT → DPO → GRPO" },
+      { label: "GFM validity", value: "0.956 · held-out n=1000" },
+    ],
+  },
+  {
     name: "Yaki",
     role: "Multimodal",
     data: "LLaVA vision adapter",

@@ -26,6 +26,7 @@ const switzer = localFont({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://opceanai.com"),
   title: "OpceanAI — Intelligent systems, built like instruments",
   description: "OpceanAI builds AI models, container infrastructure, and evaluation research — engineered under real constraints.",
   keywords: ["OpceanAI", "AI", "machine learning", "YuuKi", "Doki", "Android", "Docker", "infrastructure", "research", "NHE", "Tsuki"],
